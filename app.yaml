@@ -1,0 +1,12 @@
+application: course-stats
+module: default
+version: 1
+runtime: php55
+api_version: 1
+
+handlers:
+- url: /static
+  static_dir: static/
+
+- url: /.*
+  script: api/index.php

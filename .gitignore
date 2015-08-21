@@ -1,0 +1,8 @@
+composer.lock
+.DS_Store
+/api/vendor
+.idea/
+
+#custom scripts
+run.sh
+#deploy.sh

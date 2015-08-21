@@ -1,43 +1,40 @@
 <?php
+/**
+ * Author   : Praveen Kumar Pendyala (m@praveen.xyz)
+ * Created  : 21.08.2015
+ *
+ * The main application bootstrapping takes place here.
+ */
 
-use Phalcon\Loader;
-use Phalcon\Mvc\View;
-use Phalcon\Mvc\Application;
-use Phalcon\DI\FactoryDefault;
-use Phalcon\Mvc\Url as UrlProvider;
-use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+require 'vendor/autoload.php';
+require 'includes/utils.php';
+require 'includes/logger.php';
+require 'includes/response.php';
 
-try {
+// Slim app setup
+$app = new \Slim\Slim(array(
+		'mode' => 'development',
+		'log.enabled' => true,
+		'log.level' => \Slim\Log::DEBUG,
+		'log.writer' => new APILogWriter()
+	)
+);
 
-    // Register an autoloader
-    $loader = new Loader();
-    $loader->registerDirs(array(
-        'controllers/',
-        'models/'
-    ))->register();
+// Database setup
+$db = new pdo('mysql:unix_socket=/cloudsql/course-stats:sqldb;dbname=coursestats',
+    'root',  // username
+    ''       // password
+);
 
-    // Create a DI
-    $di = new FactoryDefault();
+// Middleware setup - used by routes
+require 'includes/middleware.php';
 
-    // Setup the view component
-    $di->set('view', function () {
-        $view = new View();
-        $view->setViewsDir('views/');
-        return $view;
-    });
+// Routes setup
+require 'routes/student.php';
+require 'routes/teacher.php';
+require 'routes/course.php';
+require 'routes/grade.php';
 
-    // Setup a base URI so that all generated URIs include the "tutorial" folder
-    $di->set('url', function () {
-        $url = new UrlProvider();
-        $url->setBaseUri('.');
-        return $url;
-    });
+// Start the app
+$app->run();
 
-    // Handle the request
-    $application = new Application($di);
-
-    echo $application->handle()->getContent();
-
-} catch (\Exception $e) {
-     echo "PhalconException: ", $e->getMessage();
-}
