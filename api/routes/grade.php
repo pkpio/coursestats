@@ -9,7 +9,7 @@
 
 $app->group('/grade', function () use ($app, $db, $checkToken) {
 
-    //################## Add Teacher  ##################
+    //################## Add Grades  ##################
     $app->map('/add', $checkToken, function () use ($app, $db) {
         $userid = $app->request->headers->get("studentid");
         $courseid = $app->request->get('courseid');
@@ -51,7 +51,7 @@ $app->group('/grade', function () use ($app, $db, $checkToken) {
         }
     })->via('GET', 'POST');
 
-    //################## List Teachers  ##################
+    //################## List Grades   ##################
     $app->map('/list', function() use ($app, $db) {
         try{
             $stmt = $db->prepare('SELECT * FROM grades LIMIT 50');
@@ -62,7 +62,7 @@ $app->group('/grade', function () use ($app, $db, $checkToken) {
         }
     })->via('GET', 'POST');
 
-    //################## Search Teachers  ##################
+    //################## Search Grades   ##################
     $app->map('/search', function() use ($app, $db) {
         $courseid = $app->request->get('courseid');
         try{

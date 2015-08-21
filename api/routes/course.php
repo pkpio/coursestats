@@ -9,7 +9,7 @@
 
 $app->group('/course', function () use ($app, $db, $checkToken) {
 
-    //################## Add Teacher  ##################
+    //################## Add Course  ##################
     $app->map('/add', $checkToken, function () use ($app, $db) {
         $userid = $app->request->headers->get("studentid");
         $name = $app->request->get('name');
@@ -27,7 +27,7 @@ $app->group('/course', function () use ($app, $db, $checkToken) {
         }
     })->via('GET', 'POST');
 
-    //################## List Teachers  ##################
+    //################## List Courses  ##################
     $app->map('/list', function() use ($app, $db) {
         try{
             $stmt = $db->prepare('SELECT * FROM courses LIMIT 50');
@@ -38,7 +38,7 @@ $app->group('/course', function () use ($app, $db, $checkToken) {
         }
     })->via('GET', 'POST');
 
-    //################## Search Teachers  ##################
+    //################## Search Courses  ##################
     $app->map('/search', function() use ($app, $db) {
         $query = $app->request->get('q');
         try{
