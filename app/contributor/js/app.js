@@ -3,9 +3,16 @@
  */
 var app = angular.module('ContributeApp', ['ngMaterial', 'ngCookies', 'ngMd5']);
 
-app.controller('AppCtrl', function($scope, $mdDialog, $http, $cookies, md5) {
+// For shared login state between controllers
+app.factory('LoginService', function() {
+    return {
+        loggedin : 0
+    };
+});
 
-    $scope.showAdvanced = function(ev) {
+app.controller('AppCtrl', function($scope, $mdDialog, $http, $cookies, md5, LoginService) {
+
+    $scope.showLogin = function(ev) {
         $mdDialog.show({
             controller: LoginController,
             templateUrl: 'loginDialog.html',
@@ -16,7 +23,17 @@ app.controller('AppCtrl', function($scope, $mdDialog, $http, $cookies, md5) {
         })
     };
 
-    function LoginController($scope, $mdDialog, $http, $cookies, md5) {
+    $scope.isLoggedIn = function(){
+      return LoginService.loggedin;
+    };
+
+    $scope.logout = function(){
+        $cookies.token = '';
+        LoginService.loggedin = 0;
+        $scope.showLogin(document.body);
+    };
+
+    function LoginController($scope, $mdDialog, $http, $cookies, md5, LoginService) {
         $scope.loggingin = 0;
 
         $scope.login = function() {
@@ -40,11 +57,10 @@ app.controller('AppCtrl', function($scope, $mdDialog, $http, $cookies, md5) {
                             // Save token as a cookie
                             $cookies.token = $data.token;
                             $scope.hide();
+                            console.log(LoginService.loggedin);
+                            LoginService.loggedin = 1;
                         }
-
-                        else{
-                            $scope.loggingin = 0;
-                        }
+                        $scope.loggingin = 0;
                     },
                     function(response){ //Error callback
                         console.log(response.data);
@@ -59,5 +75,7 @@ app.controller('AppCtrl', function($scope, $mdDialog, $http, $cookies, md5) {
     };
 
     if(!$cookies.token)
-        $scope.showAdvanced(document.body);
+        $scope.showLogin(document.body);
+    else
+        LoginService.loggedin = 1;
 });
