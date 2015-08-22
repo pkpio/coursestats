@@ -1,0 +1,10 @@
+.md-toolbar-tools h1 {
+    font-size: inherit;
+    font-weight: inherit;
+    margin: inherit;
+}
+
+.loginInputIcons md-input-container.md-input-invalid > md-icon.email,
+.loginInputIcons md-input-container.md-input-invalid > md-icon.password {
+    color: red;
+}

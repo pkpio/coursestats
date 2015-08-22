@@ -1,0 +1,253 @@
+<html lang="en" ng-app="ContributeApp">
+<head>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+    <link rel="stylesheet" href="styles/app.css">
+    <meta name="viewport" content="initial-scale=1" />
+</head>
+<body layout="column" ng-controller="AppCtrl">
+
+<!-- Toolbar -->
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h3>
+            <span>CourseStats Contributor</span>
+        </h3>
+    </div>
+</md-toolbar>
+
+<!-- Content -->
+<md-content flex>
+
+    <md-content layout="row" layout-margin>
+        <!-- Course info card -->
+        <md-card flex flex-order="1">
+
+            <md-card-content layout-margin>
+                <h2>Course</h2>
+
+                <!-- name -->
+                <md-autocomplete flex
+                                 ng-disabled="ctrl.isDisabled"
+                                 md-no-cache="ctrl.noCache"
+                                 md-selected-item="ctrl.selectedItem"
+                                 md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                                 md-search-text="ctrl.searchText"
+                                 md-selected-item-change="ctrl.selectedItemChange(item)"
+                                 md-items="item in ctrl.querySearch(ctrl.searchText)"
+                                 md-item-text="item.display"
+                                 md-min-length="0"
+                                 placeholder="Name of the Course">
+                    <md-item-template>
+                        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        No matches found for "{{ctrl.searchText}}".
+                    </md-not-found>
+                </md-autocomplete>
+
+                <md-content layout-margin layout="row">
+
+                    <!-- year -->
+                    <md-content layout-margin flex>
+                        <label>Year</label>
+                        <md-select ng-model="ctrl.courseYear" flex>
+                            <md-option>2015</md-option>
+                            <md-option>2014</md-option>
+                            <md-option>2013</md-option>
+                            <md-option>2012</md-option>
+                            <md-option>2011</md-option>
+                            <md-option>2010</md-option>
+                        </md-select>
+                    </md-content>
+
+                    <!-- year -->
+                    <md-content layout-margin flex>
+                        <label>Semester</label>
+                        <md-select ng-model="ctrl.courseSem" flex>
+                            <md-option>Summer</md-option>
+                            <md-option>Winter</md-option>
+                        </md-select>
+                    </md-content>
+
+                </md-content>
+
+                <!-- Action -->
+                <div class="md-actions" layout="row" layout-align="end center">
+                    <md-button>Add course</md-button>
+                </div>
+
+            </md-card-content>
+        </md-card>
+
+        <!-- Teacher info card -->
+        <md-card flex flex-order="2">
+            <md-card-content layout-margin>
+                <h2>Professor</h2>
+
+                <!-- name -->
+                <md-autocomplete flex
+                        ng-disabled="ctrl.isDisabled"
+                        md-no-cache="ctrl.noCache"
+                        md-selected-item="ctrl.selectedItem"
+                        md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                        md-search-text="ctrl.searchText"
+                        md-selected-item-change="ctrl.selectedItemChange(item)"
+                        md-items="item in ctrl.querySearch(ctrl.searchText)"
+                        md-item-text="item.display"
+                        md-min-length="0"
+                        placeholder="Name of the Professor">
+                    <md-item-template>
+                        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        No matches found for "{{ctrl.searchText}}".
+                    </md-not-found>
+                </md-autocomplete>
+
+                <!-- website -->
+                <md-input-container flex>
+                    <label>Website</label>
+                    <input ng-model="user.address">
+                </md-input-container>
+
+                <!-- Action -->
+                <div class="md-actions" layout="row" layout-align="end center">
+                    <md-button>Add Professor</md-button>
+                </div>
+
+            </md-card-content>
+        </md-card>
+    </md-content>
+
+
+    <md-content layout="row" layout-margin>
+        <!-- Grades card -->
+        <md-card flex>
+            <md-card-content>
+                <h2>Grades</h2>
+                <p>Student count in each grade</p>
+
+                <!-- Grade inputs -->
+                <md-content layout="column">
+
+                    <!-- 1.x grades -->
+                    <md-content layout="row">
+
+                        <!-- 1.0 -->
+                        <md-input-container flex>
+                            <label>Grade 1.0</label>
+                            <input ng-model="user.address">
+                        </md-input-container>
+
+                        <!-- 1.3 -->
+                        <md-input-container flex>
+                            <label>Grade 1.3</label>
+                            <input ng-model="user.address">
+                        </md-input-container>
+
+                        <!-- 1.7 -->
+                        <md-input-container flex>
+                            <label>Grade 1.7</label>
+                            <input ng-model="user.address">
+                        </md-input-container>
+
+                    </md-content>
+
+                    <!-- 2.x grades -->
+                    <md-content layout="row">
+
+                        <!-- 2.0 -->
+                        <md-input-container flex>
+                            <label>Grade 2.0</label>
+                            <input ng-model="user.address">
+                        </md-input-container>
+
+                        <!-- 2.3 -->
+                        <md-input-container flex>
+                            <label>Grade 2.3</label>
+                            <input ng-model="user.address">
+                        </md-input-container>
+
+                        <!-- 2.7 -->
+                        <md-input-container flex>
+                            <label>Grade 2.7</label>
+                            <input ng-model="user.address">
+                        </md-input-container>
+
+                    </md-content>
+
+                    <!-- 3.x grades -->
+                    <md-content layout="row">
+
+                        <!-- 3.0 -->
+                        <md-input-container flex>
+                            <label>Grade 3.0</label>
+                            <input ng-model="user.address">
+                        </md-input-container>
+
+                        <!-- 3.3 -->
+                        <md-input-container flex>
+                            <label>Grade 3.3</label>
+                            <input ng-model="user.address">
+                        </md-input-container>
+
+                        <!-- 3.7 -->
+                        <md-input-container flex>
+                            <label>Grade 3.7</label>
+                            <input ng-model="user.address">
+                        </md-input-container>
+
+                    </md-content>
+
+                    <!-- 4.0, 5.0 & others grades -->
+                    <md-content layout="row">
+
+                        <!-- 4.0 -->
+                        <md-input-container flex>
+                            <label>Grade 4.0</label>
+                            <input ng-model="user.address">
+                        </md-input-container>
+
+                        <!-- 5.0 -->
+                        <md-input-container flex>
+                            <label>Grade 5.0</label>
+                            <input ng-model="user.address">
+                        </md-input-container>
+
+                        <!-- Others -->
+                        <md-input-container flex>
+                            <label>Others</label>
+                            <input ng-model="user.address">
+                        </md-input-container>
+
+                    </md-content>
+
+
+                </md-content>
+
+            </md-card-content>
+
+
+            <!-- Action -->
+            <div class="md-actions" layout="row" layout-align="end center">
+                <md-button>Add Grades</md-button>
+            </div>
+
+        </md-card>
+    </md-content>
+
+
+</md-content>
+
+<!-- Angular Material Dependencies -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
+
+<!-- App files -->
+<script src="js/app.js"></script>
+</body>
+</html>
