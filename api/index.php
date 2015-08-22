@@ -35,6 +35,28 @@ require 'routes/teacher.php';
 require 'routes/course.php';
 require 'routes/grade.php';
 
+
+// Common App level middle ware for Cross Site Scripting
+class AccessControlOrigin extends \Slim\Middleware
+{
+    public function call()
+    {
+        // Get reference to application
+        $app = $this->app;
+
+        // Run inner middleware and application
+        $this->next->call();
+
+        // Add header to response
+        $res = $app->response;
+        $res->header('Access-Control-Allow-Origin', '*');
+        $res->header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        $res->header('Access-Control-Allow-Methods', 'GET, POST, PUT');
+    }
+}
+
+$app->add(new \AccessControlOrigin());
+
 // Start the app
 $app->run();
 
