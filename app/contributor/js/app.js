@@ -33,7 +33,7 @@ app.controller('AppCtrl', function($scope, $mdDialog, $http, $cookies, md5, Logi
         $scope.showLogin(document.body);
     };
 
-    function LoginController($scope, $mdDialog, $http, $cookies, md5, LoginService) {
+    function LoginController($scope, $mdToast, $http, $cookies, md5, LoginService) {
         $scope.loggingin = 0;
 
         $scope.login = function() {
@@ -57,13 +57,15 @@ app.controller('AppCtrl', function($scope, $mdDialog, $http, $cookies, md5, Logi
                             // Save token as a cookie
                             $cookies.token = $data.token;
                             $scope.hide();
-                            console.log(LoginService.loggedin);
                             LoginService.loggedin = 1;
+                        } else{
+                            $scope.loginError = $data.message;
                         }
                         $scope.loggingin = 0;
                     },
                     function(response){ //Error callback
                         console.log(response.data);
+                        $scope.showError(response.toString());
                     }
                 );
             }
@@ -79,3 +81,4 @@ app.controller('AppCtrl', function($scope, $mdDialog, $http, $cookies, md5, Logi
     else
         LoginService.loggedin = 1;
 });
+

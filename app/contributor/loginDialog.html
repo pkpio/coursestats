@@ -10,6 +10,7 @@
 
 
     <md-dialog-content layout="column" class="loginInputIcons">
+        <p flex class="loginFailMsg" data-ng-show="!loggingin && loginError">{{loginError}}</p>
 
         <md-input-container >
             <md-icon md-svg-src="img/email.svg" class="email"></md-icon>

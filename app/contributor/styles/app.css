@@ -8,3 +8,7 @@
 .loginInputIcons md-input-container.md-input-invalid > md-icon.password {
     color: red;
 }
+.loginFailMsg{
+    color:red;
+    text-align: center;
+}
