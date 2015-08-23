@@ -33,7 +33,7 @@ app.controller('AppCtrl', function($scope, $mdDialog, $http, $cookies, md5, Logi
         $scope.showLogin(document.body);
     };
 
-    function LoginController($scope, $mdToast, $http, $cookies, md5, LoginService) {
+    function LoginController($scope, $http, $cookies, md5, LoginService) {
         $scope.loggingin = 0;
 
         $scope.login = function() {
