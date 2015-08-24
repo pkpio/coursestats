@@ -8,7 +8,7 @@ angular.module('ContributeApp').controller('AppCtrl', function($scope, $mdDialog
     $scope.showLogin = function(ev) {
         $mdDialog.show({
             controller: 'LoginCtrl',
-            templateUrl: 'loginDialog.html',
+            templateUrl: 'includes/loginDialog.html',
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: false,
