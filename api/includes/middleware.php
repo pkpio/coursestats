@@ -13,13 +13,13 @@ $checkToken = function () use ($app, $db) {
     $token = $app->request->get('token');
     try{
         // Verify token
-        $stmt = $db->prepare('SELECT studentid, isvalid FROM tokens WHERE token=?');
+        $stmt = $db->prepare('SELECT studentid, verified FROM users WHERE token=?');
         $stmt->execute(array($token));
-        $dbToken = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($dbToken['isvalid'] == 1){
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($user['verified'] == 1){
             // Set studentid as a header in request. This is to pass id to closure
-            $app->request->headers->set("studentid", $dbToken['studentid']);
-        }else{
+            $app->request->headers->set("studentid", $user['studentid']);
+        } else{
             // Invalid token case
             ApiResponse::error(403, "Invalid token");
             $app->stop();

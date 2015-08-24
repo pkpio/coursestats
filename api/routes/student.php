@@ -41,22 +41,24 @@ $app->group('/student', function () use ($app, $db, $checkToken) {
 
         try{
             // Check credentials
-            $stmt = $db->prepare('SELECT studentid FROM students WHERE email=? AND password=?');
+            $stmt = $db->prepare('SELECT token, verified FROM students WHERE email=? AND password=?');
             $stmt->execute(array($email, $password));
             $user = $stmt->fetch();
 
             if(!$user){
                 // Wrong credentials
-                ApiResponse::error(403, "Login failed");
+                ApiResponse::error(403, "Invalid credentials");
                 $app->stop();
             }
 
-            // Correct credentials. Generate a token and save it.
-            $token = Utils::randomString(24);
-            $stmt2 = $db->prepare('INSERT INTO tokens (token, studentid) VALUES (?, ?)');
-            $stmt2->execute(array($token, $user['studentid']));
+            if(!$user['verified']){
+                // Account not verified
+                ApiResponse::error(403, "Account not activated. Contact Admin.");
+                $app->stop();
+            }
 
-            ApiResponse::success(200, "success", "token", $token);
+            // Correct credentials. Send a token
+            ApiResponse::success(200, "success", "token", $user['token']);
         } catch(PDOException $ex){
             ApiResponse::error(500, "Internal server error");
         }
