@@ -10,10 +10,10 @@
  * Token Verifier function. Should be a middleware for user permissions required routes
  */
 $checkToken = function () use ($app, $db) {
-    $token = $app->request->get('token');
+    $token = $app->request->params('token');
     try{
         // Verify token
-        $stmt = $db->prepare('SELECT studentid, verified FROM users WHERE token=?');
+        $stmt = $db->prepare('SELECT studentid, verified FROM students WHERE token=?');
         $stmt->execute(array($token));
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if($user['verified'] == 1){

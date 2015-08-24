@@ -14,6 +14,7 @@ $app->group('/student', function () use ($app, $db, $checkToken) {
         $password = $app->request->params('password');
         $email = $app->request->params('email');
         $emailcode = Utils::randomString(10);
+        $token = Utils::randomString(24);
 
         try{
             $stmt = $db->prepare('SELECT 1 FROM students WHERE email=?');
@@ -25,9 +26,9 @@ $app->group('/student', function () use ($app, $db, $checkToken) {
                 $app->stop();
             }
 
-            $stmt2 = $db->prepare('INSERT INTO students (name, email, password, emailcode)
-                        VALUES (?, ?, ?, ?)');
-            $stmt2->execute(array($name, $email, $password, $emailcode));
+            $stmt2 = $db->prepare('INSERT INTO students (name, email, password, emailcode, token)
+                        VALUES (?, ?, ?, ?, ?)');
+            $stmt2->execute(array($name, $email, $password, $emailcode, $token));
             ApiResponse::success(200, "Registered!", "studentid", $db->lastInsertId());
         } catch(PDOException $ex){
             ApiResponse::error(500, "Internal server error");
@@ -59,6 +60,28 @@ $app->group('/student', function () use ($app, $db, $checkToken) {
 
             // Correct credentials. Send a token
             ApiResponse::success(200, "success", "token", $user['token']);
+        } catch(PDOException $ex){
+            ApiResponse::error(500, "Internal server error");
+        }
+    })->via('GET', 'POST');
+
+    //################## Token revoke  ##################
+    $app->map('/revoke', $checkToken, function() use ($app, $db) {
+        $userid = $app->request->headers->get("studentid");
+        $newToken = Utils::randomString(24);
+
+        try{
+            $stmt = $db->prepare('UPDATE students SET token=? WHERE studentid=?');
+            $stmt->execute(array($newToken, $userid));
+
+            if($stmt->rowCount() == 0){
+                // Failed
+                ApiResponse::error(500, "Token revocation failed!");
+                $app->stop();
+            }
+
+            // Revoked successfully
+            ApiResponse::success(200, "token revoked", "studentid", $userid);
         } catch(PDOException $ex){
             ApiResponse::error(500, "Internal server error");
         }
