@@ -33,7 +33,7 @@ $app->group('/student', function () use ($app, $db, $checkToken) {
         } catch(PDOException $ex){
             ApiResponse::error(500, "Internal server error");
         }
-    });//->via('GET', 'POST');
+    })->via('GET', 'POST');
 
     //################## Login  ##################
     $app->map('/login', function() use ($app, $db) {
