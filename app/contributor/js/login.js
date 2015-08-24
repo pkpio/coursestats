@@ -54,4 +54,15 @@ angular.module('ContributeApp').controller('LoginCtrl', function ($scope, $mdDia
     $scope.hide = function() {
         $mdDialog.hide();
     };
+
+    $scope.register = function(){
+        $mdDialog.show({
+            controller: 'RegisterCtrl',
+            templateUrl: 'includes/registerDialog.html',
+            parent: angular.element(document.body),
+            targetEvent: document.body,
+            clickOutsideToClose: false,
+            escapeToClose: false
+        })
+    };
 });

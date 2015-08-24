@@ -1,0 +1,44 @@
+<md-dialog aria-label="Login required">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Register account</h2>
+        </div>
+    </md-toolbar>
+
+    <md-progress-linear md-mode="indeterminate" data-ng-show="registering"></md-progress-linear>
+
+
+    <md-dialog-content layout="column" class="loginInputIcons">
+        <p flex class="errorMsg" data-ng-show="!registering && registerError">{{registerError}}</p>
+        <p flex class="registerMsg" data-ng-show="!registering && registerMsg">{{registerMsg}}</p>
+
+        <md-input-container >
+            <md-icon md-svg-src="img/account.svg" class="fullname"></md-icon>
+            <input ng-model="register.fullname" type="text" placeholder="Full Name"
+                   ng-required="true" ng-disabled="registering">
+        </md-input-container>
+
+        <md-input-container >
+            <md-icon md-svg-src="img/email.svg" class="email"></md-icon>
+            <input ng-model="register.email" type="email" placeholder="Email"
+                   ng-required="true" ng-disabled="registering">
+        </md-input-container>
+
+        <md-input-container >
+            <md-icon md-svg-src="img/lock.svg" class="password"></md-icon>
+            <input ng-model="register.password" type="password" placeholder="Password"
+                   ng-required="true" ng-disabled="registering">
+        </md-input-container>
+
+        <md-input-container >
+            <md-icon md-svg-src="img/lock.svg" class="repassword"></md-icon>
+            <input ng-model="register.repassword" type="password" placeholder="Password repeat"
+                   ng-required="true" ng-disabled="registering">
+        </md-input-container>
+
+        <md-button class="md-raised md-primary" ng-click="registerUser()">Register</md-button>
+
+    </md-dialog-content>
+
+</md-dialog>
