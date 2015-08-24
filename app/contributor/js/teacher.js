@@ -4,10 +4,39 @@
  * For functions related to the Professor tab
  */
 
-angular.module('ContributeApp').factory('TeacherService', function($mdDialog) {
-    return {
-        teachers: {}
+angular.module('ContributeApp').factory('TeacherService', function($http) {
+    var factory = {};
+    factory.teachers = {};
+    factory.listTeachers = function(){
+            var req = {
+                method: 'GET',
+                url: 'https://course-stats.appspot.com/teacher/list'
+            };
+            $http(req)
+                .then(
+                function(response){ // Success callback
+                    factory.teachers = response.data.teachers;
+                },
+                function(response){ //Error callback
+                    console.log(response.toString());
+                }
+            );
+        };
+
+    createFilterFor = function (query) {
+        var lowercaseQuery = angular.lowercase(query);
+        return function filterFn(teacher) {
+            var lowercaseName = angular.lowercase(teacher.name);
+            return (lowercaseName.indexOf(lowercaseQuery) >= 0);
+        };
     };
+
+    factory.searchTeacher = function (query) {
+        var results = query ? factory.teachers.filter(createFilterFor(query)) : [];
+        return results;
+    };
+
+    return factory;
 });
 
 angular.module('ContributeApp').controller('TeacherCtrl', function($scope, $http, TeacherService, $cookies) {
@@ -21,35 +50,11 @@ angular.module('ContributeApp').controller('TeacherCtrl', function($scope, $http
     $scope.addingTeacher = 0;
 
     // Init teacher data
-    var req = {
-        method: 'GET',
-        url: 'https://course-stats.appspot.com/teacher/list'
-    };
-    $http(req)
-        .then(
-        function(response){ // Success callback
-            TeacherService.teachers = response.data.teachers;
-        },
-        function(response){ //Error callback
-            console.log(response.toString());
-        }
-    );
+    TeacherService.listTeachers();
 
-    $scope.searchTeacher = function (query) {
-        var results = query ? TeacherService.teachers.filter(createFilterFor(query)) : [];
-        return results;
+    $scope.searchTeacher = function(query){
+      return TeacherService.searchTeacher(query);
     };
-
-    /**
-     * Create filter function for a query string
-     */
-    function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-        return function filterFn(teacher) {
-            var lowercaseName = angular.lowercase(teacher.name);
-            return (lowercaseName.indexOf(lowercaseQuery) >= 0);
-        };
-    }
 
     $scope.addTeacher = function(){
 
@@ -94,9 +99,10 @@ angular.module('ContributeApp').controller('TeacherCtrl', function($scope, $http
                     $scope.message.success = 'Add successful!';
                     $scope.message.error = '';
 
-                    // Reset fields
+                    // Reset fields & refresh list
                     $scope.searchText = null;
                     $scope.website = null;
+                    TeacherService.listTeachers();
                 } else{
                     $scope.message.success = '';
                     $scope.message.error = $data.message;
