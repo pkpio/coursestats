@@ -5,41 +5,36 @@
                 <h2>New Professor</h2>
             </div>
         </md-toolbar>
-        <md-progress-linear md-mode="indeterminate" data-ng-show="1"></md-progress-linear>
+        <md-progress-linear md-mode="indeterminate" data-ng-show="addingTeacher"></md-progress-linear>
 
         <md-card-content layout-margin>
 
             <!-- name -->
             <md-autocomplete flex required
-                      md-input-name="autocompleteField"
+                      md-input-name="teacherName"
                       md-input-minlength="2"
-                      md-input-maxlength="18"
-                      md-no-cache="ctrl.noCache"
-                      md-selected-item="ctrl.selectedItem"
-                      md-search-text="ctrl.searchText"
-                      md-items="item in ctrl.querySearch(ctrl.searchText)"
-                      md-item-text="item.display"
-                      md-floating-label="Professor name">
+                      md-selected-item="selectedItem"
+                      md-search-text="searchText"
+                      md-items="teacher in searchTeacher(searchText)"
+                      md-item-text="teacher.name"
+                      md-floating-label="Professor name"
+                      ng-disabled="addingTeacher">
                 <md-item-template>
-                    <span md-highlight-text="ctrl.searchText">{{item.display}}</span>
+                    <span md-highlight-text="searchText">{{teacher.name}}</span>
                 </md-item-template>
-                <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
-                    <div ng-message="required">You <b>must</b> have a favorite state.</div>
-                    <div ng-message="minlength">Your entry is not long enough.</div>
-                    <div ng-message="maxlength">Your entry is too long.</div>
-                </div>
             </md-autocomplete>
 
             <!-- website -->
             <md-input-container flex>
                 <label>Website</label>
-                <input ng-model="user.address">
+                <input ng-model="website" ng-required="true" ng-disabled="addingTeacher">
             </md-input-container>
 
             <!-- Action -->
             <div class="md-actions" layout="row" flex>
-                <p flex layout-align="left">Result</p>
-                <md-button>Add Professor</md-button>
+                <p flex layout-align="left" class="errorMsg">{{message.error}}</p>
+                <p flex layout-align="left" class="successMsg">{{message.success}}</p>
+                <md-button ng-click="addTeacher()">Add Professor</md-button>
             </div>
 
         </md-card-content>
