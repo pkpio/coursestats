@@ -4,8 +4,10 @@
     margin: inherit;
 }
 
+.loginInputIcons md-input-container.md-input-invalid > md-icon.fullname,
 .loginInputIcons md-input-container.md-input-invalid > md-icon.email,
-.loginInputIcons md-input-container.md-input-invalid > md-icon.password {
+.loginInputIcons md-input-container.md-input-invalid > md-icon.password,
+.loginInputIcons md-input-container.md-input-invalid > md-icon.repassword {
     color: red;
 }
 .errorMsg{
