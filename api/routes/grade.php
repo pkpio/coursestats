@@ -55,7 +55,7 @@ $app->group('/grade', function () use ($app, $db, $checkToken) {
     //################## List Grades   ##################
     $app->map('/list', function() use ($app, $db) {
         try{
-            $stmt = $db->prepare('SELECT * FROM grades LIMIT 50');
+            $stmt = $db->prepare('SELECT * FROM grades LIMIT 10');
             $stmt->execute();
             ApiResponse::success(200, "success", "grades", $stmt->fetchAll(PDO::FETCH_ASSOC));
         } catch(PDOException $ex){
@@ -65,10 +65,12 @@ $app->group('/grade', function () use ($app, $db, $checkToken) {
 
     //################## Search Grades   ##################
     $app->map('/search', function() use ($app, $db) {
-        $courseid = $app->request->get('courseid');
+        $courseid = $app->request->params('courseid');
+        $teacherid = $app->request->params('teacherid');
+
         try{
-            $stmt = $db->prepare('SELECT * FROM grades WHERE courseid=?');
-            $stmt->execute(array($courseid));
+            $stmt = $db->prepare('SELECT * FROM grades WHERE courseid=? OR teacherid =?');
+            $stmt->execute(array($courseid, $teacherid));
             ApiResponse::success(200, "success", "grades", $stmt->fetchAll(PDO::FETCH_ASSOC));
         } catch(PDOException $ex){
             ApiResponse::error(500, "Internal server error");
