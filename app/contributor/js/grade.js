@@ -113,7 +113,6 @@ angular.module('ContributeApp').controller('GradeCtrl', function($scope, $http, 
             + gradeParams
         };
 
-        console.log(req.url);
         // Making the REST call
         $http(req)
             .then(
