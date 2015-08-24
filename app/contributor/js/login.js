@@ -8,8 +8,7 @@
 // For shared login state between controllers
 angular.module('ContributeApp').factory('LoginService', function($mdDialog) {
     return {
-        loggedin : 0,
-        loginDialog: null
+        loggedin : 0
     };
 });
 
@@ -47,8 +46,7 @@ angular.module('ContributeApp').controller('LoginCtrl', function ($scope, $mdDia
                 $scope.loggingin = 0;
             },
             function(response){ //Error callback
-                console.log(response.data);
-                $scope.showError(response.toString());
+                $scope.loginError = response.toString();
             }
         );
     };
