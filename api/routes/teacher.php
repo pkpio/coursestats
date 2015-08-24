@@ -16,8 +16,8 @@ $app->group('/teacher', function () use ($app, $db, $checkToken) {
         $website = $app->request->get('website');
 
         try {
-            $stmt = $db->prepare('INSERT INTO teachers (name, website) VALUES (?, ?)');
-            $stmt->execute(array($name, $website));
+            $stmt = $db->prepare('INSERT INTO teachers (name, website, addedby) VALUES (?, ?, ?)');
+            $stmt->execute(array($name, $website, $userid));
             ApiResponse::success(200, "success", "teacherid", $db->lastInsertId());
         } catch (PDOException $ex) {
             ApiResponse::error(500, "Internal server error");
