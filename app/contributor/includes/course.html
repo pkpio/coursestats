@@ -19,9 +19,11 @@
                              md-items="courseitem in course.searchCourse(course.searchText)"
                              md-item-text="courseitem.name"
                              md-floating-label="Course name"
-                             ng-disabled="addingCourse">
+                             ng-disabled="addingCourse"
+                             md-menu-class="course-autocomplete-template">
                 <md-item-template>
                     <span md-highlight-text="course.searchText">{{courseitem.name}}</span>
+                    <span class="item-metadata">({{courseitem.year}} {{(courseitem.semester==1)?'Summer':'Winter'}})</span>
                 </md-item-template>
             </md-autocomplete>
 

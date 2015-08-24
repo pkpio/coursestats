@@ -35,6 +35,15 @@ angular.module('ContributeApp').factory('CourseService', function($http) {
         return results;
     };
 
+    factory.checkDuplicate = function(name, year, semester){
+        duplicate = false;
+        angular.forEach(factory.courses, function (course) {
+            if(!duplicate && course.name == name && course.year == year && course.semester == semester)
+                duplicate = true;
+        });
+        return duplicate;
+    };
+
     return factory;
 });
 
@@ -87,10 +96,8 @@ angular.module('ContributeApp').controller('CourseCtrl', function($scope, $http,
     $scope.addCourse = function () {
 
         // Not an existing course
-        if($scope.course.selectedItem
-            && $scope.course.selectedItem.year == $scope.course.year.selected
-            && $scope.course.selectedItem.semester == $scope.course.sem.selected){
-            // -TODO- Complete search in list instead of selected item
+        if(CourseService.checkDuplicate($scope.course.searchText, $scope.course.year.selected,
+                $scope.course.sem.selected)){
             $scope.message.success = '';
             $scope.message.error = "Cannot add existing course";
             return;

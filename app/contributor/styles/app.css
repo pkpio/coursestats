@@ -15,3 +15,13 @@
 .successMsg{
     color:green;
 }
+.course-autocomplete-template li{
+}
+
+.course-autocomplete-template li:last-child {
+    border-bottom-width: 0;
+}
+
+.course-autocomplete-template .item-metadata {
+    color: #808080;
+}
