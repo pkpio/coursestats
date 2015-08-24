@@ -6,107 +6,37 @@
                 <h2>New Grades</h2>
             </div>
         </md-toolbar>
-        <md-progress-linear md-mode="indeterminate" data-ng-show="1"></md-progress-linear>
+        <md-progress-linear md-mode="indeterminate" data-ng-show="addingGrade"></md-progress-linear>
 
-        <md-card-content>
-            <p>Student count in each grade</p>
+        <md-card-content layout-margin>
 
-            <!-- Grade inputs -->
-            <md-content layout="column">
+            <!-- Course -->
+            <md-autocomplete flex required
+                             md-no-cache="1"
+                             md-input-minlength="2"
+                             md-selected-item="course.selectedItem"
+                             md-search-text="course.searchText"
+                             md-items="courseitem in course.searchCourse(course.searchText)"
+                             md-item-text="courseitem.name"
+                             md-floating-label="Select Course"
+                             ng-disabled="addingGrade"
+                             md-menu-class="course-autocomplete-template">
+                <md-item-template>
+                    <span md-highlight-text="course.searchText">{{courseitem.name}}</span>
+                    <span class="item-metadata">({{courseitem.year}} {{(courseitem.semester==1)?'Summer':'Winter'}})</span>
+                </md-item-template>
+            </md-autocomplete>
 
-                <!-- 1.x grades -->
-                <md-content layout="row">
 
-                    <!-- 1.0 -->
+            <!-- Grades -->
+            <b>Grading stats</b>
+            <md-content layout="row" layout-wrap>
+                <div flex="33" ng-repeat="grade in grades">
                     <md-input-container flex>
-                        <label>Grade 1.0</label>
-                        <input ng-model="user.address">
+                        <label>{{grade.display}}</label>
+                        <input ng-model="grade.value" ng-disabled="addingGrade">
                     </md-input-container>
-
-                    <!-- 1.3 -->
-                    <md-input-container flex>
-                        <label>Grade 1.3</label>
-                        <input ng-model="user.address">
-                    </md-input-container>
-
-                    <!-- 1.7 -->
-                    <md-input-container flex>
-                        <label>Grade 1.7</label>
-                        <input ng-model="user.address">
-                    </md-input-container>
-
-                </md-content>
-
-                <!-- 2.x grades -->
-                <md-content layout="row">
-
-                    <!-- 2.0 -->
-                    <md-input-container flex>
-                        <label>Grade 2.0</label>
-                        <input ng-model="user.address">
-                    </md-input-container>
-
-                    <!-- 2.3 -->
-                    <md-input-container flex>
-                        <label>Grade 2.3</label>
-                        <input ng-model="user.address">
-                    </md-input-container>
-
-                    <!-- 2.7 -->
-                    <md-input-container flex>
-                        <label>Grade 2.7</label>
-                        <input ng-model="user.address">
-                    </md-input-container>
-
-                </md-content>
-
-                <!-- 3.x grades -->
-                <md-content layout="row">
-
-                    <!-- 3.0 -->
-                    <md-input-container flex>
-                        <label>Grade 3.0</label>
-                        <input ng-model="user.address">
-                    </md-input-container>
-
-                    <!-- 3.3 -->
-                    <md-input-container flex>
-                        <label>Grade 3.3</label>
-                        <input ng-model="user.address">
-                    </md-input-container>
-
-                    <!-- 3.7 -->
-                    <md-input-container flex>
-                        <label>Grade 3.7</label>
-                        <input ng-model="user.address">
-                    </md-input-container>
-
-                </md-content>
-
-                <!-- 4.0, 5.0 & others grades -->
-                <md-content layout="row">
-
-                    <!-- 4.0 -->
-                    <md-input-container flex>
-                        <label>Grade 4.0</label>
-                        <input ng-model="user.address">
-                    </md-input-container>
-
-                    <!-- 5.0 -->
-                    <md-input-container flex>
-                        <label>Grade 5.0</label>
-                        <input ng-model="user.address">
-                    </md-input-container>
-
-                    <!-- Others -->
-                    <md-input-container flex>
-                        <label>Others</label>
-                        <input ng-model="user.address">
-                    </md-input-container>
-
-                </md-content>
-
-
+                </div>
             </md-content>
 
         </md-card-content>
@@ -114,8 +44,9 @@
 
         <!-- Action -->
         <div class="md-actions" layout="row" flex>
-            <p flex layout-align="left">Result</p>
-            <md-button>Add Grades</md-button>
+            <p flex layout-align="left" class="errorMsg">{{message.error}}</p>
+            <p flex layout-align="left" class="successMsg">{{message.success}}</p>
+            <md-button ng-click="addGrades()">Add Grades</md-button>
         </div>
 
     </md-card>
