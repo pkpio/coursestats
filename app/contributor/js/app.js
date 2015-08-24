@@ -5,12 +5,12 @@ var app = angular.module('ContributeApp', ['ngMaterial', 'ngCookies', 'ngMd5']);
 
 angular.module('ContributeApp').controller('AppCtrl', function($scope, $mdDialog, $http, $cookies, md5, LoginService) {
 
-    $scope.showLogin = function(ev) {
+    $scope.showLogin = function() {
         $mdDialog.show({
             controller: 'LoginCtrl',
             templateUrl: 'includes/loginDialog.html',
             parent: angular.element(document.body),
-            targetEvent: ev,
+            targetEvent: document.body,
             clickOutsideToClose: false,
             escapeToClose: false
         })
@@ -23,11 +23,11 @@ angular.module('ContributeApp').controller('AppCtrl', function($scope, $mdDialog
     $scope.logout = function(){
         $cookies.token = '';
         LoginService.loggedin = 0;
-        $scope.showLogin(document.body);
+        $scope.showLogin();
     };
 
     if(!$cookies.token)
-        $scope.showLogin(document.body);
+        $scope.showLogin();
     else
         LoginService.loggedin = 1;
 });
