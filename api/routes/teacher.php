@@ -12,13 +12,12 @@ $app->group('/teacher', function () use ($app, $db, $checkToken) {
     //################## Add Teacher  ##################
     $app->map('/add', $checkToken, function () use ($app, $db) {
         $userid = $app->request->headers->get("studentid");
-        $title = $app->request->get('title');
         $name = $app->request->get('name');
         $website = $app->request->get('website');
 
         try {
-            $stmt2 = $db->prepare('INSERT INTO teachers (`title`, `name`, `website`) VALUES (?, ?, ?)');
-            $stmt2->execute(array($title, $name, $website));
+            $stmt = $db->prepare('INSERT INTO teachers (name, website) VALUES (?, ?)');
+            $stmt->execute(array($name, $website));
             ApiResponse::success(200, "success", "teacherid", $db->lastInsertId());
         } catch (PDOException $ex) {
             ApiResponse::error(500, "Internal server error");
