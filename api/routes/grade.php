@@ -69,7 +69,10 @@ $app->group('/grade', function () use ($app, $db, $checkToken) {
         $teacherid = $app->request->params('teacherid');
 
         try{
-            $stmt = $db->prepare('SELECT * FROM grades WHERE courseid=? OR teacherid =?');
+            $stmt = $db->prepare('SELECT grades.*, courses.name AS coursename, teachers.name AS teachername FROM grades
+                                  INNER JOIN courses ON grades.courseid = courses.courseid
+                                  INNER JOIN teachers ON grades.teacherid = teachers.teacherid
+                                  WHERE grades.courseid=? OR grades.teacherid =?');
             $stmt->execute(array($courseid, $teacherid));
             ApiResponse::success(200, "success", "grades", $stmt->fetchAll(PDO::FETCH_ASSOC));
         } catch(PDOException $ex){
