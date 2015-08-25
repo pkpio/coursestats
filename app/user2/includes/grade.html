@@ -1,11 +1,11 @@
 
 <md-card flex ng-repeat="grade in grades">
-    <md-card-content layout-margin layout="row"  layout-align="space-around">
+    <md-card-content layout-margin layout="row" layout-align="space-around" layout-wrap>
 
         <!-- Grades Table -->
-        <div>
+        <div flex="20" flex-sm="40">
             <md-data-table-toolbar>
-                <h2 class="md-title">Grading statistics</h2>
+                <h2 class="md-title">Grading stats</h2>
             </md-data-table-toolbar>
 
             <md-data-table-container>
@@ -27,7 +27,7 @@
         </div>
 
         <!-- Grades graph -->
-        <div flex="70">
+        <div flex="70" flex-sm="85">
             <md-data-table-toolbar>
                 <h2 class="md-title">Grading graph</h2>
             </md-data-table-toolbar>
