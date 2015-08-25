@@ -31,10 +31,10 @@ $app->group('/grade', function () use ($app, $db, $checkToken) {
 
         try {
             $stmt = $db->prepare('INSERT INTO grades (`courseid`, `teacherid`, `addedby`,
-                                    `grade_1.0`, `grade_1.3`, `grade_1.7`,
-                                    `grade_2.0`, `grade_2.3`, `grade_2.7`,
-                                    `grade_3.0`, `grade_3.3`, `grade_3.7`,
-                                    `grade_4.0`, `grade_5.0`, `grade_others`)
+                                    `grade_10`, `grade_13`, `grade_17`,
+                                    `grade_20`, `grade_23`, `grade_27`,
+                                    `grade_30`, `grade_33`, `grade_37`,
+                                    `grade_40`, `grade_50`, `grade_others`)
                                    VALUES (:courseid, :teacherid, :addedby,
                                    :grade_10, :grade_13, :grade_17,
                                    :grade_20, :grade_23, :grade_27,
