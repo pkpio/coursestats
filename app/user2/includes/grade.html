@@ -1,5 +1,20 @@
 
 <md-card flex ng-repeat="grade in grades">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout-wrap layout-align="space-around" >
+
+            <div layout-align="center left" layout="row" layout-margin>
+                <md-icon md-svg-src="img/book.svg"></md-icon>
+                <h2>{{grade.original.coursename}}</h2>
+            </div>
+
+            <div layout-align="center left" layout="row" layout-margin>
+                <md-icon md-svg-src="img/account-circle.svg"></md-icon>
+                <h2>{{grade.original.teachername}}</h2>
+            </div>
+        </div>
+    </md-toolbar>
+
     <md-card-content layout-margin layout="row" layout-align="space-around" layout-wrap>
 
         <!-- Grades Table -->

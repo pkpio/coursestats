@@ -90,7 +90,8 @@ angular.module('UserApp').controller('GradeCtrl', function($scope, $http, $locat
                         parseInt(grade.grade_30), parseInt(grade.grade_33), parseInt(grade.grade_37),
                         parseInt(grade.grade_40), parseInt(grade.grade_50), parseInt(grade.grade_others)
                     ]]
-                }
+                },
+                original: grade
             };
             $scope.grades.push(displayGrade);
         }
