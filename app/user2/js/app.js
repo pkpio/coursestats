@@ -1,7 +1,7 @@
 /**
  * Created by praveen on 25.08.15.
  */
-angular.module('UserApp', ['ngMaterial', 'ngRoute'])
+angular.module('UserApp', ['ngMaterial', 'ngRoute', 'chart.js', 'md.data.table'])
     .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('deep-orange')
