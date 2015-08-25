@@ -17,6 +17,12 @@ angular.module('UserApp').config(function($routeProvider) {$routeProvider
     .when('/teacher/:id',{
         templateUrl : 'includes/grade.html',
         controller  : 'GradeCtrl'
+    })
+    .when('/',{
+        templateUrl : 'includes/default.html',
+    })
+    .otherwise({
+        redirectTo: '/'
     });
 });
 

@@ -3,3 +3,19 @@
     font-weight: inherit;
     margin: inherit;
 }
+.default-page-icon{
+    height: 8em;
+    width: 8em;
+}
+.default-page-text{
+    font-size: 2em;
+    color: grey;
+}
+.default-page-text .highlight1{
+    color: #2196F3;
+    font-weight: 500;
+}
+.default-page-text .highlight2{
+    color: #FE5621;
+    font-weight: 500;
+}
