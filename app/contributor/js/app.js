@@ -1,7 +1,12 @@
 /**
  * Created by praveen on 21.08.15.
  */
-var app = angular.module('ContributeApp', ['ngMaterial', 'ngCookies', 'ngMd5']);
+angular.module('ContributeApp', ['ngMaterial', 'ngCookies', 'ngMd5'])
+    .config(function($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+            .primaryPalette('deep-orange')
+            .accentPalette('blue');
+});
 
 angular.module('ContributeApp').controller('AppCtrl', function($scope, $mdDialog, $http, $cookies, md5, LoginService) {
 

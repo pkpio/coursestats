@@ -1,16 +1,15 @@
 
 <md-card flex ng-repeat="grade in grades">
-    <md-toolbar>
-        <div class="md-toolbar-tools" layout-wrap layout-align="space-around" >
-
-            <div layout-align="center left" layout="row" layout-margin>
+    <md-toolbar md-tall md-accent>
+        <div layout-wrap layout-align="space-around" layout="row">
+            <div layout-align="center center" layout="row">
                 <md-icon md-svg-src="img/book.svg"></md-icon>
-                <h2>{{grade.original.coursename}}</h2>
+                <p>{{grade.original.coursename}}</p>
             </div>
 
-            <div layout-align="center left" layout="row" layout-margin>
+            <div layout-align="center center" layout="row">
                 <md-icon md-svg-src="img/account-circle.svg"></md-icon>
-                <h2>{{grade.original.teachername}}</h2>
+                <p>{{grade.original.teachername}}</p>
             </div>
         </div>
     </md-toolbar>

@@ -4,8 +4,8 @@
 angular.module('UserApp', ['ngMaterial', 'ngRoute', 'chart.js', 'md.data.table'])
     .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
-        .primaryPalette('deep-orange')
-        .accentPalette('blue');
+        .primaryPalette('blue')
+        .accentPalette('deep-orange');
 });
 
 // Route configuration
