@@ -17,9 +17,9 @@
     <md-card-content layout-margin layout="row" layout-align="space-around" layout-wrap>
 
         <!-- Grades Table -->
-        <div flex="20" flex-sm="80">
+        <div flex="25" flex-sm="80">
             <md-data-table-toolbar>
-                <h2 class="md-title">Grading stats</h2>
+                <h2 class="md-title">Grading chart</h2>
             </md-data-table-toolbar>
 
             <md-data-table-container>
@@ -28,12 +28,14 @@
                     <tr>
                         <th name="Grade"></th>
                         <th numeric name="Count"></th>
+                        <th numeric name="Percent"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="item in grade.table">
+                    <tr ng-repeat="item in grade.table" layout-margin>
                         <td>{{ item.display }}</td>
                         <td>{{ item.value }}</td>
+                        <td>{{ stats.percent(item.value, grade) }}%</td>
                     </tr>
                     </tbody>
                 </table>
@@ -41,12 +43,30 @@
         </div>
 
         <!-- Grades graph -->
-        <div flex="70" flex-sm="100">
+        <div flex="65" flex-sm="100">
+            <md-data-table-toolbar>
+                <h2 class="md-title">Grading stats</h2>
+            </md-data-table-toolbar>
+            <div layout-align="left center" layout="column" flex offset="5" class="grade-stats">
+                <div flex layout="row">
+                    <p flex>Average grade: {{stats.mean(grade)}} </p>
+                    <p flex>Failure rate : {{stats.failRate(grade)}}% </p>
+                </div>
+                <!--
+                <div flex layout="row">
+                    <p flex>1.0 - 1.7 : {{stats.oneToTwo(grade)}}%</p>
+                    <p flex>2.0 - 2.7 : {{stats.twoToThree(grade)}}%</p>
+                </div>
+                <div flex layout="row">
+                    <p flex>3.0 - 3.7 : {{stats.threeToFour(grade)}}%</p>
+                    <p flex>4.0 & 5.0 : {{stats.fourToFive(grade)}}%</p>
+                </div>-->
+            </div>
             <md-data-table-toolbar>
                 <h2 class="md-title">Grading graph</h2>
             </md-data-table-toolbar>
-            <canvas id="line" class="chart chart-line" data="getData(grade)" flex
-                    labels="getLabel(grade)" legend="false">
+            <canvas id="line" class="chart chart-line" data="graph.getData(grade)" flex  flex offset="5"
+                    labels="graph.labels" legend="false">
             </canvas>
         </div>
     </md-card-content>

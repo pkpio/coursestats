@@ -113,12 +113,51 @@ angular.module('UserApp').controller('GradeCtrl', function($scope, config, $http
         }
     );
 
-    labels = ["1.0", "1.3", "1.7", "2.0", "2.3", "2.7", "3.0", "3.3", "3.7", "4.0", "5.0", "others"];
-    $scope.getData = function (grade){
-        console.log(grade.graph.data);
-        return grade.graph.data;
+    $scope.graph = {
+        labels : ["1.0", "1.3", "1.7", "2.0", "2.3", "2.7", "3.0", "3.3", "3.7", "4.0", "5.0"],
+        getData : function (grade){
+            return grade.graph.data;
+        }
     };
-    $scope.getLabel = function (grade) {
-        return labels;
-    };
+
+    $scope.stats = {
+        gradeSum: function(grade){
+            var count = 0;
+            for(i=0; i<grade.graph.data[0].length-1; i++)
+                count += grade.graph.data[0][i];
+            return count;
+        },
+        mean: function (grade) {
+            var wSum = grade.graph.data[0][0] * 1.0 + grade.graph.data[0][1] * 1.3 + grade.graph.data[0][2] * 1.7
+                + grade.graph.data[0][3] * 2.0 + grade.graph.data[0][4] * 2.3 + grade.graph.data[0][5] * 2.7
+                + grade.graph.data[0][6] * 3.0 + grade.graph.data[0][7] * 3.3 + grade.graph.data[0][8] * 3.7
+                + grade.graph.data[0][9] * 4.0 + grade.graph.data[0][10] * 5.0;
+            return (wSum / $scope.stats.gradeSum(grade)).toPrecision(4);
+        },
+        percent: function(value, grade){
+            return (100 * parseInt(value) / $scope.stats.gradeSum(grade)).toPrecision(3);
+        },
+        failRate: function (grade) {
+            return $scope.stats.percent(parseInt(grade.original.grade_50), grade);
+        },
+        oneToTwo: function (grade) {
+            var sum = parseInt(grade.original.grade_10) + parseInt(grade.original.grade_13)
+                + parseInt(grade.original.grade_17);
+            return $scope.stats.percent(sum, grade);
+        },
+        twoToThree: function (grade) {
+            var sum = parseInt(grade.original.grade_20) + parseInt(grade.original.grade_23)
+                + parseInt(grade.original.grade_27);
+            return $scope.stats.percent(sum, grade);
+        },
+        threeToFour: function (grade) {
+            var sum = parseInt(grade.original.grade_30) + parseInt(grade.original.grade_33)
+                + parseInt(grade.original.grade_37);
+            return $scope.stats.percent(sum, grade);
+        },
+        fourToFive: function (grade) {
+            var sum = parseInt(grade.original.grade_40) + parseInt(grade.original.grade_50);
+            return $scope.stats.percent(sum, grade);
+        }
+    }
 });
