@@ -8,6 +8,10 @@ angular.module('UserApp', ['ngMaterial', 'ngRoute', 'chart.js', 'md.data.table']
         .accentPalette('deep-orange');
 });
 
+angular.module('UserApp').constant('config', {
+    apiUrl: 'http://api.course-stats.pkp.io'
+});
+
 // Route configuration
 angular.module('UserApp').config(function($routeProvider) {$routeProvider
     .when('/course/:id',{

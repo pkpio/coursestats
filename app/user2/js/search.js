@@ -3,7 +3,7 @@
  *
  * For functions related to course tab
  */
-angular.module('UserApp').factory('SearchService', function($http, $timeout) {
+angular.module('UserApp').factory('SearchService', function(config, $http, $timeout) {
     var factory = {};
     factory.courses = [];
     factory.teachers = [];
@@ -18,7 +18,7 @@ angular.module('UserApp').factory('SearchService', function($http, $timeout) {
 
         var req = {
             method: 'GET',
-            url: 'https://course-stats.appspot.com/course/list'
+            url: config.apiUrl+ '/course/list'
         };
         $http(req)
             .then(
@@ -41,7 +41,7 @@ angular.module('UserApp').factory('SearchService', function($http, $timeout) {
 
         var req = {
             method: 'GET',
-            url: 'https://course-stats.appspot.com/teacher/list'
+            url: config.apiUrl+ '/teacher/list'
         };
         $http(req)
             .then(

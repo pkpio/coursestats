@@ -2,7 +2,7 @@
  * Created by praveen on 25.08.15.
  */
 
-angular.module('UserApp').controller('GradeCtrl', function($scope, $http, $location) {
+angular.module('UserApp').controller('GradeCtrl', function($scope, config, $http, $location) {
     const TEACHER = 1;
     const COURSE = 2;
 
@@ -101,7 +101,7 @@ angular.module('UserApp').controller('GradeCtrl', function($scope, $http, $locat
     var urloption = ($scope.mode == TEACHER) ? "teacherid" : "courseid";
     var req = {
         method: 'GET',
-        url: 'https://course-stats.appspot.com/grade/search?' + urloption + '=' + $scope.id
+        url: config.apiUrl + '/grade/search?' + urloption + '=' + $scope.id
     };
     $http(req)
         .then(
