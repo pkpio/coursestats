@@ -1,7 +1,8 @@
 /**
  * Created by praveen on 25.08.15.
  */
-angular.module('UserApp', ['ngMaterial', 'ngRoute', 'chart.js', 'md.data.table'])
+angular.module('UserApp', ['ngMaterial', 'ngRoute', 'chart.js', 'md.data.table',
+    'angulartics', 'angulartics.google.analytics'])
     .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('blue')
