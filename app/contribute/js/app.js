@@ -1,7 +1,7 @@
 /**
  * Created by praveen on 21.08.15.
  */
-angular.module('ContributeApp', ['ngMaterial', 'ngCookies', 'ngMd5'])
+angular.module('ContributeApp', ['ngMaterial', 'ngCookies', 'ngMd5', 'angulartics', 'angulartics.google.analytics'])
     .config(function($mdThemingProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('deep-orange')
