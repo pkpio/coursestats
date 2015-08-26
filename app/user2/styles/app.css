@@ -22,3 +22,9 @@
 .grade-stats{
     font-size: 14px;
 }
+.grade-card-icon{
+    padding-right: 5px;
+}
+.autocomplete-template .item-metadata {
+    color: #808080;
+}

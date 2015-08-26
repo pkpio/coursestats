@@ -24,9 +24,13 @@
                 md-items="item in search.querySearch(search.searchText)"
                 md-item-text="item.name"
                 md-min-length="3"
+                md-menu-class="autocomplete-template"
                 placeholder="Search for a course or professor">
             <md-item-template>
                 <span md-highlight-text="search.searchText" md-highlight-flags="^i">{{item.name}}</span>
+                <span class="item-metadata">
+                    {{ search.getMetadata(item) }}
+                </span>
             </md-item-template>
             <md-not-found>
                 No matches found

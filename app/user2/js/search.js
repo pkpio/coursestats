@@ -125,6 +125,12 @@ angular.module('UserApp').controller('SearchCtrl', function($scope, $location, S
         },
         querySearch: function (query) {
             return SearchService.search(query);
+        },
+        getMetadata: function (item) {
+            if(item.year)
+                return '(' + item.year + ' ' + ((item.semester==1) ? 'Summer' : 'Winter') + ')';
+            else
+                return '';
         }
     };
 

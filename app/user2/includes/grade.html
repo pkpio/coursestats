@@ -1,14 +1,17 @@
-
+<b>{{ grades.length }} course{{(grades.length > 1)?'s':''}} found</b>
 <md-card flex ng-repeat="grade in grades">
     <md-toolbar md-tall md-accent>
         <div layout-wrap layout-align="space-around" layout="row">
             <div layout-align="center center" layout="row">
-                <md-icon md-svg-src="img/book.svg"></md-icon>
+                <md-icon md-svg-src="img/book.svg" class="grade-card-icon"></md-icon>
                 <p>{{grade.original.coursename}}</p>
             </div>
-
             <div layout-align="center center" layout="row">
-                <md-icon md-svg-src="img/account-circle.svg"></md-icon>
+                <md-icon md-svg-src="img/clock.svg" class="grade-card-icon"></md-icon>
+                <p>{{grade.original.courseyear}}, {{(grade.original.coursesem=="1")?'Summer':'Winter'}}</p>
+            </div>
+            <div layout-align="center center" layout="row">
+                <md-icon md-svg-src="img/account.svg" class="grade-card-icon"></md-icon>
                 <p>{{grade.original.teachername}}</p>
             </div>
         </div>
