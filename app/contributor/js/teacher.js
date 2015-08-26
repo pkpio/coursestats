@@ -4,18 +4,19 @@
  * For functions related to the Professor tab
  */
 
-angular.module('ContributeApp').factory('TeacherService', function($http) {
+angular.module('ContributeApp').factory('TeacherService', function(config, $http) {
     var factory = {};
     factory.teachers = {};
     factory.listTeachers = function(){
             var req = {
                 method: 'GET',
-                url: 'https://course-stats.appspot.com/teacher/list'
+                url: config.apiUrl + '/teacher/list'
             };
             $http(req)
                 .then(
                 function(response){ // Success callback
                     factory.teachers = response.data.teachers;
+                    console.log(factory.teachers);
                 },
                 function(response){ //Error callback
                     console.log(response.toString());
@@ -39,7 +40,7 @@ angular.module('ContributeApp').factory('TeacherService', function($http) {
     return factory;
 });
 
-angular.module('ContributeApp').controller('TeacherCtrl', function($scope, $http, TeacherService, $cookies) {
+angular.module('ContributeApp').controller('TeacherCtrl', function($scope, config, $http, TeacherService, $cookies) {
     $scope.selectedItem = null;
     $scope.searchText = null;
     $scope.message = {
@@ -85,7 +86,7 @@ angular.module('ContributeApp').controller('TeacherCtrl', function($scope, $http
         $scope.addingTeacher = 1;
         var req = {
             method: 'GET',
-            url: 'https://course-stats.appspot.com/teacher/add?'
+            url: config.apiUrl + '/teacher/add?'
             + 'token=' + $cookies.token
             + '&name=' + $scope.searchText
             + '&website=' + $scope.website

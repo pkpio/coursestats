@@ -8,7 +8,11 @@ angular.module('ContributeApp', ['ngMaterial', 'ngCookies', 'ngMd5'])
             .accentPalette('blue');
 });
 
-angular.module('ContributeApp').controller('AppCtrl', function($scope, $mdDialog, $http, $cookies, md5, LoginService) {
+angular.module('ContributeApp').constant('config', {
+    apiUrl: 'http://api.course-stats.pkp.io'
+});
+
+angular.module('ContributeApp').controller('AppCtrl', function($scope, config, $mdDialog, $http, $cookies, md5, LoginService) {
 
     $scope.showLogin = function() {
         $mdDialog.show({

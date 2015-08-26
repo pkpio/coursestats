@@ -12,7 +12,7 @@ angular.module('ContributeApp').factory('LoginService', function($mdDialog) {
     };
 });
 
-angular.module('ContributeApp').controller('LoginCtrl', function ($scope, $mdDialog, $http, $cookies, md5, LoginService) {
+angular.module('ContributeApp').controller('LoginCtrl', function ($scope, config, $mdDialog, $http, $cookies, md5, LoginService) {
     $scope.loggingin = 0;
 
     $scope.login = function() {
@@ -25,7 +25,7 @@ angular.module('ContributeApp').controller('LoginCtrl', function ($scope, $mdDia
         // Build a login request
         var req = {
             method: 'GET',
-            url: 'https://course-stats.appspot.com/student/login?'
+            url: config.apiUrl + '/student/login?'
             + 'email=' + $scope.email
             +'&password=' + md5.createHash($scope.password)
         };

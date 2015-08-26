@@ -3,7 +3,7 @@
  *
  * For functions related to grade tab
  */
-angular.module('ContributeApp').controller('GradeCtrl', function($scope, $http, $cookies, CourseService) {
+angular.module('ContributeApp').controller('GradeCtrl', function($scope, config, $http, $cookies, CourseService) {
     $scope.message = {
         error: null,
         success: null
@@ -106,7 +106,7 @@ angular.module('ContributeApp').controller('GradeCtrl', function($scope, $http, 
         });
         var req = {
             method: 'GET',
-            url: 'https://course-stats.appspot.com/grade/add?'
+            url: config.apiUrl + '/grade/add?'
             + 'token=' + $cookies.token
             + '&courseid=' + $scope.course.selectedItem.courseid
             + '&teacherid=' + $scope.course.selectedItem.teacherid

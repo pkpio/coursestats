@@ -4,7 +4,7 @@
  * Handles Register related operations
  */
 
-angular.module('ContributeApp').controller('RegisterCtrl', function ($scope, $http, md5) {
+angular.module('ContributeApp').controller('RegisterCtrl', function ($scope, config, $http, md5) {
     $scope.registering = 0;
     $scope.registerError = null;
     $scope.registerMsg = null;
@@ -38,7 +38,7 @@ angular.module('ContributeApp').controller('RegisterCtrl', function ($scope, $ht
         // Build a register request
         var req = {
             method: 'GET',
-            url: 'https://course-stats.appspot.com/student/register?'
+            url: config.apiUrl + '/student/register?'
             + 'fullname=' + $scope.register.email
             + '&email=' + $scope.register.email
             +'&password=' + md5.createHash($scope.register.password)

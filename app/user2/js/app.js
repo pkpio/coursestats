@@ -19,7 +19,7 @@ angular.module('UserApp').config(function($routeProvider) {$routeProvider
         controller  : 'GradeCtrl'
     })
     .when('/',{
-        templateUrl : 'includes/default.html',
+        templateUrl : 'includes/default.html'
     })
     .otherwise({
         redirectTo: '/'

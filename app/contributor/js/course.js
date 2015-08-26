@@ -3,13 +3,13 @@
  *
  * For functions related to course tab
  */
-angular.module('ContributeApp').factory('CourseService', function($http) {
+angular.module('ContributeApp').factory('CourseService', function(config, $http) {
     var factory = {};
     factory.courses = {};
     factory.listCourses = function(){
         var req = {
             method: 'GET',
-            url: 'https://course-stats.appspot.com/course/list'
+            url: config.apiUrl + '/course/list'
         };
         $http(req)
             .then(
@@ -47,7 +47,7 @@ angular.module('ContributeApp').factory('CourseService', function($http) {
     return factory;
 });
 
-angular.module('ContributeApp').controller('CourseCtrl', function($scope, $http, $cookies, CourseService, TeacherService) {
+angular.module('ContributeApp').controller('CourseCtrl', function($scope, config, $http, $cookies, CourseService, TeacherService) {
     $scope.message = {
         error: null,
         success: null
@@ -116,7 +116,7 @@ angular.module('ContributeApp').controller('CourseCtrl', function($scope, $http,
         $scope.addingCourse = 1;
         var req = {
             method: 'GET',
-            url: 'https://course-stats.appspot.com/course/add?'
+            url: config.apiUrl + '/course/add?'
             + 'token=' + $cookies.token
             + '&name=' + $scope.course.searchText
             + '&year=' + $scope.course.year.selected
