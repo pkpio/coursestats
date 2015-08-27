@@ -1,1 +1,0 @@
-this directory contains front end source codes
