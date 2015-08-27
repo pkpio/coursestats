@@ -14,7 +14,11 @@
 <!-- Toolbar -->
 <md-toolbar>
     <div class="md-toolbar-tools" layout="column" layout-align="center center" ng-controller="SearchCtrl">
-        <md-autocomplete flex="60" flex-sm="90"
+        <div flex layout-align="start center" layout="row">
+            <md-icon md-svg-src="img/logo.svg" flex="15" flex-sm="100"></md-icon>
+            <div layout-align="start center" flex="90" hide-sm><p>Course stats</p></div>
+        </div>
+        <md-autocomplete flex="60" flex-sm="80"
                 ng-disabled="search.isDisabled"
                 md-no-cache="search.noCache"
                 md-search-text="search.searchText"
@@ -36,6 +40,13 @@
                 No matches found
             </md-not-found>
         </md-autocomplete>
+        <div flex layout="column" layout-align="center end">
+            <md-button class="md-icon-button">
+                <a href="https://github.com/praveendath92/course-stats" target="_blank">
+                    <md-icon md-svg-src="img/github-circle.svg"></md-icon>
+                </a>
+            </md-button>
+        </div>
     </div>
 </md-toolbar>
 
