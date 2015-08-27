@@ -34,6 +34,7 @@ require 'routes/student.php';
 require 'routes/teacher.php';
 require 'routes/course.php';
 require 'routes/grade.php';
+require 'routes/admin.php';
 
 
 // Common App level middle ware for Cross Site Scripting
