@@ -4,7 +4,7 @@
 angular.module('ContributeApp', ['ngMaterial', 'ngCookies', 'ngMd5', 'angulartics', 'angulartics.google.analytics'])
     .config(function($mdThemingProvider) {
         $mdThemingProvider.theme('default')
-            .primaryPalette('deep-orange')
+            .primaryPalette('green')
             .accentPalette('blue');
 });
 
