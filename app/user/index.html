@@ -27,7 +27,7 @@
                 md-selected-item-change="search.selectItemChange(item)"
                 md-items="item in search.querySearch(search.searchText)"
                 md-item-text="item.name"
-                md-min-length="3"
+                md-min-length="getConfig().minCharsInSearch"
                 md-menu-class="autocomplete-template"
                 placeholder="Search for a course or professor">
             <md-item-template>

@@ -10,7 +10,8 @@ angular.module('UserApp', ['ngMaterial', 'ngRoute', 'chart.js', 'md.data.table',
 });
 
 angular.module('UserApp').constant('config', {
-    apiUrl: 'http://api.course-stats.pkp.io'
+    apiUrl: 'http://api.course-stats.pkp.io',
+    minCharsInSearch: 2
 });
 
 // Route configuration

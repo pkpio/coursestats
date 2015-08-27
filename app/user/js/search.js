@@ -103,7 +103,7 @@ angular.module('UserApp').factory('SearchService', function(config, $http, $time
     return factory;
 });
 
-angular.module('UserApp').controller('SearchCtrl', function($scope, $location, SearchService) {
+angular.module('UserApp').controller('SearchCtrl', function($scope, config, $location, SearchService) {
 
     // Teacher object
     $scope.search = {
@@ -132,6 +132,10 @@ angular.module('UserApp').controller('SearchCtrl', function($scope, $location, S
             else
                 return '';
         }
+    };
+
+    $scope.getConfig = function(){
+        return config;
     };
 
 });
