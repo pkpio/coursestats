@@ -17,14 +17,14 @@ $app->group('/teacher', function () use ($app, $db, $checkToken) {
 
         try {
             $stmt = $db->prepare('INSERT INTO teachers (name, website, addedby) VALUES (?, ?, ?)');
-            $stmt->execute(array($name, $website, $userid));
+            $stmt->execute(array(utf8_encode($name), utf8_encode($website), $userid));
             ApiResponse::success(200, "success", "teacherid", $db->lastInsertId());
         } catch (PDOException $ex) {
             ApiResponse::error(500, "Internal server error");
         }
     })->via('GET', 'POST');
 
-    //################## List Teachers  ##################
+    //################# Teachers  ##################
     $app->map('/list', function() use ($app, $db) {
         try{
             $stmt = $db->prepare('SELECT * FROM teachers LIMIT 50');

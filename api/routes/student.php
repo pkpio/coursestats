@@ -28,14 +28,14 @@ $app->group('/student', function () use ($app, $db, $checkToken) {
 
             $stmt2 = $db->prepare('INSERT INTO students (name, email, password, emailcode, token)
                         VALUES (?, ?, ?, ?, ?)');
-            $stmt2->execute(array($name, $email, $password, $emailcode, $token));
+            $stmt2->execute(array(utf8_encode($name), utf8_encode($email), $password, $emailcode, $token));
             ApiResponse::success(200, "Registered!", "studentid", $db->lastInsertId());
         } catch(PDOException $ex){
             ApiResponse::error(500, "Internal server error");
         }
     })->via('GET', 'POST');
 
-    //################## Login  ##################
+    //#################  ##################
     $app->map('/login', function() use ($app, $db) {
         $email = $app->request->params('email');
         $password = $app->request->params('password');

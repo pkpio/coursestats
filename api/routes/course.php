@@ -20,7 +20,7 @@ $app->group('/course', function () use ($app, $db, $checkToken) {
         try {
             $stmt2 = $db->prepare('INSERT INTO courses (`name`, `teacherid`, `year`, `semester`, `addedby`)
                                    VALUES (?, ?, ?, ?, ?)');
-            $stmt2->execute(array($name, $teacherid, $year, $sem, $userid));
+            $stmt2->execute(array(utf8_encode($name), $teacherid, $year, $sem, $userid));
             ApiResponse::success(200, "success", "courseid", $db->lastInsertId());
         } catch (PDOException $ex) {
             ApiResponse::error(500, "Internal server error");
