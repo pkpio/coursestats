@@ -1,4 +1,23 @@
 <b>{{ grades.length }} course{{(grades.length > 1)?'s':''}} found</b>
+
+
+<!-- Grading overview. Only when more than 1 course -->
+<md-card flex ng-show="graph.overviewShow">
+    <md-toolbar md-tall md-accent>
+        <div layout-wrap layout-align="space-around" layout="row">
+            <div layout-align="center center" layout="row">
+                <p> <b>{{ ($scope.mode.value == $scope.mode.options.TEACHER) ?
+                    grades[0].original.teachername : grades[0].original.coursename }}</b></p>
+            </div>
+        </div>
+    </md-toolbar>
+    <md-card-content layout-margin layout="row" layout-align="space-around" layout-wrap ng-show="1">
+        <canvas id="overview" class="chart chart-line" data="graph.overviewData" flex  flex offset="5"
+                labels="graph.labels" legend="true" series="graph.series">
+        </canvas>
+    </md-card-content>
+</md-card>
+
 <md-card flex ng-repeat="grade in grades">
     <md-toolbar md-tall md-accent>
         <div layout-wrap layout-align="space-around" layout="row">

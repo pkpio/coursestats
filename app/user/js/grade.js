@@ -3,20 +3,21 @@
  */
 
 angular.module('UserApp').controller('GradeCtrl', function($scope, config, $http, $location) {
-    const TEACHER = 1;
-    const COURSE = 2;
-
-    $scope.mode = TEACHER;
+    $scope.mode = {
+        value: 1,
+        options:{
+            TEACHER: 1, COURSE: 2
+        }
+    };
 
     // Find out the mode and id
     var path = $location.path();
     if(path.indexOf('/course/') > -1)
-        $scope.mode = COURSE;
+        $scope.mode.value = $scope.mode.options.COURSE;
     $scope.id = path.substr(path.lastIndexOf('/') + 1, path.length);
     $scope.grades = [];
 
     function buildGrades(gradesResp){
-
         for(i=0; i<gradesResp.length; i++){
             grade = gradesResp[i];
 
@@ -94,11 +95,15 @@ angular.module('UserApp').controller('GradeCtrl', function($scope, config, $http
                 original: grade
             };
             $scope.grades.push(displayGrade);
+            $scope.graph.overviewData.push(displayGrade.graph.data[0]);
+            $scope.graph.series.push(
+                grade.coursename + " (" + grade.courseyear + " " + ((grade.coursesem==1)?'Summer':'Winter') + ")");
         }
+        $scope.graph.overviewShow = (gradesResp.length > 1) ? 1 : 0;
     }
 
     // Get grades
-    var urloption = ($scope.mode == TEACHER) ? "teacherid" : "courseid";
+    var urloption = ($scope.mode.value == $scope.mode.options.TEACHER) ? "teacherid" : "courseid";
     var req = {
         method: 'GET',
         url: config.apiUrl + '/grade/search?' + urloption + '=' + $scope.id
@@ -117,7 +122,10 @@ angular.module('UserApp').controller('GradeCtrl', function($scope, config, $http
         labels : ["1.0", "1.3", "1.7", "2.0", "2.3", "2.7", "3.0", "3.3", "3.7", "4.0", "5.0"],
         getData : function (grade){
             return grade.graph.data;
-        }
+        },
+        overviewData: [],
+        series: [],
+        overviewShow: 0
     };
 
     $scope.stats = {
