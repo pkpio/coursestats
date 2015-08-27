@@ -9,7 +9,7 @@ angular.module('ContributeApp', ['ngMaterial', 'ngCookies', 'ngMd5', 'angulartic
 });
 
 angular.module('ContributeApp').constant('config', {
-    apiUrl: 'http://api.course-stats.pkp.io'
+    apiUrl: 'http://api.coursestats.de'
 });
 
 angular.module('ContributeApp').controller('AppCtrl', function($scope, config, $mdDialog, $http, $cookies, md5, LoginService) {

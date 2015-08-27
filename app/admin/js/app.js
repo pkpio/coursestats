@@ -9,7 +9,7 @@ angular.module('AdminApp', ['ngMaterial', 'ngCookies', 'ngMd5'])
 });
 
 angular.module('AdminApp').constant('config', {
-    apiUrl: 'http://api.course-stats.pkp.io'
+    apiUrl: 'http://api.coursestats.de'
 });
 
 angular.module('AdminApp').controller('AppCtrl', function($scope, config, $mdDialog, $http, $cookies, md5, LoginService) {
