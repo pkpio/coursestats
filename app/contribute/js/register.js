@@ -39,7 +39,7 @@ angular.module('ContributeApp').controller('RegisterCtrl', function ($scope, con
         var req = {
             method: 'GET',
             url: config.apiUrl + '/student/register?'
-            + 'fullname=' + $scope.register.email
+            + 'fullname=' + $scope.register.fullname
             + '&email=' + $scope.register.email
             +'&password=' + md5.createHash($scope.register.password)
         };
