@@ -1,0 +1,31 @@
+<md-dialog aria-label="Login required">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Login required</h2>
+        </div>
+    </md-toolbar>
+
+    <md-progress-linear md-mode="indeterminate" data-ng-show="loggingin"></md-progress-linear>
+
+
+    <md-dialog-content layout="column" class="loginInputIcons">
+        <p flex class="errorMsg" data-ng-show="!loggingin && loginError">{{loginError}}</p>
+
+        <md-input-container >
+            <md-icon md-svg-src="img/email.svg" class="email"></md-icon>
+            <input ng-model="email" type="email" placeholder="Email"
+                   ng-required="true" ng-disabled="loggingin">
+        </md-input-container>
+
+        <md-input-container >
+            <md-icon md-svg-src="img/lock.svg" class="password"></md-icon>
+            <input ng-model="password" type="password" placeholder="Password"
+                   ng-required="true" ng-disabled="loggingin">
+        </md-input-container>
+
+        <md-button class="md-raised md-primary" ng-click="login()">Login</md-button>
+
+    </md-dialog-content>
+
+</md-dialog>
