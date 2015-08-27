@@ -12,7 +12,7 @@ $app->group('/admin', $checkAdmin, function () use ($app, $db) {
     //################## List Inactive student accounts ##################
     $app->map('/list/inactive', function() use ($app, $db) {
         try{
-            $stmt = $db->prepare('SELECT * FROM students WHERE verified=0 LIMIT 50');
+            $stmt = $db->prepare('SELECT studentid, name, email FROM students WHERE verified=0 LIMIT 50');
             $stmt->execute();
             ApiResponse::success(200, "success", "students", $stmt->fetchAll(PDO::FETCH_ASSOC));
         } catch(PDOException $ex){
@@ -26,7 +26,7 @@ $app->group('/admin', $checkAdmin, function () use ($app, $db) {
         try{
             $stmt = $db->prepare('UPDATE students SET verified=1 WHERE studentid=?');
             if ($stmt->execute(array($studentid)))
-                ApiResponse::success(200, "success", "teachers", $studentid);
+                ApiResponse::success(200, "success", "studentid", $studentid);
             else
                 ApiResponse::error(500, "activation failed while updating");
         } catch(PDOException $ex){
