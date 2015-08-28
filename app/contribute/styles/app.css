@@ -27,7 +27,29 @@
 .course-autocomplete-template li:last-child {
     border-bottom-width: 0;
 }
-
 .course-autocomplete-template .item-metadata {
     color: #808080;
+}
+.footer{
+    position: relative;
+    margin-top: 40px;
+    padding-top: 30px;
+    padding-bottom: 60px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #767676;
+    border-top: 1px solid #eee;
+}
+.footer a {
+    color: #4078c0;
+    text-decoration: none;
+    padding-left: 40px;
+}
+.footer a:hover, a:active {
+    text-decoration: underline;
+}
+.author a{
+    color: #767676;
+    text-decoration: none;
+    padding-left: 5px;
 }
