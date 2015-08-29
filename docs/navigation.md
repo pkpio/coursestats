@@ -1,6 +1,6 @@
 # Course stats
 
-[About](about.md)
+[About](index.md)
 
 [Contribute](contribute.md)
 
