@@ -9,6 +9,6 @@ You can also contribute to the list of courses and grades on coursestats. There 
 <br/><br/>
 
 ## Option 2
-1. Goto ```Coursestats contributor``` app and register yourself
+1. Goto <a href='http://add.coursestats.de'>Contributor app</a> and register yourself
 2. Request us for your account activation
 3. You can login and add professors, courses or grades anytime!

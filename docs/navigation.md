@@ -8,9 +8,6 @@
 
 [API](api.md)
 
-[Use App](http://coursestats.de)
-
-[gimmick:ForkMeOnGitHub](http://www.github.com/praveendath92/coursestats)
 [gimmick:theme](united)
 
 <script>

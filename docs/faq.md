@@ -11,4 +11,5 @@ Frequently Asked Questions
   
   <br/>
   
-
+* ### Is coursestats usage secure?
+  No! Coursestats uses only ```http``` requests at the moment.
