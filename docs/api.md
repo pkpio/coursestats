@@ -7,19 +7,17 @@ User
 -------
 Group Url: ```/user```
 
-Functions
-    - Register
-        To register a new user. 
-        Url - ```/register```
-        Params - fullname, email, password (md5 of the actual password)
-        Response - JSON object with ```responsecode: 200``` if successful
+## Register
+To register a new user. 
+Url - ```/register```
+Params - fullname, email, password (md5 of the actual password)
+Response - JSON object with ```responsecode: 200``` if successful
 
-    - Login
-        To login using credentials of a user.
-        Url - ```/login```
-        Params - email, password
-        Response - JSON object with ```responsecode: 200, token: <token>``` if successful
-
+## Login
+To login using credentials of a user.
+Url - ```/login```
+Params - email, password
+Response - JSON object with ```responsecode: 200, token: <token>``` if successful
 
 Note: The actual url of a function would be baseurl + groupurl + functionurl. For example, register is at http://api.coursestats.de/user/register
 
