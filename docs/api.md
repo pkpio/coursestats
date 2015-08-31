@@ -31,7 +31,7 @@ Note: API always responds in JSON with field responsecode: 200 when ever the req
 Professor
 -----------
 Groupurl: ```/teacher```<br/>
-Functions:
+Functions:<br/>
 
 1. Add<br/>
    Url - ```/add```<br/>
@@ -51,8 +51,8 @@ Functions:
 
 Course
 -----------
-Groupurl: ```/course```
-Functions:<br/>
+Groupurl: ```/course```<br/>
+Functions:
 
 1. Add<br/>
    Url - ```/add```<br/>
@@ -72,7 +72,7 @@ Functions:<br/>
 
 Grade
 -----------
-Groupurl: ```/grade```
+Groupurl: ```/grade```<br/>
 Functions:<br/>
 
 1. Add<br/>
