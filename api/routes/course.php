@@ -36,7 +36,7 @@ $app->group('/course', function () use ($app, $db, $checkToken) {
 
         try {
             // Check for duplicate
-            $stmt = $db->prepare('SELECT 1 FROM autocourses WHERE name=? AND year=? AND semester=?');
+            $stmt = $db->prepare('SELECT 1 FROM autocourses WHERE name=? AND year=? AND sem=?');
             $stmt->execute(array(utf8_encode($name), $year, $sem));
             if($stmt->rowCount() != 0){
                 // Course already exists. So stop.
