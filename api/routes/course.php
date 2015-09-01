@@ -33,7 +33,6 @@ $app->group('/course', function () use ($app, $db, $checkToken) {
         $name = $app->request->get('name');
         $year = $app->request->get('year');
         $sem = $app->request->get('sem');
-        $teacherid = $app->request->get('teacherid');
 
         try {
             // Check for duplicate
@@ -45,7 +44,7 @@ $app->group('/course', function () use ($app, $db, $checkToken) {
                 $app->stop();
             }
 
-            $stmt2 = $db->prepare('INSERT INTO autocourses (`name`, `year`, `semester`, `addedby`)
+            $stmt2 = $db->prepare('INSERT INTO autocourses (`name`, `year`, `sem`, `addedby`)
                                    VALUES (?, ?, ?, ?)');
             $stmt2->execute(array(utf8_encode($name), $year, $sem, $userid));
             ApiResponse::success(200, "success", "courseid", $db->lastInsertId());
