@@ -5,18 +5,21 @@
 import sys
 import getpass
 import re
+import urllib
 import mechanize
 from bs4 import BeautifulSoup
 
 ## URLs
-tucan = "https://www.tucan.tu-darmstadt.de";
-login = tucan + "/scripts/mgrqcgi?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000344,-Awelcome";
+addgrade = "http://api.coursestats.de/grade/add/auto"
+tucan = "https://www.tucan.tu-darmstadt.de"
+login = tucan + "/scripts/mgrqcgi?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000344,-Awelcome"
 
 ## Credentails
 print "Please enter your TuCan credentials"
 username = raw_input("Username: ")
 password = getpass.getpass("Password: ")
 token = raw_input("Coursestats API token: ")
+addgrade = addgrade + "?token=" + token
 
 ## Configure browser
 br = mechanize.Browser()
@@ -47,16 +50,16 @@ sems = []
 soup = BeautifulSoup(resp.read(), "html5lib")
 for sem in soup.find_all('option'):
     sems.append(gpage + '-N' + sem['value'])
-print 'Found ' + str(len(sems)) + ' semsters'
+print '\n\tFound ' + str(len(sems)) + ' semsters\n'
 
 ## Go to each stats 
 i = len(sems)
 for sempge in sems:
-    print 'Fetching grades for sem ' + str(i)
+    print '\n\tGrades for sem #' + str(i) + "\n"
     i = i-1
     br.open(sempge)
     
-    print 'Iterating through course stats'
+    print 'Iterating through course stats\n'
     glinks = []
     for link in br.links(text_regex="\xc3\x98"):
         glinks.append(link)
@@ -64,16 +67,33 @@ for sempge in sems:
     for link2 in glinks:
         soup = BeautifulSoup(br.follow_link(link2).read(), "html5lib")
 
-        # Parse course name and sem
+        # Parse course name, year, sem and build url
         ctxt = soup.find('h2').text
         cname = ctxt[:ctxt.index(",")].strip()
         csem = 2
         if ctxt[ctxt.index(",")+2:ctxt.index("20")-1] == "SoSe":
             csem = 1 
         cyear = ctxt[ctxt.index("20"):ctxt.index("20")+4]
+        tgurl = addgrade + "&" + urllib.urlencode({'cname' : cname}) + "&cyear=" + cyear + "&csem=" + str(csem)
         print cname
-        print str(csem)
-        print cyear
 
+        grades = []
         for data in soup.find_all('td', {'class':'tbdata'}):
-            print data.text.strip()
+            g = data.text.strip()
+            if g == "---":
+                g = "0"
+            grades.append(g)
+        
+        # Add each grade to url
+        tgurl = tgurl + "&grade10=" + str(grades[1]) + "&grade13=" + str(str(grades[2])) + "&grade17=" + str(grades[3])
+        tgurl = tgurl + "&grade20=" + str(grades[4]) + "&grade23=" + str(str(grades[5])) + "&grade27=" + str(grades[6])
+        tgurl = tgurl + "&grade30=" + str(grades[7]) + "&grade33=" + str(str(grades[8])) + "&grade37=" + str(grades[9])
+        tgurl = tgurl + "&grade40=" + str(grades[10]) + "&grade50=" + str(str(grades[11])) + "&gradeothers=0"
+        resp = br.open(tgurl)
+        print resp.read() + "\n"
+
+print "\n\n\tAll done! Thank you :)\n\n"
+
+
+
+
