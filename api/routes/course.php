@@ -27,6 +27,33 @@ $app->group('/course', function () use ($app, $db, $checkToken) {
         }
     })->via('GET', 'POST');
 
+    //################## Add Course Auto - for crawler ##################
+    $app->map('/add/auto', $checkToken, function () use ($app, $db) {
+        $userid = $app->request->headers->get("studentid");
+        $name = $app->request->get('name');
+        $year = $app->request->get('year');
+        $sem = $app->request->get('sem');
+        $teacherid = $app->request->get('teacherid');
+
+        try {
+            // Check for duplicate
+            $stmt = $db->prepare('SELECT 1 FROM autocourses WHERE name=? AND year=? AND semester=?');
+            $stmt->execute(array(utf8_encode($name), $year, $sem));
+            if($stmt->rowCount() != 0){
+                // Course already exists. So stop.
+                ApiResponse::error(409, "Course already added");
+                $app->stop();
+            }
+
+            $stmt2 = $db->prepare('INSERT INTO autocourses (`name`, `year`, `semester`, `addedby`)
+                                   VALUES (?, ?, ?, ?)');
+            $stmt2->execute(array(utf8_encode($name), $year, $sem, $userid));
+            ApiResponse::success(200, "success", "courseid", $db->lastInsertId());
+        } catch (PDOException $ex) {
+            ApiResponse::error(500, "Internal server error");
+        }
+    })->via('GET', 'POST');
+
     //################## List Courses  ##################
     $app->map('/list', function() use ($app, $db) {
         try{
