@@ -84,7 +84,7 @@ $app->group('/grade', function () use ($app, $db, $checkToken) {
                 $app->stop();
             }
 
-            $stmt2 = $db->prepare('INSERT INTO autogrades (`coursename`, `courseyear`, `coursesem`, `addedby`
+            $stmt2 = $db->prepare('INSERT INTO autogrades (`coursename`, `courseyear`, `coursesem`, `addedby`,
                                     `grade_10`, `grade_13`, `grade_17`,
                                     `grade_20`, `grade_23`, `grade_27`,
                                     `grade_30`, `grade_33`, `grade_37`,
