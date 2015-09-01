@@ -16,6 +16,7 @@ login = tucan + "/scripts/mgrqcgi?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUME
 print "Please enter your TuCan credentials"
 username = raw_input("Username: ")
 password = getpass.getpass("Password: ")
+token = raw_input("Coursestats API token: ")
 
 ## Configure browser
 br = mechanize.Browser()
@@ -38,16 +39,41 @@ br.follow_link(text_regex="Semester Results", nr=0)
 
 ## Go to Module results
 print 'Towards module results..'
-br.follow_link(text_regex="Module Results", nr=0)
+resp = br.follow_link(text_regex="Module Results", nr=0)
+gpage = resp.geturl()
 
-## Go to each stats
-print 'Iterating through course stats..'
-glinks = []
-for link in br.links(text_regex="\xc3\x98"):
-    glinks.append(link)
+## Get available sems list and save urls to each results page
+sems = []
+soup = BeautifulSoup(resp.read(), "html5lib")
+for sem in soup.find_all('option'):
+    sems.append(gpage + '-N' + sem['value'])
+print 'Found ' + str(len(sems)) + ' semsters'
 
-for link2 in glinks:
-    soup = BeautifulSoup(br.follow_link(link2).read(), "lxml")
-    print soup.find('h2').text
-    for data in soup.find_all('td', {'class':'tbdata'}):
-        print data.text
+## Go to each stats 
+i = len(sems)
+for sempge in sems:
+    print 'Fetching grades for sem ' + str(i)
+    i = i-1
+    br.open(sempge)
+    
+    print 'Iterating through course stats'
+    glinks = []
+    for link in br.links(text_regex="\xc3\x98"):
+        glinks.append(link)
+
+    for link2 in glinks:
+        soup = BeautifulSoup(br.follow_link(link2).read(), "html5lib")
+
+        # Parse course name and sem
+        ctxt = soup.find('h2').text
+        cname = ctxt[:ctxt.index(",")].strip()
+        csem = 2
+        if ctxt[ctxt.index(",")+2:ctxt.index("20")-1] == "SoSe":
+            csem = 1 
+        cyear = ctxt[ctxt.index("20"):ctxt.index("20")+4]
+        print cname
+        print str(csem)
+        print cyear
+
+        for data in soup.find_all('td', {'class':'tbdata'}):
+            print data.text.strip()
