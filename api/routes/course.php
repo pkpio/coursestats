@@ -7,10 +7,10 @@
  * These are the list of actions / api calls for course actions
  */
 
-$app->group('/course', function () use ($app, $db, $checkToken) {
+$app->group('/course', function () use ($app, $db, $checkAdder) {
 
     //################## Add Course  ##################
-    $app->map('/add', $checkToken, function () use ($app, $db) {
+    $app->map('/add', $checkAdder, function () use ($app, $db) {
         $userid = $app->request->headers->get("studentid");
         $name = $app->request->get('name');
         $year = $app->request->get('year');

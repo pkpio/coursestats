@@ -7,10 +7,10 @@
  * These are the list of actions / api calls for grade actions
  */
 
-$app->group('/grade', function () use ($app, $db, $checkToken) {
+$app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
 
     //################## Add Grades  ##################
-    $app->map('/add', $checkToken, function () use ($app, $db) {
+    $app->map('/add', $checkAdder, function () use ($app, $db) {
         $userid = $app->request->headers->get("studentid");
         $courseid = $app->request->params('courseid');
         $teacherid = $app->request->params('teacherid');
@@ -54,7 +54,7 @@ $app->group('/grade', function () use ($app, $db, $checkToken) {
 
 
     //################## Add Auto Grades - for crawler ##################
-    $app->map('/add/auto', $checkToken, function () use ($app, $db) {
+    $app->map('/add/auto', $checkCrawler, function () use ($app, $db) {
         $userid = $app->request->headers->get("studentid");
         $cname = $app->request->params('cname');
         $cyear = $app->request->params('cyear');

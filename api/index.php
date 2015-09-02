@@ -26,8 +26,8 @@ $db = new pdo('mysql:unix_socket=/cloudsql/course-stats:sqldb;dbname=coursestats
     ''       // password
 );
 
-// Middleware setup - used by routes
-require 'includes/middleware.php';
+// Permits setup - used by routes
+require 'includes/permits.php';
 
 // Routes setup
 require 'routes/student.php';

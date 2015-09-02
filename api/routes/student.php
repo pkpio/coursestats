@@ -42,7 +42,7 @@ $app->group('/student', function () use ($app, $db, $checkToken) {
 
         try{
             // Check credentials
-            $stmt = $db->prepare('SELECT token, verified FROM students WHERE email=? AND password=?');
+            $stmt = $db->prepare('SELECT token, isactive FROM students WHERE email=? AND password=?');
             $stmt->execute(array($email, $password));
             $user = $stmt->fetch();
 
@@ -52,7 +52,7 @@ $app->group('/student', function () use ($app, $db, $checkToken) {
                 $app->stop();
             }
 
-            if(!$user['verified']){
+            if(!$user['isactive']){
                 // Account not verified
                 ApiResponse::error(403, "Account not activated. Contact Admin.");
                 $app->stop();
