@@ -18,7 +18,7 @@ login = tucan + "/scripts/mgrqcgi?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUME
 print "Please enter your TuCan credentials"
 username = raw_input("Username: ")
 password = getpass.getpass("Password: ")
-token = raw_input("Coursestats API token: ")
+token = "d83sU97sM3Y0rOtc3jtdvcVe"
 addgrade = addgrade + "?token=" + token
 
 ## Configure browser
