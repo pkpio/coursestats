@@ -147,7 +147,7 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
                                         WHERE courseid=?
                                     )
                                   )');
-                $stmt->execute(array($courseid, $courseid));
+                $stmt->execute(array($courseid));
                 ApiResponse::success(200, "success", "grades", $stmt->fetchAll(PDO::FETCH_ASSOC));
             }
 
