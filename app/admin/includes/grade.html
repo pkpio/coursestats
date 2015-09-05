@@ -1,0 +1,50 @@
+<div ng-controller="GradeCtrl">
+    <md-content class="md-padding"  layout-align="center center" layout="column">
+        <h2>Select a grade</h2>
+
+        <md-select name="grade" ng-model="select.value" required ng-change="select.changeSelect()"
+                   style="min-width: 40%;">
+            <md-option ng-repeat="grade in grades" value="{{grade.gradeid}}">
+                {{grade.coursename}} ({{grade.courseyear}} {{(grade.coursesem == 1) ? "Summer" : "Winter"}})
+            </md-option>
+        </md-select>
+
+        <div layout="row" ng-show="select.grade">
+            <table class="grade-table">
+                <tr>
+                    <td>1.0</td>
+                    <td>1.3</td>
+                    <td>1.7</td>
+                    <td>2.0</td>
+                    <td>2.3</td>
+                    <td>2.7</td>
+                    <td>3.0</td>
+                    <td>3.3</td>
+                    <td>3.7</td>
+                    <td>4.0</td>
+                    <td>5.0</td>
+                </tr>
+                <tr>
+                    <td>{{ select.grade.grade_10 }}</td>
+                    <td>{{ select.grade.grade_13 }}</td>
+                    <td>{{ select.grade.grade_17 }}</td>
+                    <td>{{ select.grade.grade_20 }}</td>
+                    <td>{{ select.grade.grade_23 }}</td>
+                    <td>{{ select.grade.grade_27 }}</td>
+                    <td>{{ select.grade.grade_30 }}</td>
+                    <td>{{ select.grade.grade_33 }}</td>
+                    <td>{{ select.grade.grade_37 }}</td>
+                    <td>{{ select.grade.grade_40 }}</td>
+                    <td>{{ select.grade.grade_50 }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div layout="row">
+            <md-button ng-click="listAutoGrades()">Reload list</md-button>
+            <md-button ng-click="verify(select.value)" class="md-primary" layout layout-align="center end">Verify</md-button>
+        </div>
+
+        <div layout="row">{{ response }}</div>
+    </md-content>
+</div>

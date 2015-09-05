@@ -1,0 +1,16 @@
+<div ng-controller="StudentCtrl">
+    <md-content class="md-padding"  layout-align="center center" layout="column">
+        <h2>Select a user</h2>
+
+        <md-select name="student" ng-model="selected" required style="min-width: 40%;">
+            <md-option ng-repeat="student in students" value="{{student.studentid}}">{{student.name}}</md-option>
+        </md-select>
+
+        <div layout="row">
+            <md-button ng-click="listStudents()">reload list</md-button>
+            <md-button ng-click="activate(selected)" class="md-primary" layout layout-align="center end">Activate</md-button>
+        </div>
+
+        <div layout="row">{{ response }}</div>
+    </md-content>
+</div>
