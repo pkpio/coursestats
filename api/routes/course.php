@@ -21,12 +21,18 @@ $app->group('/course', function () use ($app, $db, $checkAdder) {
             $stmt = $db->prepare('SELECT courseid, name, year, semester FROM courses WHERE name=?');
             $stmt->execute(array(utf8_encode($name)));
             $dbCourse = $stmt->fetch(PDO::FETCH_ASSOC);
+            $newCourseid = 0;
 
             // Normal insert of completely new course
             if(!$dbCourse){
                 $stmt2 = $db->prepare('INSERT INTO courses (`name`, `teacherid`, `year`, `semester`, `addedby`)
                                    VALUES (?, ?, ?, ?, ?)');
                 $stmt2->execute(array(utf8_encode($name), $teacherid, $year, $sem, $userid));
+                $newCourseid = $db->lastInsertId();
+
+                // Updated linkedid to self
+                $stmt3 = $db->prepare('UPDATE courses SET linkedid=? WHERE courseid=?');
+                $stmt3->execute(array($newCourseid, $newCourseid));
             }
 
             // Similar course already in db
@@ -41,9 +47,10 @@ $app->group('/course', function () use ($app, $db, $checkAdder) {
                 $stmt2 = $db->prepare('INSERT INTO courses (`name`, `teacherid`, `year`, `semester`, `addedby`,
                                       `linkedid`) VALUES (?, ?, ?, ?, ?, ?)');
                 $stmt2->execute(array(utf8_encode($name), $teacherid, $year, $sem, $userid, $dbCourse['courseid']));
+                $newCourseid = $db->lastInsertId();
             }
 
-            ApiResponse::success(200, "success", "courseid", $db->lastInsertId());
+            ApiResponse::success(200, "success", "courseid", $newCourseid);
         } catch (PDOException $ex) {
             ApiResponse::error(500, "Internal server error");
         }
