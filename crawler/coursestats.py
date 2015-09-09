@@ -18,7 +18,7 @@ login = tucan + "/scripts/mgrqcgi?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUME
 print "Please enter your TuCan credentials"
 username = raw_input("Username: ")
 password = getpass.getpass("Password: ")
-token = "d83sU97sM3Y0rOtc3jtdvcVe"
+token = "GvsJ9XzcruyWd1gLvo4QogYz"
 addgrade = addgrade + "?token=" + token
 
 ## Configure browser
@@ -41,7 +41,7 @@ print 'Getting Semster results..'
 br.follow_link(text_regex="Semester Results", nr=0)
 
 ## Go to Examination results
-print 'Feteching Examination results..'
+print 'Fetching Examination results..'
 resp = br.follow_link(text_regex="Examination Results", nr=0)
 gpage = resp.geturl()
 soup = BeautifulSoup(resp.read(), "html5lib")
@@ -88,7 +88,4 @@ for link2 in glinks:
         print "Grades unavailable \n"
 
 print "\n\n\tAll done! Thank you :)\n\n"
-
-
-
-
+getpass.getpass("Press [ENTER] to exit")
