@@ -59,6 +59,7 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
         $cname = $app->request->params('cname');
         $cyear = $app->request->params('cyear');
         $csem = $app->request->params('csem');
+        $tucanid = $app->request->params('tucanid');
 
         // Grade stats
         $grade_1 = $app->request->params('grade10');
@@ -84,18 +85,19 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
                 $app->stop();
             }
 
-            $stmt2 = $db->prepare('INSERT INTO autogrades (`coursename`, `courseyear`, `coursesem`, `addedby`,
+            $stmt2 = $db->prepare('INSERT INTO autogrades (`coursename`, `courseyear`, `coursesem`, `addedby`, `tucanid`
                                     `grade_10`, `grade_13`, `grade_17`,
                                     `grade_20`, `grade_23`, `grade_27`,
                                     `grade_30`, `grade_33`, `grade_37`,
                                     `grade_40`, `grade_50`, `grade_others`)
-                                   VALUES (:coursename, :courseyear, :coursesem, :addedby,
+                                   VALUES (:coursename, :courseyear, :coursesem, :addedby, :tucanid
                                    :grade_10, :grade_13, :grade_17,
                                    :grade_20, :grade_23, :grade_27,
                                    :grade_30, :grade_33, :grade_37,
                                    :grade_40, :grade_50, :grade_others)');
             $stmt2->execute(array(
-                ':coursename' => utf8_encode($cname), ':courseyear' => $cyear, ':coursesem' => $csem, ':addedby' => $userid,
+                ':coursename' => utf8_encode($cname), ':courseyear' => $cyear, ':coursesem' => $csem,
+                ':addedby' => $userid, ':tucanid' => $tucanid,
                 ':grade_10' => $grade_1, ':grade_13' => $grade_13, ':grade_17' => $grade_17,
                 ':grade_20' => $grade_2, ':grade_23' => $grade_23, ':grade_27' => $grade_27,
                 ':grade_30' => $grade_3, ':grade_33' => $grade_33, ':grade_37' => $grade_37,
