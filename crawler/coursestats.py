@@ -40,57 +40,52 @@ br.follow_link(text_regex="Examinations", nr=0)
 print 'Getting Semster results..'
 br.follow_link(text_regex="Semester Results", nr=0)
 
-## Go to Module results
-print 'Towards module results..'
-resp = br.follow_link(text_regex="Module Results", nr=0)
+## Go to Examination results
+print 'Feteching Examination results..'
+resp = br.follow_link(text_regex="Examination Results", nr=0)
 gpage = resp.geturl()
-
-## Get available sems list and save urls to each results page
-sems = []
 soup = BeautifulSoup(resp.read(), "html5lib")
-for sem in soup.find_all('option'):
-    sems.append(gpage + '-N' + sem['value'])
-print '\n\tFound ' + str(len(sems)) + ' semsters\n'
 
-## Go to each stats 
-i = len(sems)
-for sempge in sems:
-    print '\n\tGrades for sem #' + str(i) + "\n"
-    i = i-1
-    br.open(sempge)
+## Get and open all sems option from choices
+allsems = soup.find('option')
+allGrades = gpage + '-N' + allsems['value']
+br.open(allGrades)
+print 'Iterating through course stats\n'
+
+glinks = []
+for link in br.links(text_regex="\xc3\x98"):
+    glinks.append(link)
+
+for link2 in glinks:
+    soup = BeautifulSoup(br.follow_link(link2).read(), "html5lib")
+
+    # Parse course name, year, sem and build url
+    ctxt = soup.find('h2').text
+    cname = ctxt[:ctxt.index(",")].strip()
+    csem = 2
+    if ctxt[ctxt.index(",")+2:ctxt.index("20")-1] == "SoSe":
+        csem = 1 
+    cyear = ctxt[ctxt.index("20"):ctxt.index("20")+4]
+    tgurl = addgrade + "&" + urllib.urlencode({'cname' : cname}) + "&cyear=" + cyear + "&csem=" + str(csem)
+    print cname
+
+    grades = []
+    for data in soup.find_all('td', {'class':'tbdata'}):
+        g = data.text.strip()
+        if g == "---":
+            g = "0"
+        grades.append(g)
     
-    print 'Iterating through course stats\n'
-    glinks = []
-    for link in br.links(text_regex="\xc3\x98"):
-        glinks.append(link)
-
-    for link2 in glinks:
-        soup = BeautifulSoup(br.follow_link(link2).read(), "html5lib")
-
-        # Parse course name, year, sem and build url
-        ctxt = soup.find('h2').text
-        cname = ctxt[:ctxt.index(",")].strip()
-        csem = 2
-        if ctxt[ctxt.index(",")+2:ctxt.index("20")-1] == "SoSe":
-            csem = 1 
-        cyear = ctxt[ctxt.index("20"):ctxt.index("20")+4]
-        tgurl = addgrade + "&" + urllib.urlencode({'cname' : cname}) + "&cyear=" + cyear + "&csem=" + str(csem)
-        print cname
-
-        grades = []
-        for data in soup.find_all('td', {'class':'tbdata'}):
-            g = data.text.strip()
-            if g == "---":
-                g = "0"
-            grades.append(g)
-        
-        # Add each grade to url
+    # Add each grade to url
+    try:
         tgurl = tgurl + "&grade10=" + str(grades[1]) + "&grade13=" + str(str(grades[2])) + "&grade17=" + str(grades[3])
         tgurl = tgurl + "&grade20=" + str(grades[4]) + "&grade23=" + str(str(grades[5])) + "&grade27=" + str(grades[6])
         tgurl = tgurl + "&grade30=" + str(grades[7]) + "&grade33=" + str(str(grades[8])) + "&grade37=" + str(grades[9])
         tgurl = tgurl + "&grade40=" + str(grades[10]) + "&grade50=" + str(str(grades[11])) + "&gradeothers=0"
         resp = br.open(tgurl)
         print resp.read() + "\n"
+    except IndexError:
+        print "Grades unavailable \n"
 
 print "\n\n\tAll done! Thank you :)\n\n"
 
