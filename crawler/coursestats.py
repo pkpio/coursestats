@@ -69,6 +69,11 @@ for link2 in glinks:
     tgurl = addgrade + "&" + urllib.urlencode({'cname' : cname}) + "&cyear=" + cyear + "&csem=" + str(csem)
     print cname
 
+    # Tucan id parsing - Fails in Modules page
+    title = soup.find('td', {'class':'tbdata'}).text # Module data (v2 specific)
+    tucanid = title[title.index("offering")+9:title.index(cname)].strip()
+    tgurl = tgurl + "&" + urllib.urlencode({'tucanid' : tucanid})
+
     grades = []
     for data in soup.find_all('td', {'class':'tbdata'}):
         g = data.text.strip()
@@ -77,11 +82,12 @@ for link2 in glinks:
         grades.append(g)
     
     # Add each grade to url
+    off = 2 # Offset in # tbdata tags before actual data. 2 for exams page, 1 for modules.
     try:
-        tgurl = tgurl + "&grade10=" + str(grades[1]) + "&grade13=" + str(str(grades[2])) + "&grade17=" + str(grades[3])
-        tgurl = tgurl + "&grade20=" + str(grades[4]) + "&grade23=" + str(str(grades[5])) + "&grade27=" + str(grades[6])
-        tgurl = tgurl + "&grade30=" + str(grades[7]) + "&grade33=" + str(str(grades[8])) + "&grade37=" + str(grades[9])
-        tgurl = tgurl + "&grade40=" + str(grades[10]) + "&grade50=" + str(str(grades[11])) + "&gradeothers=0"
+        tgurl = tgurl + "&grade10=" + str(grades[off]) + "&grade13=" + str(str(grades[off+1])) + "&grade17=" + str(grades[off+2])
+        tgurl = tgurl + "&grade20=" + str(grades[off+3]) + "&grade23=" + str(str(grades[off+4])) + "&grade27=" + str(grades[off+5])
+        tgurl = tgurl + "&grade30=" + str(grades[off+6]) + "&grade33=" + str(str(grades[off+7])) + "&grade37=" + str(grades[off+8])
+        tgurl = tgurl + "&grade40=" + str(grades[off+9]) + "&grade50=" + str(str(grades[off+10])) + "&gradeothers=0"
         resp = br.open(tgurl)
         print resp.read() + "\n"
     except IndexError:
