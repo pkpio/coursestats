@@ -85,12 +85,12 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
                 $app->stop();
             }
 
-            $stmt2 = $db->prepare('INSERT INTO autogrades (`coursename`, `courseyear`, `coursesem`, `addedby`, `tucanid`
+            $stmt2 = $db->prepare('INSERT INTO autogrades (`coursename`, `courseyear`, `coursesem`, `addedby`, `tucanid`,
                                     `grade_10`, `grade_13`, `grade_17`,
                                     `grade_20`, `grade_23`, `grade_27`,
                                     `grade_30`, `grade_33`, `grade_37`,
                                     `grade_40`, `grade_50`, `grade_others`)
-                                   VALUES (:coursename, :courseyear, :coursesem, :addedby, :tucanid
+                                   VALUES (:coursename, :courseyear, :coursesem, :addedby, :tucanid,
                                    :grade_10, :grade_13, :grade_17,
                                    :grade_20, :grade_23, :grade_27,
                                    :grade_30, :grade_33, :grade_37,
