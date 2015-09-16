@@ -109,17 +109,6 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
         }
     })->via('GET', 'POST');
 
-    //################## List Grades   ##################
-    $app->map('/list', function() use ($app, $db) {
-        try{
-            $stmt = $db->prepare('SELECT * FROM grades LIMIT 10');
-            $stmt->execute();
-            ApiResponse::success(200, "success", "grades", $stmt->fetchAll(PDO::FETCH_ASSOC));
-        } catch(PDOException $ex){
-            ApiResponse::error(500, "Internal server error");
-        }
-    })->via('GET', 'POST');
-
     //################## Search Grades   ##################
     $app->map('/search', function() use ($app, $db) {
         $courseid = $app->request->params('courseid');
