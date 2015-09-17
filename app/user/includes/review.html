@@ -1,0 +1,60 @@
+<div layout="row" layout-align="center center" layout-margin>
+    <md-card>
+        <md-toolbar>
+            <div class="md-toolbar-tools" layout-align="center center">
+                <h2>Add review</h2>
+            </div>
+        </md-toolbar>
+
+        <md-progress-linear md-mode="indeterminate" data-ng-show="adding"></md-progress-linear>
+
+
+        <md-content layout="column" class="input-icons" layout-margin layout-padding>
+            <p flex class="errorMsg" data-ng-show="!adding && addError">{{addError}}</p>
+
+            <div layout="row" layout-margin layout-align="center center">
+                <span class="rating-param">Course level </span>
+                <span class="rating-star">
+                    <i class="fa fa-star star-2"></i>
+                    <i class="fa fa-star star-2"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                </span>
+                <span class="rating-helper"> hard</span>
+            </div>
+
+            <div layout="row" layout-margin layout-align="center center">
+                <span class="rating-param">Exam paper </span>
+                <span class="rating-star">
+                    <i class="fa fa-star star-3"></i>
+                    <i class="fa fa-star star-3"></i>
+                    <i class="fa fa-star star-3"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                </span>
+                <span class="rating-helper"> hard</span>
+            </div>
+
+            <div layout="row" layout-margin layout-align="center center">
+                <span class="rating-param">Exam review </span>
+                <span class="rating-star">
+                    <i class="fa fa-star star-5"></i>
+                    <i class="fa fa-star star-5"></i>
+                    <i class="fa fa-star star-5"></i>
+                    <i class="fa fa-star star-5"></i>
+                    <i class="fa fa-star star-5"></i>
+                </span>
+                <span class="rating-helper"> hard</span>
+            </div>
+
+            <md-input-container>
+                <label>Few words to help others</label>
+                <textarea ng-model="user.biography" columns="1" md-maxlength="500"></textarea>
+            </md-input-container>
+
+            <md-button class="md-raised md-primary" ng-click="submit()">Submit</md-button>
+
+        </md-content>
+    </md-card>
+</div>

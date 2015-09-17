@@ -1,7 +1,7 @@
 <div layout="row" layout-align="center center" layout-margin>
     <md-card>
         <md-toolbar>
-            <div class="md-toolbar-tools">
+            <div class="md-toolbar-tools" layout-align="center center">
                 <h2>Register account</h2>
             </div>
         </md-toolbar>
@@ -9,7 +9,7 @@
         <md-progress-linear md-mode="indeterminate" data-ng-show="registering"></md-progress-linear>
 
 
-        <md-content layout="column" class="loginInputIcons" layout-margin layout-padding>
+        <md-content layout="column" class="input-icons" layout-margin layout-padding>
             <p flex class="errorMsg" data-ng-show="!registering && registerError">{{registerError}}</p>
             <p flex class="successMsg" data-ng-show="!registering && registerMsg">{{registerMsg}}</p>
 

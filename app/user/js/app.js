@@ -24,6 +24,10 @@ angular.module('UserApp').config(function($routeProvider) {$routeProvider
         templateUrl : 'includes/grade.html',
         controller  : 'GradeCtrl'
     })
+    .when('/review/:id',{
+        templateUrl : 'includes/review.html',
+        controller  : 'ReviewCtrl'
+    })
     .when('/login',{
         templateUrl : 'includes/login.html',
         controller  : 'LoginCtrl'
