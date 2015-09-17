@@ -117,7 +117,11 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
         try{
             // Courseid search
             if($courseid){
-                $stmt = $db->prepare('SELECT grades.*,
+                $stmt = $db->prepare('UPDATE courses SET searchcount=searchcount+1
+                                      WHERE courseid=?');
+                $stmt->execute(array($courseid));
+
+                $stmt2 = $db->prepare('SELECT grades.*,
                                   courses.name AS coursename,
                                   teachers.name AS teachername,
                                   courses.year AS courseyear,
@@ -138,19 +142,23 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
                                         WHERE courseid=?
                                     )
                                   )');
-                $stmt->execute(array($courseid));
-                ApiResponse::success(200, "success", "grades", $stmt->fetchAll(PDO::FETCH_ASSOC));
+                $stmt2->execute(array($courseid));
+                ApiResponse::success(200, "success", "grades", $stmt2->fetchAll(PDO::FETCH_ASSOC));
             }
 
             // Teacherid search
             else{
-                $stmt = $db->prepare('SELECT grades.*, courses.name AS coursename, teachers.name AS teachername,
+                $stmt = $db->prepare('UPDATE teachers SET searchcount=searchcount+1
+                                      WHERE teacherid=?');
+                $stmt->execute(array($courseid));
+
+                $stmt2 = $db->prepare('SELECT grades.*, courses.name AS coursename, teachers.name AS teachername,
                                   courses.year AS courseyear, courses.semester AS coursesem FROM grades
                                   INNER JOIN courses ON grades.courseid = courses.courseid
                                   INNER JOIN teachers ON grades.teacherid = teachers.teacherid
                                   WHERE grades.teacherid =?');
-                $stmt->execute(array($teacherid));
-                ApiResponse::success(200, "success", "grades", $stmt->fetchAll(PDO::FETCH_ASSOC));
+                $stmt2->execute(array($teacherid));
+                ApiResponse::success(200, "success", "grades", $stmt2->fetchAll(PDO::FETCH_ASSOC));
             }
         } catch(PDOException $ex){
             ApiResponse::error(500, "Internal server error");
