@@ -150,7 +150,7 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
             else{
                 $stmt = $db->prepare('UPDATE teachers SET searchcount=searchcount+1
                                       WHERE teacherid=?');
-                $stmt->execute(array($courseid));
+                $stmt->execute(array($teacherid));
 
                 $stmt2 = $db->prepare('SELECT grades.*, courses.name AS coursename, teachers.name AS teachername,
                                   courses.year AS courseyear, courses.semester AS coursesem FROM grades
