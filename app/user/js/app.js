@@ -1,7 +1,7 @@
 /**
  * Created by praveen on 25.08.15.
  */
-angular.module('UserApp', ['ngMaterial', 'ngRoute', 'chart.js', 'md.data.table',
+angular.module('UserApp', ['ngMaterial', 'ngRoute', 'ngCookies', 'ngMd5', 'chart.js', 'md.data.table',
     'angulartics', 'angulartics.google.analytics'])
     .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
@@ -23,6 +23,14 @@ angular.module('UserApp').config(function($routeProvider) {$routeProvider
     .when('/teacher/:id',{
         templateUrl : 'includes/grade.html',
         controller  : 'GradeCtrl'
+    })
+    .when('/login',{
+        templateUrl : 'includes/login.html',
+        controller  : 'LoginCtrl'
+    })
+    .when('/register',{
+        templateUrl : 'includes/register.html',
+        controller  : 'RegisterCtrl'
     })
     .when('/',{
         templateUrl : 'includes/default.html'

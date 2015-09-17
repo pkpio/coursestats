@@ -51,3 +51,11 @@
     text-decoration: none;
     padding-left: 5px;
 }
+.errorMsg{
+    color:red;
+    text-align: center;
+}
+.successMsg{
+    color:green;
+    text-align: center;
+}
