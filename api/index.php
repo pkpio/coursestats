@@ -35,7 +35,7 @@ require 'routes/teacher.php';
 require 'routes/course.php';
 require 'routes/grade.php';
 require 'routes/admin.php';
-
+require 'routes/review.php';
 
 // Common App level middle ware for Cross Site Scripting
 class AccessControlOrigin extends \Slim\Middleware
