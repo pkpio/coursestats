@@ -70,19 +70,24 @@
     width: 100px;
 }
 .rating-star{
-    font-size: 1.5em;
+    font-size: 1.5em !important;
     color: grey;
 }
 .rating-helper{
-    margin-left: 20px;
+    margin-left: 10px;
     color: grey;
-    font-size: 0.9em;
+    font-size: 0.75em;
+    width: 70px;
+}
+.star{
+    margin-right: 5px;
+    outline: rgb(245, 245, 245) solid 0px;
 }
 .star-1{
     color: #FF0000;
 }
 .star-2{
-    color: #FE5621;
+    color: #FA6600;
 }
 .star-3{
     color: #FEC006;
