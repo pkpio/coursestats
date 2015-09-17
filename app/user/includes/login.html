@@ -1,15 +1,15 @@
 <div layout="row" layout-align="center center" layout-margin>
     <md-card>
         <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>Login</h2>
+            <div class="md-toolbar-tools" layout-align="center center">
+                <h2>Login required</h2>
             </div>
         </md-toolbar>
 
         <md-progress-linear md-mode="indeterminate" data-ng-show="loggingin"></md-progress-linear>
 
 
-        <md-content layout="column" class="loginInputIcons" layout-margin layout-padding>
+        <md-content layout="column" class="input-icons" layout-margin layout-padding>
             <p flex class="errorMsg" data-ng-show="!loggingin && loginError">{{loginError}}</p>
 
             <md-input-container >
