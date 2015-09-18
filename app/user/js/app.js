@@ -10,7 +10,7 @@ angular.module('UserApp', ['ngMaterial', 'ngRoute', 'ngCookies', 'ngMd5', 'chart
 });
 
 angular.module('UserApp').constant('config', {
-    apiUrl: 'http://api.coursestats.de',
+    apiUrl: 'https://api.coursestats.de',
     minCharsInSearch: 2
 });
 
