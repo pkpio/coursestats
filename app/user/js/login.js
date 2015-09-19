@@ -46,7 +46,7 @@ angular.module('UserApp').controller('LoginCtrl', function ($scope, config, $htt
         getEmail : function(){
             return $cookies.email;
         },
-        user : {g
+        user : {
             getProfile : function(){
                 return 'http://www.gravatar.com/' + md5.createHash($cookies.email);
             },
