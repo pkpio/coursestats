@@ -19,9 +19,18 @@ $app->group('/review', function () use ($app, $db, $checkToken) {
         $review = $app->request->get('review');
 
         try {
-            $stmt = $db->prepare('INSERT INTO reviews (`studentid`, `courseid`, `content_level`, `exam_level`,
-                                  `exam_eval_level`, `review`) VALUES (?, ?, ?, ?, ?, ?)');
-            $stmt->execute(array($userid, $courseid, $contentLevel, $examLevel, $examEvalLevel, utf8_encode($review)));
+            $stmt = $db->prepare('INSERT INTO reviews
+                                  (`studentid`, `courseid`, `content_level`, `exam_level`, `exam_eval_level`, `review`)
+                                  VALUES
+                                  (:studentid, :courseid, :content_level, :exam_level, :eval_level, :review)
+
+                                  ON DUPLICATE KEY UPDATE
+                                  (`content_level`, `exam_level`, `exam_eval_level`, `review`)
+                                  VALUES
+                                  (:content_level, :exam_level, :eval_level, :review)');
+            $stmt->execute(array(
+                ':studentid' => $userid, ':courseid' => $courseid, ':content_level' => $contentLevel,
+                ':exam_level' => $examLevel, ':eval_level' => $examEvalLevel, ':review' => utf8_encode($review) ));
 
             ApiResponse::success(200, "success", "reviewid", $db->lastInsertId());
         } catch (PDOException $ex) {
