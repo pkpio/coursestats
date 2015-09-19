@@ -2,8 +2,6 @@
  * Created by praveen on 17.09.15.
  */
 angular.module('UserApp').controller('LoginCtrl', function ($scope, config, $http, $cookies, $location, md5) {
-    if($cookies.token)
-        $location.path(($cookies.lastUrl)?$cookies.lastUrl:'');
 
     // Login page function
     $scope.loginPage = {

@@ -33,6 +33,12 @@
                 <md-icon md-svg-src="img/account.svg" class="grade-card-icon"></md-icon>
                 <p>{{grade.original.teachername}}</p>
             </div>
+            <md-button ng-href="#/review/{{grade.original.courseid}}">
+                <div layout-align="center center" layout="row">
+                    <md-icon md-svg-src="img/pencil.svg" class="grade-card-icon"></md-icon>
+                    <p>Rate this course</p>
+                </div>
+            </md-button>
         </div>
     </md-toolbar>
 
@@ -91,5 +97,14 @@
                     labels="graph.labels" legend="false">
             </canvas>
         </div>
+
+        <!-- Rate button -->
+        <md-button ng-href="#/review/{{grade.original.courseid}}">
+            <div layout-align="center center" layout="row">
+                <md-icon md-svg-src="img/pencil.svg" class="grade-card-icon"></md-icon>
+                <p>Rate this course</p>
+            </div>
+        </md-button>
+        
     </md-card-content>
 </md-card>
