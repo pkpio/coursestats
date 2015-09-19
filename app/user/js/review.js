@@ -102,13 +102,16 @@ angular.module('UserApp').controller('ReviewCtrl', function ($scope, config, $co
             function(response){ // Success callback
                 $data = response.data;
                 if($data.responsecode == 200){
-                    $scope.addSuccess = "Review added!"
+                    $scope.addSuccess = "Review added!";
+                    $scope.addError = "";
                 } else{
+                    $scope.addSuccess = "";
                     $scope.addError = $data.message;
                 }
                 $scope.adding = 0;
             },
             function(response){ //Error callback
+                $scope.addSuccess = "";
                 $scope.addError = response.toString();
                 $scope.adding = 0;
             }
