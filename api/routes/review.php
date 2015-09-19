@@ -28,11 +28,15 @@ $app->group('/review', function () use ($app, $db, $checkToken) {
                                   (`content_level`, `exam_level`, `exam_eval_level`, `review`)
                                   VALUES
                                   (:content_level, :exam_level, :eval_level, :review)');
-            $stmt->execute(array(
+            $pass = $stmt->execute(array(
                 ':studentid' => $userid, ':courseid' => $courseid, ':content_level' => $contentLevel,
                 ':exam_level' => $examLevel, ':eval_level' => $examEvalLevel, ':review' => utf8_encode($review) ));
 
-            ApiResponse::success(200, "success", "reviewid", $db->lastInsertId());
+            if($pass)
+                ApiResponse::success(200, "success", "reviewid", $db->lastInsertId());
+            else
+                ApiResponse::fail(409, $stmt->errorInfo());
+
         } catch (PDOException $ex) {
             ApiResponse::error(500, "Internal server error");
         }
