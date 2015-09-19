@@ -25,9 +25,8 @@ $app->group('/review', function () use ($app, $db, $checkToken) {
                                   (:studentid, :courseid, :content_level, :exam_level, :eval_level, :review)
 
                                   ON DUPLICATE KEY UPDATE
-                                  (`content_level`, `exam_level`, `exam_eval_level`, `review`)
-                                  VALUES
-                                  (:content_level, :exam_level, :eval_level, :review)');
+                                  `content_level`=:content_level, `exam_level`=:exam_level,
+                                  `exam_eval_level`=:eval_level, `review`=:review');
             $pass = $stmt->execute(array(
                 ':studentid' => $userid, ':courseid' => $courseid, ':content_level' => $contentLevel,
                 ':exam_level' => $examLevel, ':eval_level' => $examEvalLevel, ':review' => utf8_encode($review) ));
