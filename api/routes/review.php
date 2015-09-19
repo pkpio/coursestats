@@ -35,7 +35,7 @@ $app->group('/review', function () use ($app, $db, $checkToken) {
             if($pass)
                 ApiResponse::success(200, "success", "reviewid", $db->lastInsertId());
             else
-                ApiResponse::fail(409, $stmt->errorInfo());
+                ApiResponse::error(409, $stmt->errorInfo());
 
         } catch (PDOException $ex) {
             ApiResponse::error(500, "Internal server error");
