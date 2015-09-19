@@ -2,6 +2,9 @@
  * Created by praveen on 17.09.15.
  */
 angular.module('UserApp').controller('LoginCtrl', function ($scope, config, $http, $cookies, $location, md5) {
+    if($cookies.token)
+        $location.path(($cookies.lastUrl)?$cookies.lastUrl:'');
+
     // Login page function
     $scope.loginPage = {
         loggingin : 0,
@@ -26,10 +29,10 @@ angular.module('UserApp').controller('LoginCtrl', function ($scope, config, $htt
                 function(response){ // Success callback
                     $data = response.data;
                     if($data.responsecode == 200){
-                        // Save token as a cookie and redirect to root page -TODO- go to normal page
+                        // Save token as a cookie and redirect to lastUrl
                         $cookies.token = $data.token;
                         $cookies.email = $scope.loginPage.email;
-                        $location.path('/');
+                        $location.path(($cookies.lastUrl) ? $cookies.lastUrl : '');
                     } else{
                         $scope.loginPage.loginError = $data.message;
                     }

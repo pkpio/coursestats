@@ -18,11 +18,12 @@
     <div class="md-toolbar-tools" layout="column" layout-align="center center" ng-controller="SearchCtrl" layout-wrap>
 
         <!-- Coursestats logo -->
-        <div flex layout-align="start center" layout="row"
-             flex-order-md="1" >
-            <md-icon md-svg-src="img/logo.svg" flex="15" flex-md="100" hide-sm></md-icon>
-            <div layout-align="start center" flex="90" hide-sm><p>Course stats</p></div>
-        </div>
+        <md-button flex flex-order-md="1" hide-sm>
+            <div layout="row" flex layout-fill layout-align="start center">
+                <md-icon md-svg-src="img/logo.svg" flex="15" class="title-logo"></md-icon>
+                <div layout-align="start center" hide-sm><p>Course stats</p></div>
+            </div>
+        </md-button>
 
         <!-- Main searchbar -->
         <md-autocomplete flex="60" flex-sm="100" flex-order-sm="2" flex-order-md="3"
@@ -61,11 +62,12 @@
             <!-- User image -->
             <md-button class="md-icon-button" ng-href="{{toolbar.user.getProfile()}}"
                        target="_blank">
-                <img src="{{ toolbar.user.getImage() }}" class="user-image" layout-align="center center"/>
+                <img ng-src="{{ toolbar.user.getImage() }}" class="user-image"
+                     layout-align="center center" description="Guest"/>
             </md-button>
 
             <!-- login / logout buttons -->
-            <md-button class="md-icon-button" flex="40" flex-md="50" flex-sm="30" ng-click="toolbar.loginToggle()">
+            <md-button class="md-icon-button loginToggle-btn" ng-click="toolbar.loginToggle()">
                 <span>{{toolbar.getLoginBtnText()}}</span>
             </md-button>
 

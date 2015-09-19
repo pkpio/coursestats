@@ -4,6 +4,11 @@
  */
 
 angular.module('UserApp').controller('ReviewCtrl', function ($scope, config, $cookies, $http, $location) {
+    if(!$cookies.token){
+        $cookies.lastUrl = $location.path();
+        $location.path('/login');
+    }
+
     $scope.params = {
         stars : [0, 1, 2, 3, 4],
         getClass: function(index, selected){
@@ -72,7 +77,7 @@ angular.module('UserApp').controller('ReviewCtrl', function ($scope, config, $co
 
     $scope.submit = function() {
 
-        if($scope.reviewText.length > 500) {
+        if($scope.reviewText && $scope.reviewText.length > 500) {
             $scope.addError = "Review text too long!";
             return;
         }
