@@ -52,11 +52,12 @@ $app->group('/student', function () use ($app, $db, $checkToken) {
                 $app->stop();
             }
 
-            if(!$user['isactive']){
+            // -TODO- Supporting inactive logins currently
+            /*if(!$user['isactive']){
                 // Account not verified
                 ApiResponse::error(403, "Account not activated. Contact Admin.");
                 $app->stop();
-            }
+            }*/
 
             // Correct credentials. Send a token
             ApiResponse::success(200, "success", "token", $user['token']);

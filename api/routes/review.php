@@ -7,10 +7,10 @@
  * These are the list of actions / api calls for review actions
  */
 
-$app->group('/review', function () use ($app, $db, $checkAdder) {
+$app->group('/review', function () use ($app, $db, $checkToken) {
 
     //################## Add review  ##################
-    $app->map('/add', $checkAdder, function () use ($app, $db) {
+    $app->map('/add', $checkToken, function () use ($app, $db) {
         $userid = $app->request->headers->get("studentid");
         $courseid = $app->request->get('courseid');
         $contentLevel = $app->request->get('contentlevel');
