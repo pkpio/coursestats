@@ -50,13 +50,7 @@ angular.module('UserApp').controller('RegisterCtrl', function ($scope, config, $
                 $data = response.data;
                 if($data.responsecode == 200){
                     $scope.registerError = null;
-                    $scope.registerMsg = "Registered! Wait for admin's approval.";
-
-                    // Empty fields
-                    $scope.register.email = null;
-                    $scope.register.fullname = null;
-                    $scope.register.password = null;
-                    $scope.register.repassword = null;
+                    $scope.registerMsg = "Register successful. You may login now !";
                 } else{
                     $scope.registerError = $data.message;
                 }

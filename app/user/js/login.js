@@ -44,14 +44,14 @@ angular.module('UserApp').controller('LoginCtrl', function ($scope, config, $htt
 
     $scope.toolbar = {
         getEmail : function(){
-            return $cookies.email;
+            return ($cookies.email) ? $cookies.email : '';
         },
         user : {
             getProfile : function(){
-                return 'http://www.gravatar.com/' + md5.createHash($cookies.email);
+                return 'http://www.gravatar.com/' + md5.createHash($scope.toolbar.getEmail());
             },
             getImage : function(){
-                return 'http://www.gravatar.com/avatar/' + md5.createHash($cookies.email);
+                return 'http://www.gravatar.com/avatar/' + md5.createHash($scope.toolbar.getEmail()) + '?d=mm';
             }
 
         },
