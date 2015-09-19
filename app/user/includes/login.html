@@ -6,25 +6,27 @@
             </div>
         </md-toolbar>
 
-        <md-progress-linear md-mode="indeterminate" data-ng-show="loggingin"></md-progress-linear>
+        <md-progress-linear md-mode="indeterminate" data-ng-show="loginPage.loggingin"></md-progress-linear>
 
 
         <md-content layout="column" class="input-icons" layout-margin layout-padding>
-            <p flex class="errorMsg" data-ng-show="!loggingin && loginError">{{loginError}}</p>
+            <p flex class="errorMsg" data-ng-show="!loginPage.loggingin && loginPage.loginError">
+                {{loginPage.loginError}}
+            </p>
 
             <md-input-container >
                 <md-icon md-svg-src="img/email.svg" class="email"></md-icon>
-                <input ng-model="email" type="email" placeholder="Email"
-                       ng-required="true" ng-disabled="loggingin">
+                <input ng-model="loginPage.email" type="email" placeholder="Email"
+                       ng-required="true" ng-disabled="loginPage.loggingin">
             </md-input-container>
 
             <md-input-container >
                 <md-icon md-svg-src="img/lock.svg" class="password"></md-icon>
-                <input ng-model="password" type="password" placeholder="Password"
-                       ng-required="true" ng-disabled="loggingin">
+                <input ng-model="loginPage.password" type="password" placeholder="Password"
+                       ng-required="true" ng-disabled="loginPage.loggingin">
             </md-input-container>
 
-            <md-button class="md-raised md-primary" ng-click="login()">Login</md-button>
+            <md-button class="md-raised md-primary" ng-click="loginPage.login()">Login</md-button>
 
             <md-button class="md-primary" href="#/register">Register</md-button>
 

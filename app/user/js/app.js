@@ -45,5 +45,6 @@ angular.module('UserApp').config(function($routeProvider) {$routeProvider
 });
 
 angular.module('UserApp').controller('AppCtrl', function($scope) {
+
 });
 

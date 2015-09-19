@@ -98,3 +98,11 @@
 .star-5{
     color: #4BAE4F;
 }
+.email{
+    font-size: 13px;
+}
+.user-image{
+    width: 45px;
+    height: 45px;
+    border-radius: 50px;
+}
