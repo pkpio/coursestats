@@ -87,7 +87,7 @@
     <md-card-content layout-margin layout="row" layout-align="space-around" layout-wrap>
 
         <!-- Grades Table -->
-        <div flex="25" flex-sm="100">
+        <div flex="25" flex-sm="100" flex-order-sm="2" >
             <md-data-table-toolbar>
                 <h2 class="md-title">Grading chart</h2>
             </md-data-table-toolbar>
@@ -112,8 +112,8 @@
             </md-data-table-container>
         </div>
 
-        <!-- Grades graph -->
-        <div flex="65" flex-sm="100">
+        <!-- Grades stats & graph -->
+        <div flex="65" flex-sm="100" flex-order-sm="1">
             <md-data-table-toolbar>
                 <h2 class="md-title">Grading stats</h2>
             </md-data-table-toolbar>
@@ -141,7 +141,7 @@
         </div>
 
         <!-- Rate button -->
-        <md-button ng-href="#/review/{{grade.original.courseid}}">
+        <md-button ng-href="#/review/{{grade.original.courseid}}" flex-order-sm="3">
             <div layout-align="center center" layout="row">
                 <md-icon md-svg-src="img/pencil.svg" class="grade-card-icon"></md-icon>
                 <p>Rate this course</p>
