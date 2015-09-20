@@ -10,9 +10,24 @@ import mechanize
 from bs4 import BeautifulSoup
 
 ## URLs
-addgrade = "http://api.coursestats.de/grade/add/auto"
+addgrade = "https://api.coursestats.de/grade/add/auto"
 tucan = "https://www.tucan.tu-darmstadt.de"
 login = tucan + "/scripts/mgrqcgi?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000344,-Awelcome"
+
+## Initial note
+print "\n\n"
+print "\t\t Hello Contributor! \n\n"
+print "The source code is available at https://github.com/praveendath92/coursestats"
+print "Developer : Praveen Kumar Pendyala \n\n\n"
+
+## How does it work?
+print "How does it work?"
+print "1. If you agree to support, this software can login to your TUCaN account."
+print "2. This software looks in the examinations page to see the list of courses in your account."
+print "3. This software opens the grading statistics for each course in the list"
+print "4. This software sends ONLY the grading statistics (not your grade in a course) to coursestats backend"
+print "5. Coursestats administrators manually verify this data and make them public for all students to search\n\n"
+print "Now let's get you started!\n\n\n"
 
 ## Credentails
 print "Please enter your TuCan credentials"
