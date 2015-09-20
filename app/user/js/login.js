@@ -67,6 +67,7 @@ angular.module('UserApp').controller('LoginCtrl', function ($scope, config, $htt
                 $cookies.token = '';
                 $cookies.email = '';
             } else{
+                $cookies.lastUrl = $location.path();
                 $location.path('/login');
             }
         }
