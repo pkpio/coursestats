@@ -12,4 +12,7 @@ Frequently Asked Questions
   <br/>
   
 * ### Is coursestats usage secure?
-  No! Coursestats uses only ```http``` requests at the moment.
+  Yes! All requests to coursestats API are made using ```https```. We use ```tokens``` based authentication and request ```password``` only at login.
+
+* ### Why are my reviews not shown?
+  At the moment we are just accumulating as many reviews as we could and planning to show reviews in a update to the site, expected to release soon.
