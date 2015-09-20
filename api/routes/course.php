@@ -45,9 +45,9 @@ $app->group('/course', function () use ($app, $db, $checkAdder) {
                 }
 
                 // Insert a course with linkedid to existing course
-                $stmt2 = $db->prepare('INSERT INTO courses (`name`, `teacherid`, `year`, `semester`, `addedby`,
-                                      `linkedid`) VALUES (?, ?, ?, ?, ?, ?)');
-                $stmt2->execute(array(utf8_encode($name), $teacherid, $year, $sem, $userid, $dbCourse['courseid']));
+                $stmt2 = $db->prepare('INSERT INTO courses (`name`, `teacherid`, `year`, `semester`, `tucanid`, `addedby`,
+                                      `linkedid`) VALUES (?, ?, ?, ?, ?, ?, ?)');
+                $stmt2->execute(array(utf8_encode($name), $teacherid, $year, $sem, $tucanid, $userid, $dbCourse['courseid']));
                 $newCourseid = $db->lastInsertId();
             }
 
