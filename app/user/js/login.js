@@ -49,10 +49,10 @@ angular.module('UserApp').controller('LoginCtrl', function ($scope, config, $htt
         },
         user : {
             getProfile : function(){
-                return 'http://www.gravatar.com/' + md5.createHash($scope.toolbar.getEmail());
+                return 'https://secure.gravatar.com/' + md5.createHash($scope.toolbar.getEmail());
             },
             getImage : function(){
-                return 'http://www.gravatar.com/avatar/' + md5.createHash($scope.toolbar.getEmail()) + '?d=mm';
+                return 'https://secure.gravatar.com/avatar/' + md5.createHash($scope.toolbar.getEmail()) + '?d=mm';
             }
 
         },
