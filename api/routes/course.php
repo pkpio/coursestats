@@ -15,6 +15,7 @@ $app->group('/course', function () use ($app, $db, $checkAdder) {
         $name = $app->request->get('name');
         $year = $app->request->get('year');
         $sem = $app->request->get('sem');
+        $tucanid = $app->request->get('tucanid');
         $teacherid = $app->request->get('teacherid');
 
         try {
@@ -25,9 +26,9 @@ $app->group('/course', function () use ($app, $db, $checkAdder) {
 
             // Normal insert of completely new course
             if(!$dbCourse){
-                $stmt2 = $db->prepare('INSERT INTO courses (`name`, `teacherid`, `year`, `semester`, `addedby`)
-                                   VALUES (?, ?, ?, ?, ?)');
-                $stmt2->execute(array(utf8_encode($name), $teacherid, $year, $sem, $userid));
+                $stmt2 = $db->prepare('INSERT INTO courses (`name`, `teacherid`, `year`, `semester`, `tucanid`, `addedby`)
+                                   VALUES (?, ?, ?, ?, ?, ?)');
+                $stmt2->execute(array(utf8_encode($name), $teacherid, $year, $sem, $tucanid, $userid));
                 $newCourseid = $db->lastInsertId();
 
                 // Updated linkedid to self
