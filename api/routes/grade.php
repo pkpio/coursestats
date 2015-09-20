@@ -40,13 +40,17 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
                                    :grade_20, :grade_23, :grade_27,
                                    :grade_30, :grade_33, :grade_37,
                                    :grade_40, :grade_50, :grade_others)');
-            $stmt->execute(array(':courseid' => $courseid, ':teacherid' => $teacherid, ':addedby' => $userid,
+            $result = $stmt->execute(array(':courseid' => $courseid, ':teacherid' => $teacherid, ':addedby' => $userid,
                         ':grade_10' => $grade_1, ':grade_13' => $grade_13, ':grade_17' => $grade_17,
                         ':grade_20' => $grade_2, ':grade_23' => $grade_23, ':grade_27' => $grade_27,
                         ':grade_30' => $grade_3, ':grade_33' => $grade_33, ':grade_37' => $grade_37,
                         ':grade_40' => $grade_4, ':grade_50' => $grade_5, ':grade_others' => $grade_others));
 
-            ApiResponse::success(200, "success", "gradeid", $db->lastInsertId());
+            if($result)
+                ApiResponse::success(200, "success", "gradeid", $db->lastInsertId());
+            else
+                ApiResponse::error(500, $stmt->errorInfo());
+
         } catch (PDOException $ex) {
             ApiResponse::error(500, "Internal server error");
         }
