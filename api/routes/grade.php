@@ -125,14 +125,19 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
                                       WHERE courseid=?');
                 $stmt->execute(array($courseid));
 
-                $stmt2 = $db->prepare('SELECT grades.*,
-                                  courses.name AS coursename,
-                                  teachers.name AS teachername,
-                                  courses.year AS courseyear,
-                                  courses.semester AS coursesem
+                $stmt2 = $db->prepare('
+                                  SELECT grades.*,
+                                      courses.name AS coursename,
+                                      courses.year AS courseyear,
+                                      courses.semester AS coursesem,
+                                      teachers.name AS teachername,
+                                      AVG(reviews.content_level) AS contentlevel,
+                                      AVG(reviews.exam_level) AS examlevel,
+                                      AVG(reviews.exam_eval_level) AS examevallevel
                                   FROM grades
                                   INNER JOIN courses ON grades.courseid = courses.courseid
                                   INNER JOIN teachers ON grades.teacherid = teachers.teacherid
+                                  LEFT JOIN reviews ON grades.courseid = reviews.courseid
                                   WHERE grades.courseid
                                   IN (
 
@@ -145,7 +150,9 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
                                         FROM courses
                                         WHERE courseid=?
                                     )
-                                  )');
+                                  )
+                                  GROUP BY grades.courseid
+                                  ');
                 $stmt2->execute(array($courseid));
                 ApiResponse::success(200, "success", "grades", $stmt2->fetchAll(PDO::FETCH_ASSOC));
             }
@@ -156,11 +163,22 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
                                       WHERE teacherid=?');
                 $stmt->execute(array($teacherid));
 
-                $stmt2 = $db->prepare('SELECT grades.*, courses.name AS coursename, teachers.name AS teachername,
-                                  courses.year AS courseyear, courses.semester AS coursesem FROM grades
+                $stmt2 = $db->prepare('
+                                  SELECT grades.*,
+                                      courses.name AS coursename,
+                                      teachers.name AS teachername,
+                                      courses.year AS courseyear,
+                                      courses.semester AS coursesem,
+                                      AVG(reviews.content_level) AS contentlevel,
+                                      AVG(reviews.exam_level) AS examlevel,
+                                      AVG(reviews.exam_eval_level) AS examevallevel
+                                  FROM grades
                                   INNER JOIN courses ON grades.courseid = courses.courseid
                                   INNER JOIN teachers ON grades.teacherid = teachers.teacherid
-                                  WHERE grades.teacherid =?');
+                                  LEFT JOIN reviews ON grades.courseid = reviews.courseid
+                                  WHERE grades.teacherid=?
+                                  GROUP BY grades.courseid
+                                  ');
                 $stmt2->execute(array($teacherid));
                 ApiResponse::success(200, "success", "grades", $stmt2->fetchAll(PDO::FETCH_ASSOC));
             }
