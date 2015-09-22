@@ -1,8 +1,8 @@
-<div flex="80" flex-md="90" flex-sm="100">
-    <b>{{ grades.length }} grade{{(grades.length > 1)?'s':''}} found</b>
+<div flex="80" flex-md="90" flex-sm="100" layout="column">
+    <b style="margin-top: 20px;">{{ grades.length }} grade{{(grades.length > 1)?'s':''}} found</b>
 
     <!-- Contribute request card -->
-    <md-card flex>
+    <md-card flex class="grade-card">
         <h4 class="contribute-title">
             <i class="icon fa fa-heart"></i>
             Contribute
@@ -45,7 +45,7 @@
     </md-card>
 
     <!-- Grading overview. Only when more than 1 course -->
-    <md-card flex ng-show="graph.overviewShow">
+    <md-card flex ng-show="graph.overviewShow" class="grade-card">
         <md-toolbar md-tall md-accent>
             <div layout-wrap layout-align="space-around" layout="row">
                 <div layout-align="center center" layout="row">
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </md-toolbar>
-        <md-card-content ng-show="1" flex layout-align="space-around" layout="row">
+        <md-card-content flex layout-align="space-around" layout="row">
             <div flex class="grade-overview">
                 <canvas id="overview" class="chart chart-line" data="graph.overviewData" flex
                         labels="graph.labels" legend="true" series="graph.series">
@@ -63,7 +63,7 @@
         </md-card-content>
     </md-card>
 
-    <md-card flex ng-repeat="grade in grades">
+    <md-card flex ng-repeat="grade in grades" class="grade-card">
         <md-toolbar md-tall md-accent>
             <div flex layout-align="space-around" layout="row" class="grade-toolbar">
                 <div layout-align="center center" layout="row">
@@ -175,4 +175,5 @@
         </md-button>
 
     </md-card>
+
 </div>

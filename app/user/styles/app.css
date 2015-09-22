@@ -177,3 +177,6 @@ table#grades tr:hover{
 .grade-toolbar{
     font-size: 14px;
 }
+.grade-card{
+    margin-top: 25px;
+}
