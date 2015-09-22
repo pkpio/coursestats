@@ -1,152 +1,178 @@
-<b>{{ grades.length }} grade{{(grades.length > 1)?'s':''}} found</b>
+<div flex="80" flex-md="90" flex-sm="100">
+    <b>{{ grades.length }} grade{{(grades.length > 1)?'s':''}} found</b>
 
-<!-- Contribute request card -->
-<md-card flex>
-    <h4 class="contribute-title">
-        <i class="icon fa fa-heart"></i>
-        Contribute
-    </h4>
-    <div class="contribute-hl"></div>
-    <md-card-content layout="column">
-        <div flex>
-            <span class="contribute-text">
-                Coursestats is a
-                <span class="highlight">
-                    community site.
+    <!-- Contribute request card -->
+    <md-card flex>
+        <h4 class="contribute-title">
+            <i class="icon fa fa-heart"></i>
+            Contribute
+        </h4>
+        <div class="contribute-hl"></div>
+        <md-card-content layout="column">
+            <div flex>
+                <span class="contribute-text">
+                    Coursestats is a
+                    <span class="highlight">
+                        community site.
+                    </span>
+                    We need your help to serve
+                    <span class="highlight">
+                        latest information.
+                    </span>
+                    Send us your
+                    <span class="highlight">
+                        course grading statistics
+                    </span>
+                    on TUCaN (<b>not</b> your own grades). Use any option below:
                 </span>
-                We need your help to serve
-                <span class="highlight">
-                    latest information.
+            </div>
+            <div class="contribute-buttons" flex layout="row" layout-wrap layout-align="space-around">
+                <md-button ng-href="https://github.com/praveendath92/coursestats/releases" target="_blank">
+                    <i class="fa fa-bug"></i> crawler*</md-button>
+                <md-button ng-href="http://docs.coursestats.de/#!contribute.md" target="_blank">
+                    <i class="fa fa-whatsapp"></i> whatsapp
+                </md-button>
+                <md-button ng-href="http://docs.coursestats.de/#!contribute.md" target="_blank">
+                    <i class="fa fa-envelope"></i> email
+                </md-button>
+            </div>
+            <div flex>
+                <span class="contribute-text">
+                    *Recommended. All courses in one click!
                 </span>
-                Send us your
-                <span class="highlight">
-                    course grading statistics
-                </span>
-                on TUCaN (<b>not</b> your own grades). Use any option below:
-            </span>
-        </div>
-        <div class="contribute-buttons" flex layout="row" layout-wrap layout-align="space-around">
-            <md-button ng-href="https://github.com/praveendath92/coursestats/releases" target="_blank">
-                <i class="fa fa-bug"></i> crawler*</md-button>
-            <md-button ng-href="http://docs.coursestats.de/#!contribute.md" target="_blank">
-                <i class="fa fa-whatsapp"></i> whatsapp
-            </md-button>
-            <md-button ng-href="http://docs.coursestats.de/#!contribute.md" target="_blank">
-                <i class="fa fa-envelope"></i> email
-            </md-button>
-        </div>
-        <div flex>
-            <span class="contribute-text">
-                *Recommended. All courses in one click!
-            </span>
-        </div>
-    </md-card-content>
-</md-card>
+            </div>
+        </md-card-content>
+    </md-card>
 
-<!-- Grading overview. Only when more than 1 course -->
-<md-card flex ng-show="graph.overviewShow">
-    <md-toolbar md-tall md-accent>
-        <div layout-wrap layout-align="space-around" layout="row">
-            <div layout-align="center center" layout="row">
-                <p> <b>{{ ($scope.mode.value == $scope.mode.options.TEACHER) ?
-                    grades[0].original.teachername : grades[0].original.coursename }}</b></p>
-            </div>
-        </div>
-    </md-toolbar>
-    <md-card-content layout-margin layout="row" layout-align="space-around" layout-wrap ng-show="1">
-        <canvas id="overview" class="chart chart-line" data="graph.overviewData" flex  flex offset="5"
-                labels="graph.labels" legend="true" series="graph.series">
-        </canvas>
-    </md-card-content>
-</md-card>
-
-<md-card flex ng-repeat="grade in grades">
-    <md-toolbar md-tall md-accent>
-        <div layout-wrap layout-align="space-around" layout="row">
-            <div layout-align="center center" layout="row">
-                <md-icon md-svg-src="img/book.svg" class="grade-card-icon"></md-icon>
-                <p>{{grade.original.coursename}}</p>
-            </div>
-            <div layout-align="center center" layout="row">
-                <md-icon md-svg-src="img/clock.svg" class="grade-card-icon"></md-icon>
-                <p>{{grade.original.courseyear}}, {{(grade.original.coursesem=="1")?'Summer':'Winter'}}</p>
-            </div>
-            <div layout-align="center center" layout="row">
-                <md-icon md-svg-src="img/account.svg" class="grade-card-icon"></md-icon>
-                <p>{{grade.original.teachername}}</p>
-            </div>
-            <md-button ng-href="#/review/{{grade.original.courseid}}">
+    <!-- Grading overview. Only when more than 1 course -->
+    <md-card flex ng-show="graph.overviewShow">
+        <md-toolbar md-tall md-accent>
+            <div layout-wrap layout-align="space-around" layout="row">
                 <div layout-align="center center" layout="row">
-                    <md-icon md-svg-src="img/pencil.svg" class="grade-card-icon"></md-icon>
-                    <p>Rate this course</p>
+                    <p> <b>{{ ($scope.mode.value == $scope.mode.options.TEACHER) ?
+                        grades[0].original.teachername : grades[0].original.coursename }}</b></p>
                 </div>
-            </md-button>
-        </div>
-    </md-toolbar>
+            </div>
+        </md-toolbar>
+        <md-card-content ng-show="1" flex layout-align="space-around" layout="row">
+            <div flex class="grade-overview">
+                <canvas id="overview" class="chart chart-line" data="graph.overviewData" flex
+                        labels="graph.labels" legend="true" series="graph.series">
+                </canvas>
+            </div>
+        </md-card-content>
+    </md-card>
 
-    <md-card-content layout-margin layout="row" layout-align="space-around" layout-wrap>
+    <md-card flex ng-repeat="grade in grades">
+        <md-toolbar md-tall md-accent>
+            <div flex layout-align="space-around" layout="row" class="grade-toolbar">
+                <div layout-align="center center" layout="row">
+                    <md-icon md-svg-src="img/book.svg" class="grade-card-icon"></md-icon>
+                    <p>{{grade.original.coursename}}</p>
+                </div>
+                <div layout-align="center center" layout="row">
+                    <md-icon md-svg-src="img/clock.svg" class="grade-card-icon"></md-icon>
+                    <p>{{grade.original.courseyear}}, {{(grade.original.coursesem=="1")?'Summer':'Winter'}}</p>
+                </div>
+                <div layout-align="center center" layout="row">
+                    <md-icon md-svg-src="img/account.svg" class="grade-card-icon"></md-icon>
+                    <p>{{grade.original.teachername}}</p>
+                </div>
+            </div>
+        </md-toolbar>
 
-        <!-- Grades Table -->
-        <div flex="25" flex-sm="100" flex-order-sm="2" >
-            <md-data-table-toolbar>
+        <md-card-content layout-margin layout="row" layout-align="space-around" layout-wrap>
+
+            <!-- Grades Table -->
+            <div flex="25" flex-md="30" flex-sm="100" flex-order-sm="2">
                 <h2 class="md-title">Grading chart</h2>
-            </md-data-table-toolbar>
 
-            <md-data-table-container>
-                <table md-data-table>
+                <table class="grade-table" id="grades">
                     <thead>
-                    <tr>
-                        <th name="Grade"></th>
-                        <th numeric name="Count"></th>
-                        <th numeric name="Percent"></th>
-                    </tr>
+                        <tr class="grade-tr">
+                            <th class="grade-th">Grade</th>
+                            <th class="grade-th">Count</th>
+                            <th class="grade-th">Percent</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="item in grade.table" layout-margin>
-                        <td>{{ item.display }}</td>
-                        <td>{{ item.value }}</td>
-                        <td>{{ stats.percent(item.value, grade) }}%</td>
-                    </tr>
+                        <tr ng-repeat="item in grade.table" class="grade-tr">
+                            <td class="grade-td">{{ item.display }}</td>
+                            <td class="grade-td">{{ item.value }}</td>
+                            <td class="grade-td">{{ stats.percent(item.value, grade) }}%</td>
+                        </tr>
                     </tbody>
                 </table>
-            </md-data-table-container>
-        </div>
-
-        <!-- Grades stats & graph -->
-        <div flex="65" flex-sm="100" flex-order-sm="1">
-            <md-data-table-toolbar>
-                <h2 class="md-title">Grading stats</h2>
-            </md-data-table-toolbar>
-            <div layout-align="left center" layout="column" flex offset="5" class="grade-stats">
-                <div flex layout="row" layout-margin>
-                    <p flex="40">Average grade: {{stats.mean(grade)}} </p>
-                    <p flex="40">Failure rate : {{stats.failRate(grade)}}% </p>
-                </div>
-                <!--
-                <div flex layout="row">
-                    <p flex>1.0 - 1.7 : {{stats.oneToTwo(grade)}}%</p>
-                    <p flex>2.0 - 2.7 : {{stats.twoToThree(grade)}}%</p>
-                </div>
-                <div flex layout="row">
-                    <p flex>3.0 - 3.7 : {{stats.threeToFour(grade)}}%</p>
-                    <p flex>4.0 & 5.0 : {{stats.fourToFive(grade)}}%</p>
-                </div>-->
             </div>
-            <md-data-table-toolbar>
-                <h2 class="md-title">Grading graph</h2>
-            </md-data-table-toolbar>
-            <canvas id="line" class="chart chart-line" data="graph.getData(grade)" flex  flex offset="5"
-                    labels="graph.labels" legend="false">
-            </canvas>
-        </div>
+
+            <!-- Grades stats & graph -->
+            <div flex="65" flex-sm="100" flex-md="55" flex-order-sm="1">
+
+                <md-data-table-toolbar>
+                    <h2 class="md-title">Grading stats & ratings</h2>
+                </md-data-table-toolbar>
+                <div layout-align="left center" layout="column" flex offset="5" class="grade-stats">
+
+                    <!-- Stats -->
+                    <div flex layout="row" layout-margin>
+                        <p flex="40">Average grade: {{stats.mean(grade)}} </p>
+                        <p flex="40">Failure rate : {{stats.failRate(grade)}}% </p>
+                    </div>
+
+                    <!-- reviews -->
+
+                    <!-- Course level -->
+                    <div layout="row" layout-margin layout-align="center center">
+                        <span class="rating-param">Course level </span>
+                        <span class="rating-star">
+                            <i class="fa star {{ params.getClass($index, grade.original.contentlevel) }}"
+                               ng-repeat="star in params.stars"
+                               ng-click="courseLevel.select($index)"></i>
+                        </span>
+                        <span class="rating-helper"> {{ params.getHint(grade.original.contentlevel) }}</span>
+                    </div>
+
+                    <!-- Exam level -->
+                    <div layout="row" layout-margin layout-align="center center">
+                        <span class="rating-param">Exam paper </span>
+                        <span class="rating-star">
+                            <i class="fa star {{ params.getClass($index, grade.original.examlevel) }}"
+                               ng-repeat="star in params.stars"
+                               ng-click="examLevel.select($index)"></i>
+                        </span>
+                        <span class="rating-helper"> {{ params.getHint(grade.original.examlevel) }}</span>
+                    </div>
+
+                    <!-- Review level -->
+                    <div layout="row" layout-margin layout-align="center center">
+                        <span class="rating-param">Exam review </span>
+                        <span class="rating-star">
+                            <i class="fa star {{ params.getClass($index, grade.original.examevallevel) }}"
+                               ng-repeat="star in params.stars"
+                               ng-click="reviewLevel.select($index)"></i>
+                        </span>
+                        <span class="rating-helper"> {{ params.getHint(grade.original.examevallevel) }}</span>
+                    </div>
+
+                </div>
+
+                <md-data-table-toolbar>
+                    <h2 class="md-title">Grading graph</h2>
+                </md-data-table-toolbar>
+                <div layout-padding>
+                    <canvas id="line" class="grade chart chart-line" data="graph.getData(grade)" flex
+                            labels="graph.labels" legend="false">
+                    </canvas>
+                </div>
+
+            </div>
+        </md-card-content>
 
         <!-- Rate button -->
-        <md-button ng-href="#/review/{{grade.original.courseid}}" flex-order-sm="3">
-            <div layout-align="center center" layout="row">
-                <md-icon md-svg-src="img/pencil.svg" class="grade-card-icon"></md-icon>
-                <p>Rate this course</p>
-            </div>
+        <md-button ng-href="#/review/{{grade.original.courseid}}">
+            <i class="fa fa-pencil"></i>
+            Rate this course
         </md-button>
 
-    </md-card-content>
-</md-card>
+    </md-card>
+</div>

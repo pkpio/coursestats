@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/angular-chart.css">
-    <link rel="stylesheet" href="styles/md-data-table.min.css">
 
     <link rel="stylesheet" href="styles/app.css">
     <meta name="viewport" content="initial-scale=1" />
@@ -79,8 +78,10 @@
 
 <!-- Content -->
 <div>
-    <md-content class="md-padding">
-        <div ng-view></div>
+    <md-content layout="row" layout-padding layout-margin>
+        <div ng-view layout="row" layout-align="space-around" flex="100">
+
+        </div>
     </md-content>
 </div>
 
@@ -115,7 +116,6 @@
 <!-- libs -->
 <script src="js/libs/angulartics.min.js"></script>
 <script src="js/libs/angulartics-google-analytics.min.js"></script>
-<script src="js/libs/md-data-table.min.js"></script>
 <script src="js/libs/Chart.min.js"></script>
 <script src="js/libs/angular-chart.min.js"></script>
 <script src="js/libs/angular-md5.js"></script>

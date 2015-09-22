@@ -72,7 +72,6 @@
     text-align: center;
 }
 .rating-param{
-    font-weight: 500;
     width: 100px;
 }
 .rating-star{
@@ -138,4 +137,43 @@
     width: 100%;
     height: 1px;
     background-color: red;
+}
+table.grade-table {
+    border-collapse:collapse;
+    border-spacing: 0px;
+    padding: 5px;
+    text-align: left;
+    width:100%;
+}
+td.grade-td, th.grade-th{
+    padding: 12px;
+    text-align: center;
+    font-size: 13px;
+}
+th.grade-th{
+    background-color: #2196F3;
+    color: white;
+}
+table#grades tr:nth-child(even) {
+    background-color: #eee;
+    color: rgba(0,0,0,.87);
+}
+table#grades tr:nth-child(odd) {
+    background-color:#fff;
+    color: rgba(0,0,0,.87);
+}
+table#grades tr:hover{
+    color: #eeeeee;
+    background-color: #46a3ea;
+}
+.grade-overview{
+    max-width: 600px;
+    max-height: 400px;
+}
+.grade.chart{
+    max-width: 700px;
+    max-height: 350px;
+}
+.grade-toolbar{
+    font-size: 14px;
 }

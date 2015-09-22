@@ -167,5 +167,54 @@ angular.module('UserApp').controller('GradeCtrl', function($scope, config, $http
             var sum = parseInt(grade.original.grade_40) + parseInt(grade.original.grade_50);
             return $scope.stats.percent(sum, grade);
         }
-    }
+    };
+
+    // Ratings related
+    $scope.params = {
+        stars : [0, 1, 2, 3, 4],
+        getRounded: function(value){
+            var val = parseFloat(value);
+            if(val)
+                return Math.round(val);
+            else
+                return 0;
+        },
+        getClass: function(index, selected){
+            var value = $scope.params.getRounded(selected) - 1;
+
+            if(index > value)
+                return 'fa-star-o';
+
+            switch (value){
+                case 0:
+                    return 'fa-star star-1';
+                case 1:
+                    return 'fa-star star-2';
+                case 2:
+                    return 'fa-star star-3';
+                case 3:
+                    return 'fa-star star-4';
+                case 4:
+                    return 'fa-star star-5';
+            }
+        },
+        getHint: function(selected){
+            var value = $scope.params.getRounded(selected) - 1;
+
+            switch (value){
+                case -1:
+                    return 'Unrated';
+                case 0:
+                    return 'Very hard';
+                case 1:
+                    return 'Hard';
+                case 2:
+                    return 'Moderate';
+                case 3:
+                    return 'Easy';
+                case 4:
+                    return 'Very easy';
+            }
+        }
+    };
 });
