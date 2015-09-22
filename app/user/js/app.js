@@ -28,6 +28,10 @@ angular.module('UserApp').config(function($routeProvider) {$routeProvider
         templateUrl : 'includes/review.html',
         controller  : 'ReviewCtrl'
     })
+    .when('/review/list/:id',{
+        templateUrl : 'includes/reviewlist.html',
+        controller  : 'ReviewListCtrl'
+    })
     .when('/login',{
         templateUrl : 'includes/login.html',
         controller  : 'LoginCtrl'
