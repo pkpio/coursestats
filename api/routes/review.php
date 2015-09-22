@@ -46,7 +46,12 @@ $app->group('/review', function () use ($app, $db, $checkToken) {
         $courseid = $app->request->get('courseid');
 
         try{
-            $stmt = $db->prepare('SELECT * FROM reviews WHERE courseid=?');
+            $stmt = $db->prepare('SELECT reviews.*,
+                                    students.name AS username,
+                                    MD5(students.email) AS emailhash
+                                  FROM reviews
+                                  INNER JOIN students ON students.studentid = reviews.studentid
+                                  WHERE reviews.courseid=?');
             $stmt->execute(array($courseid));
 
             ApiResponse::success(200, "success", "reviews", $stmt->fetchAll(PDO::FETCH_ASSOC));
