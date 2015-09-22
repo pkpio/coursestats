@@ -1,49 +1,6 @@
 <div flex="80" flex-md="90" flex-sm="100" layout="column">
     <b style="margin-top: 20px;">{{ grades.length }} grade{{(grades.length > 1)?'s':''}} found</b>
 
-    <!-- Contribute request card -->
-    <md-card flex class="grade-card">
-        <h4 class="contribute-title">
-            <i class="icon fa fa-heart"></i>
-            Contribute
-        </h4>
-        <div class="contribute-hl"></div>
-        <md-card-content layout="column">
-            <div flex>
-                <span class="contribute-text">
-                    Coursestats is a
-                    <span class="highlight">
-                        community site.
-                    </span>
-                    We need your help to serve
-                    <span class="highlight">
-                        latest information.
-                    </span>
-                    Send us your
-                    <span class="highlight">
-                        course grading statistics
-                    </span>
-                    on TUCaN (<b>not</b> your own grades). Use any option below:
-                </span>
-            </div>
-            <div class="contribute-buttons" flex layout="row" layout-wrap layout-align="space-around">
-                <md-button ng-href="https://github.com/praveendath92/coursestats/releases" target="_blank">
-                    <i class="fa fa-bug"></i> crawler*</md-button>
-                <md-button ng-href="http://docs.coursestats.de/#!contribute.md" target="_blank">
-                    <i class="fa fa-whatsapp"></i> whatsapp
-                </md-button>
-                <md-button ng-href="http://docs.coursestats.de/#!contribute.md" target="_blank">
-                    <i class="fa fa-envelope"></i> email
-                </md-button>
-            </div>
-            <div flex>
-                <span class="contribute-text">
-                    *Recommended. All courses in one click!
-                </span>
-            </div>
-        </md-card-content>
-    </md-card>
-
     <!-- Grading overview. Only when more than 1 course -->
     <md-card flex ng-show="graph.overviewShow" class="grade-card">
         <md-toolbar md-tall md-accent>
@@ -190,6 +147,38 @@
             </md-button>
         </div>
 
+    </md-card>
+
+    <!-- Contribute request card -->
+    <md-card flex class="grade-card">
+        <h4 class="contribute-title">
+            <i class="icon fa fa-heart"></i>
+            Contribute
+        </h4>
+        <div class="contribute-hl"></div>
+        <md-card-content layout="column">
+            <div flex>
+                <span class="contribute-text">Coursestats is a community site. We need your help to improve!
+                    <b>Contribute</b> using any option below or
+                    <b>Rate</b> some of your past courses.
+                </span>
+            </div>
+            <div class="contribute-buttons" flex layout="row" layout-wrap layout-align="space-around">
+                <md-button ng-href="https://github.com/praveendath92/coursestats/releases" target="_blank">
+                    <i class="fa fa-bug"></i> crawler*</md-button>
+                <md-button ng-href="http://docs.coursestats.de/#!contribute.md" target="_blank">
+                    <i class="fa fa-whatsapp"></i> whatsapp
+                </md-button>
+                <md-button ng-href="http://docs.coursestats.de/#!contribute.md" target="_blank">
+                    <i class="fa fa-envelope"></i> email
+                </md-button>
+            </div>
+            <div flex>
+                <span class="contribute-text">
+                    *Recommended. All courses in one click!
+                </span>
+            </div>
+        </md-card-content>
     </md-card>
 
 </div>
