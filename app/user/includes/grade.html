@@ -88,9 +88,9 @@
                     <div layout="row" layout-margin layout-align="center center">
                         <span class="rating-param">Course level </span>
                         <span class="rating-star">
-                            <i class="fa star {{ params.getClass($index, grade.original.contentlevel) }}"
+                            <i class="fa star {{ params.getClass($index+1, grade.original.contentlevel) }}"
                                ng-repeat="star in params.stars"
-                               ng-click="courseLevel.select($index)"></i>
+                               ng-click="courseLevel.select($index+1)"></i>
                         </span>
                         <span class="rating-helper"> {{ params.getHint(grade.original.contentlevel) }}</span>
                     </div>
@@ -99,9 +99,9 @@
                     <div layout="row" layout-margin layout-align="center center">
                         <span class="rating-param">Exam paper </span>
                         <span class="rating-star">
-                            <i class="fa star {{ params.getClass($index, grade.original.examlevel) }}"
+                            <i class="fa star {{ params.getClass($index+1, grade.original.examlevel) }}"
                                ng-repeat="star in params.stars"
-                               ng-click="examLevel.select($index)"></i>
+                               ng-click="examLevel.select($index+1)"></i>
                         </span>
                         <span class="rating-helper"> {{ params.getHint(grade.original.examlevel) }}</span>
                     </div>
@@ -110,9 +110,9 @@
                     <div layout="row" layout-margin layout-align="center center">
                         <span class="rating-param">Exam review </span>
                         <span class="rating-star">
-                            <i class="fa star {{ params.getClass($index, grade.original.examevallevel) }}"
+                            <i class="fa star {{ params.getClass($index+1, grade.original.examevallevel) }}"
                                ng-repeat="star in params.stars"
-                               ng-click="reviewLevel.select($index)"></i>
+                               ng-click="reviewLevel.select($index+1)"></i>
                         </span>
                         <span class="rating-helper"> {{ params.getHint(grade.original.examevallevel) }}</span>
                     </div>

@@ -173,48 +173,94 @@ angular.module('UserApp').controller('GradeCtrl', function($scope, config, $http
 
     // Ratings related
     $scope.params = {
-        stars : [0, 1, 2, 3, 4],
+        stars : [1, 2, 3, 4, 5],
         getRounded: function(value){
             var val = parseFloat(value);
-            if(val)
-                return Math.round(val);
-            else
+            if(val){
+                if(val < 0.75)
+                    return 0.5;
+                else if (val < 1.25)
+                    return 1.0;
+                else if (val < 1.75)
+                    return 1.5;
+                else if (val < 2.25)
+                    return 2.0;
+                else if (val < 2.75)
+                    return 2.5;
+                else if (val < 3.25)
+                    return 3.0;
+                else if (val < 3.75)
+                    return 3.5;
+                else if (val < 4.25)
+                    return 4.0;
+                else if (val < 4.75)
+                    return 4.5;
+                else if (val <= 5)
+                    return 5.0;
+            }
+            else {
                 return 0;
+            }
         },
         getClass: function(index, selected){
-            var value = $scope.params.getRounded(selected) - 1;
+            var value = $scope.params.getRounded(selected);
 
-            if(index > value)
+            // Integer and decimal parts of value seperated
+            var valInt = Math.floor(value);
+            var valDec = value - valInt;
+
+            // Safe case. Example: For 2 or 2.5, this is 4 & 5. 3rd star could be half fill.
+            if(index > valInt+1) {
                 return 'fa-star-o';
+            }
+            else {
+                // For positions 1 and 2 in above example.
+                if(index <= valInt)
+                    return 'fa-star ' + $scope.params.getStarColor(valInt);
 
+                // Only position 3 left in above example
+                else{
+                    if(valDec == 0)
+                        return 'fa-star-o';
+                    else
+                        return 'fa-star-half-o ' + $scope.params.getStarColor(valInt);
+
+                }
+            }
+        },
+        getStarColor: function(value){
             switch (value){
-                case 0:
-                    return 'fa-star star-1';
                 case 1:
-                    return 'fa-star star-2';
+                    return 'star-1';
                 case 2:
-                    return 'fa-star star-3';
+                    return 'star-2';
                 case 3:
-                    return 'fa-star star-4';
+                    return 'star-3';
                 case 4:
-                    return 'fa-star star-5';
+                    return 'star-4';
+                case 5:
+                    return 'star-5';
             }
         },
         getHint: function(selected){
-            var value = $scope.params.getRounded(selected) - 1;
+            var value = $scope.params.getRounded(selected);
 
             switch (value){
-                case -1:
-                    return 'Unrated';
                 case 0:
-                    return 'Very hard';
+                    return 'Unrated';
                 case 1:
-                    return 'Hard';
+                case 1.5:
+                    return 'Very hard';
                 case 2:
-                    return 'Moderate';
+                case 2.5:
+                    return 'Hard';
                 case 3:
-                    return 'Easy';
+                case 3.5:
+                    return 'Moderate';
                 case 4:
+                case 4.5:
+                    return 'Easy';
+                case 5:
                     return 'Very easy';
             }
         }
