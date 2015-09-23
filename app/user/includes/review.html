@@ -17,9 +17,9 @@
             <div layout="row" layout-margin layout-align="center center">
                 <span class="rating-param">Course level </span>
                 <span class="rating-star">
-                    <i class="fa star {{ params.getClass($index, courseLevel.selected) }}"
+                    <i class="fa star {{ params.getClass($index+1, courseLevel.selected) }}"
                        ng-repeat="star in params.stars"
-                       ng-click="courseLevel.select($index)"></i>
+                       ng-click="courseLevel.select($index+1)"></i>
                 </span>
                 <span class="rating-helper"> {{ params.getHint(courseLevel.selected) }}</span>
             </div>
@@ -28,9 +28,9 @@
             <div layout="row" layout-margin layout-align="center center">
                 <span class="rating-param">Exam paper </span>
                 <span class="rating-star">
-                    <i class="fa star {{ params.getClass($index, examLevel.selected) }}"
+                    <i class="fa star {{ params.getClass($index+1, examLevel.selected) }}"
                        ng-repeat="star in params.stars"
-                       ng-click="examLevel.select($index)"></i>
+                       ng-click="examLevel.select($index+1)"></i>
                 </span>
                 <span class="rating-helper"> {{ params.getHint(examLevel.selected) }}</span>
             </div>
@@ -39,9 +39,9 @@
             <div layout="row" layout-margin layout-align="center center">
                 <span class="rating-param">Exam review </span>
                 <span class="rating-star">
-                    <i class="fa star {{ params.getClass($index, reviewLevel.selected) }}"
+                    <i class="fa star {{ params.getClass($index+1, reviewLevel.selected) }}"
                        ng-repeat="star in params.stars"
-                       ng-click="reviewLevel.select($index)"></i>
+                       ng-click="reviewLevel.select($index+1)"></i>
                 </span>
                 <span class="rating-helper"> {{ params.getHint(reviewLevel.selected) }}</span>
             </div>
