@@ -60,4 +60,22 @@ $app->group('/review', function () use ($app, $db, $checkToken) {
         }
     })->via('GET', 'POST');
 
+    //################## List review  ##################
+    $app->map('/list/self', $checkToken, function () use ($app, $db) {
+        $userid = $app->request->headers->get("studentid");
+        $courseid = $app->request->get('courseid');
+
+        try{
+            $stmt = $db->prepare('SELECT *
+                                  FROM reviews
+                                  WHERE reviews.courseid=? AND reviews.studentid=?
+                                  LIMIT 1');
+            $stmt->execute(array($courseid, $userid));
+
+            ApiResponse::success(200, "success", "review", $stmt->fetchAll(PDO::FETCH_ASSOC));
+        } catch(PDOException $ex){
+            ApiResponse::error(500, "Internal server error");
+        }
+    })->via('GET', 'POST');
+
 });
