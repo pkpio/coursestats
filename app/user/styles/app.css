@@ -197,3 +197,9 @@ table#grades tr:hover{
     margin-left: 16px !important;
     text-transform: none;
 }
+.loading-text{
+    margin: 20px;
+}
+.loading-icon{
+    margin: 20px;
+}

@@ -9,6 +9,7 @@ angular.module('UserApp').controller('GradeCtrl', function($scope, config, $http
             TEACHER: 1, COURSE: 2
         }
     };
+    $scope.ready = 0;
 
     // Find out the mode and id
     var path = $location.path();
@@ -112,6 +113,7 @@ angular.module('UserApp').controller('GradeCtrl', function($scope, config, $http
         .then(
         function(response){ // Success callback
             buildGrades(response.data.grades);
+            $scope.ready = 1;
         },
         function(response){ //Error callback
             console.log(response.toString());

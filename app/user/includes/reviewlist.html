@@ -1,5 +1,11 @@
 <div flex="100" layout="row" layout-align="space-around" layout-wrap>
 
+    <div layout="row" layout-align="center center" ng-show="!ready">
+        <i class="loading-icon fa fa-2x fa-cog fa-spin"></i>
+        <span class="loading-text">Working</span>
+        <i class="loading-icon fa fa-2x fa-cog fa-spin"></i>
+    </div>
+
     <md-card ng-repeat="review in reviews" class="review-card" flex="40" flex-md="75" flex-sm="90">
         <md-toolbar>
             <md-button class="md-toolbar-tools"

@@ -4,6 +4,7 @@
  */
 
 angular.module('UserApp').controller('ReviewListCtrl', function ($scope, config, $http, $location) {
+    $scope.ready = 0;
 
     $scope.params = {
         stars : [1, 2, 3, 4, 5],
@@ -61,6 +62,7 @@ angular.module('UserApp').controller('ReviewListCtrl', function ($scope, config,
         function(response){ // Success callback
             $data = response.data;
             $scope.reviews = $data.reviews;
+            $scope.ready = 1;
         },
         function(response){ //Error callback
             console.log("Error!");
