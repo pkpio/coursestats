@@ -11,7 +11,7 @@ angular.module('UserApp').controller('ReviewListCtrl', function ($scope, config,
             var index = parseInt(ind);
             var value = parseInt(val);
 
-            if(index >= value)
+            if(index > value)
                 return 'fa-star-o';
 
             switch (value){

@@ -20,7 +20,7 @@
             <div layout="row" layout-margin layout-align="center center">
                 <span class="rating-param">Course level </span>
                 <span class="rating-star">
-                    <i class="fa star {{ params.getClass($index, review.content_level) }}"
+                    <i class="fa star {{ params.getClass($index+1, review.content_level) }}"
                        ng-repeat="star in params.stars"></i>
                 </span>
                 <span class="rating-helper"> {{ params.getHint(review.content_level) }}</span>
@@ -30,7 +30,7 @@
             <div layout="row" layout-margin layout-align="center center">
                 <span class="rating-param">Exam paper </span>
                 <span class="rating-star">
-                    <i class="fa star {{ params.getClass($index, review.exam_level) }}"
+                    <i class="fa star {{ params.getClass($index+1, review.exam_level) }}"
                        ng-repeat="star in params.stars"></i>
                 </span>
                 <span class="rating-helper"> {{ params.getHint(review.exam_level) }}</span>
@@ -40,7 +40,7 @@
             <div layout="row" layout-margin layout-align="center center">
                 <span class="rating-param">Exam review </span>
                 <span class="rating-star">
-                    <i class="fa star {{ params.getClass($index, review.exam_eval_level) }}"
+                    <i class="fa star {{ params.getClass($index+1, review.exam_eval_level) }}"
                        ng-repeat="star in params.stars"></i>
                 </span>
                 <span class="rating-helper"> {{ params.getHint(review.exam_eval_level) }}</span>
