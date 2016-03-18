@@ -3,7 +3,7 @@
  *
  * For functions related to course tab
  */
-angular.module('UserApp').factory('SearchService', function(config, $http, $timeout) {
+angular.module('UserApp').factory('SearchService', function(config, $http, $timeout,$q) {
     var factory = {};
     factory.courses = [];
     factory.teachers = [];
@@ -15,43 +15,63 @@ angular.module('UserApp').factory('SearchService', function(config, $http, $time
     searchCourseRemote = function(query){
         if(factory.courses.length > 0)
             return;
-
         var req = {
             method: 'GET',
             url: config.apiUrl+ '/course/list'
         };
+        getRemoteCourseList(req).then(
+            function(response){
+                factory.courses = response.data.courses;
+            }
+        );
+    };
+
+    getRemoteCourseList = function (req) {
+        var deferred = $q.defer();
         $http(req)
             .then(
             function(response){ // Success callback
-                factory.courses = response.data.courses;
+                deferred.resolve(response);
             },
             function(response){ //Error callback
                 console.log(response.toString());
+                deferred.reject(response);
             }
         );
+        return deferred.promise;
     };
 
     /**
     * Currently using list instead of remote search. This saves many calls!
     * @param query
     */
-    searchTeacherRemote = function(query){
-        if(factory.teachers.length > 0)
+    searchTeacherRemote = function(query) {
+        if (factory.teachers.length > 0)
             return;
-
         var req = {
             method: 'GET',
-            url: config.apiUrl+ '/teacher/list'
+            url: config.apiUrl + '/teacher/list'
         };
+        factory.teachersListPromise = getRemoteTeacherList(req).then(
+            function (response) {
+                factory.teachers = response.data.teachers;
+            }
+        );
+    };
+
+    getRemoteTeacherList = function (req) {
+        var deferred = $q.defer();
         $http(req)
             .then(
             function(response){ // Success callback
-                factory.teachers = response.data.teachers;
+                deferred.resolve(response);
             },
             function(response){ //Error callback
                 console.log(response.toString());
+                deferred.reject(response);
             }
         );
+        return deferred.promise;
     };
 
     createFilterFor = function (query) {
@@ -63,13 +83,11 @@ angular.module('UserApp').factory('SearchService', function(config, $http, $time
     };
 
     searchTeacher = function (query) {
-        var results = query ? factory.teachers.filter(createFilterFor(query)) : [];
-        return results;
+        return factory.teachers.filter(createFilterFor(query));
     };
 
     searchCourse = function (query) {
-        var results = query ? factory.courses.filter(createFilterFor(query)) : [];
-        return results;
+        return factory.courses.filter(createFilterFor(query))
     };
 
     factory.search = function (query) {
@@ -80,24 +98,14 @@ angular.module('UserApp').factory('SearchService', function(config, $http, $time
 
     /**
      * Rate-limited remote search logic
-     */
+
     var searchTerm;
     var searchPromise;
     var searchTimeOut = 0; // 0 - listing, 200 - actual remote search!
-
-    doRemoteSearch = function() {
-        if(searchTerm) {
-            searchPromise = null;
-            searchCourseRemote(searchTerm);
-            searchTeacherRemote(searchTerm);
-        }
-    };
-
-    factory.searchRemote = function (query) {
-        searchTerm = query;
-        if (searchPromise)
-            $timeout.cancel(searchPromise);
-        searchPromise = $timeout(doRemoteSearch, searchTimeOut);
+     */
+    factory.searchRemote = function () {
+        searchCourseRemote();
+        searchTeacherRemote();
     };
 
     return factory;
