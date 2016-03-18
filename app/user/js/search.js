@@ -4,108 +4,81 @@
  * For functions related to course tab
  */
 angular.module('UserApp').factory('SearchService', function(config, $http, $timeout,$q) {
-    var factory = {};
-    factory.courses = [];
-    factory.teachers = [];
+    var COURSE = 1;
+    var TEACHER = 2;
 
     /**
-     * Currently using list instead of remote search. This saves many calls!
+     * Search a query with server.
+     *
      * @param query
+     *      Query string
+     * @param type
+     *      Query type - COURSE / TEACHER
+     * @returns
+     *      Results of search or an empty array.
      */
-    searchCourseRemote = function(query){
-        if(factory.courses.length > 0)
-            return;
-        var req = {
-            method: 'GET',
-            url: config.apiUrl+ '/course/list'
-        };
-        getRemoteCourseList(req).then(
-            function(response){
-                factory.courses = response.data.courses;
-            }
-        );
-    };
-
-    getRemoteCourseList = function (req) {
+    searchRemote = function(query, type){
         var deferred = $q.defer();
-        $http(req)
+
+        // Pick endpoint based on query type
+        var searchUrl = config.apiUrl;
+        if(type == COURSE)
+            searchUrl += "/course/search?q=" + query;
+        else if(type == TEACHER)
+            searchUrl += "/teacher/search?q=" + query;
+        else
+            return [];
+
+        // Make a remote request for results
+        var request = {
+            method: 'GET',
+            url: searchUrl
+        };
+        $http(request)
             .then(
-            function(response){ // Success callback
-                deferred.resolve(response);
-            },
-            function(response){ //Error callback
-                console.log(response.toString());
-                deferred.reject(response);
-            }
-        );
+                function(response){
+                    // Resolve promise based on original request type
+                    if(type == COURSE)
+                        deferred.resolve(response.data.courses);
+                    else if (type == TEACHER)
+                        deferred.resolve(response.data.teachers);
+                    else
+                        deferred.resolve([]);
+                },
+                function(response){
+                    console.log(response.toString());
+                    deferred.resolve([]);
+                }
+            );
+
         return deferred.promise;
     };
 
+    var factory = {};
     /**
-    * Currently using list instead of remote search. This saves many calls!
-    * @param query
-    */
-    searchTeacherRemote = function(query) {
-        if (factory.teachers.length > 0)
-            return;
-        var req = {
-            method: 'GET',
-            url: config.apiUrl + '/teacher/list'
-        };
-        factory.teachersListPromise = getRemoteTeacherList(req).then(
-            function (response) {
-                factory.teachers = response.data.teachers;
-            }
-        );
-    };
-
-    getRemoteTeacherList = function (req) {
-        var deferred = $q.defer();
-        $http(req)
-            .then(
-            function(response){ // Success callback
-                deferred.resolve(response);
-            },
-            function(response){ //Error callback
-                console.log(response.toString());
-                deferred.reject(response);
-            }
-        );
-        return deferred.promise;
-    };
-
-    createFilterFor = function (query) {
-        var lowercaseQuery = angular.lowercase(query);
-        return function filterFn(item) {
-            var lowercaseItem = angular.lowercase(item.name);
-            return (lowercaseItem.indexOf(lowercaseQuery) >= 0);
-        };
-    };
-
-    searchTeacher = function (query) {
-        return factory.teachers.filter(createFilterFor(query));
-    };
-
-    searchCourse = function (query) {
-        return factory.courses.filter(createFilterFor(query))
-    };
-
-    factory.search = function (query) {
-        var r1 = searchCourse(query);
-        var r2 = searchTeacher(query);
-        return r1.concat(r2);
-    };
-
-    /**
-     * Rate-limited remote search logic
-
-    var searchTerm;
-    var searchPromise;
-    var searchTimeOut = 0; // 0 - listing, 200 - actual remote search!
+     * Searches for courses and teachers with server.
+     * @param query
+     * @returns {*}
+     *      A promise that would eventually resolve to results.
      */
-    factory.searchRemote = function () {
-        searchCourseRemote();
-        searchTeacherRemote();
+    factory.search = function(query) {
+        // Promise we shall return
+        var deferred = $q.defer();
+
+        // Results of this search will be accumulated here
+        var courses = [];
+        var teachers = [];
+
+        $q.all([
+            searchRemote(query, COURSE),
+            searchRemote(query, TEACHER)
+        ]).then(
+            function(results){
+                deferred.resolve(results[0].concat(results[1]));
+            }
+        );
+
+        return deferred.promise;
     };
 
     return factory;
@@ -116,11 +89,11 @@ angular.module('UserApp').controller('SearchCtrl', function($scope, config, $loc
     // Teacher object
     $scope.search = {
         isDisabled: false,
-        noCache: true,
+        noCache: false,
         selectedItem: null,
         searchText: null,
         searchTextChange: function (query) {
-            SearchService.searchRemote(query);
+            // do nothing
         },
         selectItemChange: function (item) {
             if(!item)
