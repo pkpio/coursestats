@@ -18,6 +18,9 @@ $app->group('/course', function () use ($app, $db, $checkAdder) {
         $tucanid = $app->request->get('tucanid');
         $teacherid = $app->request->get('teacherid');
 
+        if(!$tucanid || $tucanid == "")
+            $tucanid = "NA";
+
         try {
             $stmt = $db->prepare('SELECT courseid, name, year, semester FROM courses WHERE name=?');
             $stmt->execute(array(utf8_encode($name)));
