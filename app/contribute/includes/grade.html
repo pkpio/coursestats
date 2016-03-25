@@ -39,15 +39,12 @@
                 </div>
             </md-content>
 
+            <!-- Action -->
+            <div class="md-actions" layout="row" flex>
+                <p flex layout-align="left" class="errorMsg">{{message.error}}</p>
+                <p flex layout-align="left" class="successMsg">{{message.success}}</p>
+                <md-button ng-click="addGrades()">Add Grades</md-button>
+            </div>
         </md-card-content>
-
-
-        <!-- Action -->
-        <div class="md-actions" layout="row" flex>
-            <p flex layout-align="left" class="errorMsg">{{message.error}}</p>
-            <p flex layout-align="left" class="successMsg">{{message.success}}</p>
-            <md-button ng-click="addGrades()">Add Grades</md-button>
-        </div>
-
     </md-card>
 </div>
