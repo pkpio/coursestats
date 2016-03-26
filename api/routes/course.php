@@ -15,7 +15,7 @@ $app->group('/course', function () use ($app, $db, $checkAdder) {
         $name = $app->request->get('name');
         $year = $app->request->get('year');
         $sem = $app->request->get('sem');
-        $tucanid = $app->request->get('tucanid');
+        $tucanid = "NA";//$app->request->get('tucanid');
         $teacherid = $app->request->get('teacherid');
 
         if(!$tucanid || $tucanid == "")
