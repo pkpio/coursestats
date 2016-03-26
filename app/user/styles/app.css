@@ -203,6 +203,3 @@ table#grades tr:hover{
 .loading-icon{
     margin: 20px;
 }
-.chrome-fix{
-    display: table;
-}
