@@ -1,11 +1,9 @@
 <div flex="100" layout="row" layout-align="space-around" layout-wrap>
-
     <div layout="row" layout-align="center center" ng-show="!ready">
         <i class="loading-icon fa fa-2x fa-cog fa-spin"></i>
         <span class="loading-text">Working</span>
         <i class="loading-icon fa fa-2x fa-cog fa-spin"></i>
     </div>
-
     <md-card ng-repeat="review in reviews" class="review-card" flex="40" flex-md="75" flex-sm="90">
         <md-toolbar>
             <md-button class="md-toolbar-tools"
@@ -20,7 +18,7 @@
         <md-progress-linear md-mode="indeterminate" data-ng-show="adding"></md-progress-linear>
 
 
-        <md-content flex layout="column" class="input-icons" layout-margin>
+        <md-content layout="column" layout-align="center center" class="input-icons" layout-margin>
 
             <!-- Course level -->
             <div layout="row" layout-margin layout-align="center center">
@@ -52,12 +50,11 @@
                 <span class="rating-helper"> {{ params.getHint(review.exam_eval_level) }}</span>
             </div>
 
-            <div flex class="review-text">
+            <div class="review-text">
                 <i class="fa fa-quote-left quote"></i>
                 {{ review.review }}
                 <i class="fa fa-quote-right quote"></i>
             </div>
-
         </md-content>
     </md-card>
 </div>
