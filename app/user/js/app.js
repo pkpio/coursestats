@@ -15,7 +15,11 @@ angular.module('UserApp').constant('config', {
 });
 
 // Route configuration
-angular.module('UserApp').config(function($routeProvider) {$routeProvider
+angular.module('UserApp').config(function($routeProvider, $locationProvider) {
+    // use the HTML5 History API
+    $locationProvider.html5Mode(true);
+
+    $routeProvider
     .when('/course/:id',{
         templateUrl : 'includes/grade.html',
         controller  : 'GradeCtrl'
