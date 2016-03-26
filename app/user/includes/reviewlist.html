@@ -1,63 +1,65 @@
-<div flex="100" layout="row" layout-align="space-around" layout-wrap>
+<div class="chrome-fix">
+    <div flex="100" layout="row" layout-align="space-around" layout-wrap>
 
-    <div layout="row" layout-align="center center" ng-show="!ready">
-        <i class="loading-icon fa fa-2x fa-cog fa-spin"></i>
-        <span class="loading-text">Working</span>
-        <i class="loading-icon fa fa-2x fa-cog fa-spin"></i>
+        <div layout="row" layout-align="center center" ng-show="!ready">
+            <i class="loading-icon fa fa-2x fa-cog fa-spin"></i>
+            <span class="loading-text">Working</span>
+            <i class="loading-icon fa fa-2x fa-cog fa-spin"></i>
+        </div>
+
+        <md-card ng-repeat="review in reviews" class="review-card" flex="40" flex-md="75" flex-sm="90">
+            <md-toolbar>
+                <md-button class="md-toolbar-tools"
+                           layout-align="center center"
+                           target="_blank"
+                           ng-href="{{ user.getProfile(review.emailhash) }}" >
+                    <img ng-src="{{ user.getImage(review.emailhash) }}" class="user-image"/>
+                    <h2 class="review-username">{{ review.username }}</h2>
+                </md-button>
+            </md-toolbar>
+
+            <md-progress-linear md-mode="indeterminate" data-ng-show="adding"></md-progress-linear>
+
+
+            <md-content flex layout="column" class="input-icons" layout-margin>
+
+                <!-- Course level -->
+                <div layout="row" layout-margin layout-align="center center">
+                    <span class="rating-param">Course level </span>
+                    <span class="rating-star">
+                        <i class="fa star {{ params.getClass($index+1, review.content_level) }}"
+                           ng-repeat="star in params.stars"></i>
+                    </span>
+                    <span class="rating-helper"> {{ params.getHint(review.content_level) }}</span>
+                </div>
+
+                <!-- Exam level -->
+                <div layout="row" layout-margin layout-align="center center">
+                    <span class="rating-param">Exam paper </span>
+                    <span class="rating-star">
+                        <i class="fa star {{ params.getClass($index+1, review.exam_level) }}"
+                           ng-repeat="star in params.stars"></i>
+                    </span>
+                    <span class="rating-helper"> {{ params.getHint(review.exam_level) }}</span>
+                </div>
+
+                <!-- Review level -->
+                <div layout="row" layout-margin layout-align="center center">
+                    <span class="rating-param">Exam review </span>
+                    <span class="rating-star">
+                        <i class="fa star {{ params.getClass($index+1, review.exam_eval_level) }}"
+                           ng-repeat="star in params.stars"></i>
+                    </span>
+                    <span class="rating-helper"> {{ params.getHint(review.exam_eval_level) }}</span>
+                </div>
+
+                <div flex class="review-text">
+                    <i class="fa fa-quote-left quote"></i>
+                    {{ review.review }}
+                    <i class="fa fa-quote-right quote"></i>
+                </div>
+
+            </md-content>
+        </md-card>
     </div>
-
-    <md-card ng-repeat="review in reviews" class="review-card" flex="40" flex-md="75" flex-sm="90">
-        <md-toolbar>
-            <md-button class="md-toolbar-tools"
-                       layout-align="center center"
-                       target="_blank"
-                       ng-href="{{ user.getProfile(review.emailhash) }}" >
-                <img ng-src="{{ user.getImage(review.emailhash) }}" class="user-image"/>
-                <h2 class="review-username">{{ review.username }}</h2>
-            </md-button>
-        </md-toolbar>
-
-        <md-progress-linear md-mode="indeterminate" data-ng-show="adding"></md-progress-linear>
-
-
-        <md-content flex layout="column" class="input-icons" layout-margin>
-
-            <!-- Course level -->
-            <div layout="row" layout-margin layout-align="center center">
-                <span class="rating-param">Course level </span>
-                <span class="rating-star">
-                    <i class="fa star {{ params.getClass($index+1, review.content_level) }}"
-                       ng-repeat="star in params.stars"></i>
-                </span>
-                <span class="rating-helper"> {{ params.getHint(review.content_level) }}</span>
-            </div>
-
-            <!-- Exam level -->
-            <div layout="row" layout-margin layout-align="center center">
-                <span class="rating-param">Exam paper </span>
-                <span class="rating-star">
-                    <i class="fa star {{ params.getClass($index+1, review.exam_level) }}"
-                       ng-repeat="star in params.stars"></i>
-                </span>
-                <span class="rating-helper"> {{ params.getHint(review.exam_level) }}</span>
-            </div>
-
-            <!-- Review level -->
-            <div layout="row" layout-margin layout-align="center center">
-                <span class="rating-param">Exam review </span>
-                <span class="rating-star">
-                    <i class="fa star {{ params.getClass($index+1, review.exam_eval_level) }}"
-                       ng-repeat="star in params.stars"></i>
-                </span>
-                <span class="rating-helper"> {{ params.getHint(review.exam_eval_level) }}</span>
-            </div>
-
-            <div flex class="review-text">
-                <i class="fa fa-quote-left quote"></i>
-                {{ review.review }}
-                <i class="fa fa-quote-right quote"></i>
-            </div>
-
-        </md-content>
-    </md-card>
 </div>
