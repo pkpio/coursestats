@@ -10,9 +10,10 @@
 
 
         <md-content layout="column" class="input-icons" layout-margin layout-padding>
-            <p flex class="errorMsg" data-ng-show="!loginPage.loggingin && loginPage.loginError">
+            <span class="errorMsg" data-ng-show="!loginPage.loggingin && loginPage.loginError"
+                  layout-margin layout-padding>
                 {{loginPage.loginError}}
-            </p>
+            </span>
 
             <md-input-container >
                 <md-icon md-svg-src="img/email.svg" class="email"></md-icon>
@@ -20,10 +21,11 @@
                        ng-required="true" ng-disabled="loginPage.loggingin">
             </md-input-container>
 
-            <md-input-container >
+            <md-input-container>
                 <md-icon md-svg-src="img/lock.svg" class="password"></md-icon>
                 <input ng-model="loginPage.password" type="password" placeholder="Password"
-                       ng-required="true" ng-disabled="loginPage.loggingin">
+                       ng-required="true" ng-disabled="loginPage.loggingin"
+                       ng-keyup="$event.which === 13 && loginPage.login()">
             </md-input-container>
 
             <md-button class="md-raised md-primary" ng-click="loginPage.login()">Login</md-button>
