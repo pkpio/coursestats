@@ -10,8 +10,10 @@
 
 
         <md-content layout="column" class="input-icons" layout-margin layout-padding>
-            <p flex class="errorMsg" data-ng-show="!registering && registerError">{{registerError}}</p>
-            <p flex class="successMsg" data-ng-show="!registering && registerMsg">{{registerMsg}}</p>
+            <span layout-margin data-ng-show="!registering && (registerError || registerMsg)">
+                <p class="errorMsg" data-ng-show="!registering && registerError">{{registerError}}</p>
+                <p class="successMsg" data-ng-show="!registering && registerMsg">{{registerMsg}}</p>
+            </span>
 
             <md-input-container >
                 <md-icon md-svg-src="img/account.svg" class="fullname"></md-icon>
@@ -34,7 +36,8 @@
             <md-input-container >
                 <md-icon md-svg-src="img/lock.svg" class="repassword"></md-icon>
                 <input ng-model="register.repassword" type="password" placeholder="Password repeat"
-                       ng-required="true" ng-disabled="registering">
+                       ng-required="true" ng-disabled="registering"
+                       ng-keyup="$event.which === 13 && registerUser()">
             </md-input-container>
 
             <md-button class="md-raised md-primary" ng-click="registerUser()">Register</md-button>
