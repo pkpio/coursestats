@@ -20,33 +20,37 @@ angular.module('UserApp').config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 
     $routeProvider
-    .when('/course/:id',{
-        templateUrl : 'includes/grade.html',
-        controller  : 'GradeCtrl'
-    })
-    .when('/teacher/:id',{
-        templateUrl : 'includes/grade.html',
-        controller  : 'GradeCtrl'
-    })
-    .when('/review/:id',{
-        templateUrl : 'includes/review.html',
-        controller  : 'ReviewCtrl'
-    })
-    .when('/review/list/:id',{
-        templateUrl : 'includes/reviewlist.html',
-        controller  : 'ReviewListCtrl'
-    })
-    .when('/login',{
-        templateUrl : 'includes/login.html',
-        controller  : 'LoginCtrl'
-    })
-    .when('/register',{
-        templateUrl : 'includes/register.html',
-        controller  : 'RegisterCtrl'
-    })
-    .when('/',{
-        templateUrl : 'includes/default.html'
-    })
+        .when('/course/:id',{
+            templateUrl : 'includes/grade.html',
+            controller  : 'GradeCtrl'
+        })
+        .when('/teacher/:id',{
+            templateUrl : 'includes/grade.html',
+            controller  : 'GradeCtrl'
+        })
+        .when('/review/:id',{
+            templateUrl : 'includes/review.html',
+            controller  : 'ReviewCtrl'
+        })
+        .when('/review/list/:id',{
+            templateUrl : 'includes/reviewlist.html',
+            controller  : 'ReviewListCtrl'
+        })
+        .when('/login',{
+            templateUrl : 'includes/login.html',
+            controller  : 'LoginCtrl'
+        })
+        .when('/register',{
+            templateUrl : 'includes/register.html',
+            controller  : 'RegisterCtrl'
+        })
+        .when('/add',{
+            templateUrl : 'includes/addgrade.html',
+            controller  : 'AddGradeCtrl'
+        })
+        .when('/',{
+            templateUrl : 'includes/default.html'
+        })
     .otherwise({
         redirectTo: '/'
     });
