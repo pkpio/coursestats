@@ -1,0 +1,76 @@
+<div layout="row" layout-align="center center" layout-margin>
+    <md-card class="max-width-500">
+        <md-toolbar>
+            <div class="md-toolbar-tools" layout-align="center center">
+                <h2>Add grades</h2>
+            </div>
+        </md-toolbar>
+
+        <md-progress-linear md-mode="indeterminate" data-ng-show="addingGrade"></md-progress-linear>
+
+
+        <md-content layout="column" class="input-icons" layout-margin layout-padding>
+            <span layout-margin data-ng-show="!addingGrade && (message.error || message.success)">
+                <p class="errorMsg" data-ng-show="message.error">{{registerError}}</p>
+                <p class="successMsg" data-ng-show="message.success">{{registerMsg}}</p>
+            </span>
+
+            <!-- A toggle between automatic and manual modes -->
+            <div layout="row" layout-align="center center">
+                <span>Manual</span>
+                <md-switch ng-model="mode" aria-label="Data mode"></md-switch>
+                <span>Automatic</span>
+            </div>
+
+            <!-- Manual mode : no additional fields needed -->
+
+            <!-- Automatic mode : An extra box to paste data in -->
+            <div layout="column" data-ng-show="mode" layout-align="center center" layout-margin>
+                <md-input-container class="md-block">
+                    <label>TuCan grades page text for a course</label>
+                    <textarea ng-model="clipboard" md-maxlength="1000" rows="4" md-select-on-focus></textarea>
+                </md-input-container>
+                <br/><br/><br/>
+                <span class="md-title">Extracted data</span>
+            </div>
+
+            <!-- Common : Fields common to both modes - editable in manual, disabled otherwise -->
+            <!--TODO : Make all input fields here autocomplete -->
+
+            <!-- Course Title -->
+            <md-input-container >
+                <md-icon md-svg-src="img/book-plus.svg" class="email"></md-icon>
+                <input ng-model="grade.course" type="text" placeholder="Course title"
+                       ng-required="true" ng-disabled="addingGrade || mode">
+            </md-input-container>
+
+            <!-- Semester -->
+            <md-input-container >
+                <md-icon md-svg-src="img/calendar.svg" class="email"></md-icon>
+                <input ng-model="grade.sem" type="text" placeholder="Semester"
+                       ng-required="true" ng-disabled="addingGrade || mode">
+            </md-input-container>
+
+            <!-- Professor -->
+            <md-input-container >
+                <md-icon md-svg-src="img/account-circle.svg" class="email"></md-icon>
+                <input ng-model="grade.prof" type="text" placeholder="Professor"
+                       ng-required="true" ng-disabled="addingGrade || mode">
+            </md-input-container>
+
+            <!-- Grades -->
+            <md-content layout="row" layout-wrap>
+                <div flex="33" ng-repeat="grade in grades">
+                    <md-input-container flex>
+                        <label>{{grade.display}}</label>
+                        <input ng-model="grade.value" ng-disabled="addingGrade || mode">
+                    </md-input-container>
+                </div>
+            </md-content>
+
+            <!-- Add button -->
+            <md-button class="md-raised md-primary" ng-click="addGrades()">Add grades</md-button>
+
+        </md-content>
+    </md-card>
+</div>
