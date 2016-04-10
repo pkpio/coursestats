@@ -76,8 +76,10 @@ angular.module('UserApp').controller('AddGradeCtrl', function($scope, config, $h
     ];
     console.log($scope.grades);
     $scope.parseData = function (data) {
+        if(data==""){return}
         var others=null;
         var arr = data.split('\n');
+        if(arr.length<17){ return;}
         var tucan = arr[2].split(' ')[0];
         var courseName = arr[2].split('  ')[1].split(',')[0];
         var semester = arr[2].split('  ')[1].split(',')[1].split(' ')[1];
@@ -95,8 +97,9 @@ angular.module('UserApp').controller('AddGradeCtrl', function($scope, config, $h
             $scope.grades[i].value=(i == 11) ? others : grades[i];
         }
         $scope.grade.course=courseName;
-        $scope.grade.sem= year+' '+semester
+        $scope.grade.sem= year+' '+semester;
         $scope.showfields = 1;
+        $scope.clipboard=""
     };
 
     $scope.addGrades = function () {
