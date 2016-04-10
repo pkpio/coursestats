@@ -18,3 +18,13 @@ sudo cp api.coursestats.de.conf /etc/apache2/sites-enabled/
 # Enable rewrite engine for apache
 sudo a2enmod rewrite && sudo service apache2 restart
 
+# Install app deps using composer
+cd ..
+composer install
+
+# Install config file
+clear
+cp config.sample.ini config.ini
+echo 'All done!'
+echo 'Just update "api/config.ini" with your database config before using'
+
