@@ -7,8 +7,9 @@ angular.module('UserApp').controller('AddGradeCtrl', function($scope, config, $h
         error: null,
         success: null
     };
-    $scope.grade={}
+    $scope.grade={};
     $scope.addingGrade = 0;
+    $scope.showfields = 0;
 
     // Grade object
     $scope.grades = [
@@ -75,7 +76,7 @@ angular.module('UserApp').controller('AddGradeCtrl', function($scope, config, $h
     ];
     console.log($scope.grades);
     $scope.parseData = function (data) {
-        var others=null
+        var others=null;
         var arr = data.split('\n');
         var tucan = arr[2].split(' ')[0];
         var courseName = arr[2].split('  ')[1].split(',')[0];
@@ -83,7 +84,7 @@ angular.module('UserApp').controller('AddGradeCtrl', function($scope, config, $h
         var year = arr[2].split('  ')[1].split(',')[1].split(' ')[2].split('/')[0];
         var grades = arr[11].split('	');
         var date = arr[6].split(',')[1];
-        grades.splice(0,1)
+        grades.splice(0,1);
         semester = (semester=='WiSe') ? 'Winter':'Summer';
         arr.forEach(function (item) {
             if(item.indexOf('Missing')>-1){
@@ -95,6 +96,7 @@ angular.module('UserApp').controller('AddGradeCtrl', function($scope, config, $h
         }
         $scope.grade.course=courseName;
         $scope.grade.sem= year+' '+semester
+        $scope.showfields = 1;
     };
 
     $scope.addGrades = function () {
