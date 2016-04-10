@@ -28,23 +28,30 @@ $app->group('/grade', function () use ($app, $db, $checkAdder, $checkCrawler) {
         $grade_4 = $app->request->params('grade40');
         $grade_5 = $app->request->params('grade50');
         $grade_others = $app->request->params('gradeothers');
+        $extras = $app->request->get('extras');
+
+        if(!$extras || $extras == "")
+            $extras = "NA";
 
         try {
             $stmt = $db->prepare('INSERT INTO grades (`courseid`, `teacherid`, `addedby`,
                                     `grade_10`, `grade_13`, `grade_17`,
                                     `grade_20`, `grade_23`, `grade_27`,
                                     `grade_30`, `grade_33`, `grade_37`,
-                                    `grade_40`, `grade_50`, `grade_others`)
+                                    `grade_40`, `grade_50`, `grade_others`,
+                                    `extras`)
                                    VALUES (:courseid, :teacherid, :addedby,
                                    :grade_10, :grade_13, :grade_17,
                                    :grade_20, :grade_23, :grade_27,
                                    :grade_30, :grade_33, :grade_37,
-                                   :grade_40, :grade_50, :grade_others)');
+                                   :grade_40, :grade_50, :grade_others,
+                                   :extras)');
             $result = $stmt->execute(array(':courseid' => $courseid, ':teacherid' => $teacherid, ':addedby' => $userid,
                         ':grade_10' => $grade_1, ':grade_13' => $grade_13, ':grade_17' => $grade_17,
                         ':grade_20' => $grade_2, ':grade_23' => $grade_23, ':grade_27' => $grade_27,
                         ':grade_30' => $grade_3, ':grade_33' => $grade_33, ':grade_37' => $grade_37,
-                        ':grade_40' => $grade_4, ':grade_50' => $grade_5, ':grade_others' => $grade_others));
+                        ':grade_40' => $grade_4, ':grade_50' => $grade_5, ':grade_others' => $grade_others,
+                        ':extras' => $extras));
 
             if($result)
                 ApiResponse::success(200, "success", "gradeid", $db->lastInsertId());
