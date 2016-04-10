@@ -26,10 +26,19 @@
 
             <!-- Automatic mode : An extra box to paste data in -->
             <div data-ng-show="mode" layout-align="center center" layout-margin>
+                <h3>Instructions</h3>
+                <ol class="md-body-1">
+                    <li>Goto TUCaN --> Examinations --> Semester results --> Examination results</li>
+                    <li>Click <b><u>Ø</u></b> at the right corner of any course</li>
+                    <li>In the popup : Press <b class="highlight">CTRL+A</b>, then <b class="highlight">CTRL+C</b></li>
+                    <li><b class="highlight">CTRL+V</b> in below text field</li>
+                </ol>
+
                 <md-input-container class="md-block">
-                    <label>TuCan grades page text for a course</label>
+                    <label>Paste TUCaN text here</label>
                     <textarea data-ng-model="clipboard" md-maxlength="1000" rows="4" md-select-on-focus></textarea>
                 </md-input-container>
+
                 <div layout="column" layout-align="center center" >
                     <md-button class="md-raised md-primary" ng-click="parseData(clipboard)">Extract</md-button>
                 </div>
@@ -38,42 +47,43 @@
 
             <!-- Common : Fields common to both modes - editable in manual, disabled otherwise -->
             <!--TODO : Make all input fields here autocomplete -->
+            <div data-ng-show="showfields || !mode">
+                <!-- Course Title -->
+                <md-input-container >
+                    <md-icon md-svg-src="img/book-plus.svg" class="email"></md-icon>
+                    <input data-ng-model="grade.course" type="text" placeholder="Course title"
+                           ng-required="true" ng-readonly="mode">
+                </md-input-container>
 
-            <!-- Course Title -->
-            <md-input-container >
-                <md-icon md-svg-src="img/book-plus.svg" class="email"></md-icon>
-                <input data-ng-model="grade.course" type="text" placeholder="Course title"
-                       ng-required="true" ng-readonly="mode">
-            </md-input-container>
+                <!-- Semester -->
+                <md-input-container >
+                    <md-icon md-svg-src="img/calendar.svg" class="email"></md-icon>
+                    <input data-ng-model="grade.sem" type="text" placeholder="Semester"
+                           ng-required="true" ng-readonly="mode">
+                </md-input-container>
 
-            <!-- Semester -->
-            <md-input-container >
-                <md-icon md-svg-src="img/calendar.svg" class="email"></md-icon>
-                <input data-ng-model="grade.sem" type="text" placeholder="Semester"
-                       ng-required="true" ng-readonly="mode">
-            </md-input-container>
+                <!-- Professor -->
+                <md-input-container >
+                    <md-icon md-svg-src="img/account-circle.svg" class="email"></md-icon>
+                    <input data-ng-model="grade.prof" type="text" placeholder="Professor"
+                    >
+                </md-input-container>
 
-            <!-- Professor -->
-            <md-input-container >
-                <md-icon md-svg-src="img/account-circle.svg" class="email"></md-icon>
-                <input data-ng-model="grade.prof" type="text" placeholder="Professor"
-                >
-            </md-input-container>
+                <!-- Grades -->
+                <md-content layout="row" layout-wrap>
+                    <div flex="33" ng-repeat="grade in grades">
+                        <md-input-container flex>
+                            <label>{{grade.display}}</label>
+                            <input data-ng-model="grade.value" ng-readonly="mode">
+                        </md-input-container>
+                    </div>
+                </md-content>
 
-            <!-- Grades -->
-            <md-content layout="row" layout-wrap>
-                <div flex="33" ng-repeat="grade in grades">
-                    <md-input-container flex>
-                        <label>{{grade.display}}</label>
-                        <input data-ng-model="grade.value" ng-readonly="mode">
-                    </md-input-container>
+                <!-- Add button -->
+                <div layout="row" layout-align="center center">
+                    <md-button class="md-raised md-primary" ng-click="addGrades()">Add grades</md-button>
+
                 </div>
-            </md-content>
-
-            <!-- Add button -->
-            <div layout="row" layout-align="center center">
-                <md-button class="md-raised md-primary" ng-click="addGrades()">Add grades</md-button>
-
             </div>
 
 
