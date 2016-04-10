@@ -1,5 +1,5 @@
 <div layout="row" layout-align="center center" layout-margin>
-    <md-card class="max-width-500">
+    <md-card flex-gt-md="60" flex-md="100" flex-sm="100">
         <md-toolbar>
             <div class="md-toolbar-tools" layout-align="center center">
                 <h2>Add grades</h2>
@@ -18,20 +18,22 @@
             <!-- A toggle between automatic and manual modes -->
             <div layout="row" layout-align="center center">
                 <span>Manual</span>
-                <md-switch ng-model="mode" aria-label="Data mode"></md-switch>
+                <md-switch ng-model="mode"  aria-label="Data mode"></md-switch>
                 <span>Automatic</span>
             </div>
 
             <!-- Manual mode : no additional fields needed -->
 
             <!-- Automatic mode : An extra box to paste data in -->
-            <div layout="column" data-ng-show="mode" layout-align="center center" layout-margin>
+            <div data-ng-show="mode" layout-align="center center" layout-margin>
                 <md-input-container class="md-block">
                     <label>TuCan grades page text for a course</label>
-                    <textarea ng-model="clipboard" md-maxlength="1000" rows="4" md-select-on-focus></textarea>
+                    <textarea data-ng-model="clipboard" md-maxlength="1000" rows="4" md-select-on-focus></textarea>
                 </md-input-container>
-                <br/><br/><br/>
-                <span class="md-title">Extracted data</span>
+                <div layout="column" layout-align="center center" >
+                    <md-button class="md-raised md-primary" ng-click="parseData(clipboard)">Extract</md-button>
+                </div>
+
             </div>
 
             <!-- Common : Fields common to both modes - editable in manual, disabled otherwise -->
@@ -40,22 +42,22 @@
             <!-- Course Title -->
             <md-input-container >
                 <md-icon md-svg-src="img/book-plus.svg" class="email"></md-icon>
-                <input ng-model="grade.course" type="text" placeholder="Course title"
-                       ng-required="true" ng-disabled="addingGrade || mode">
+                <input data-ng-model="grade.course" type="text" placeholder="Course title"
+                       ng-required="true" ng-readonly="mode">
             </md-input-container>
 
             <!-- Semester -->
             <md-input-container >
                 <md-icon md-svg-src="img/calendar.svg" class="email"></md-icon>
-                <input ng-model="grade.sem" type="text" placeholder="Semester"
-                       ng-required="true" ng-disabled="addingGrade || mode">
+                <input data-ng-model="grade.sem" type="text" placeholder="Semester"
+                       ng-required="true" ng-readonly="mode">
             </md-input-container>
 
             <!-- Professor -->
             <md-input-container >
                 <md-icon md-svg-src="img/account-circle.svg" class="email"></md-icon>
-                <input ng-model="grade.prof" type="text" placeholder="Professor"
-                       ng-required="true" ng-disabled="addingGrade || mode">
+                <input data-ng-model="grade.prof" type="text" placeholder="Professor"
+                >
             </md-input-container>
 
             <!-- Grades -->
@@ -63,13 +65,17 @@
                 <div flex="33" ng-repeat="grade in grades">
                     <md-input-container flex>
                         <label>{{grade.display}}</label>
-                        <input ng-model="grade.value" ng-disabled="addingGrade || mode">
+                        <input data-ng-model="grade.value" ng-readonly="mode">
                     </md-input-container>
                 </div>
             </md-content>
 
             <!-- Add button -->
-            <md-button class="md-raised md-primary" ng-click="addGrades()">Add grades</md-button>
+            <div layout="row" layout-align="center center">
+                <md-button class="md-raised md-primary" ng-click="addGrades()">Add grades</md-button>
+
+            </div>
+
 
         </md-content>
     </md-card>
