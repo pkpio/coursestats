@@ -11,19 +11,42 @@ require 'includes/utils.php';
 require 'includes/logger.php';
 require 'includes/response.php';
 
-// Slim app setup
+// Read the config file
+$config = (object) parse_ini_file('config.ini');
+
+/*** Slim app setup ***/
+
+// Setup the app
 $app = new \Slim\Slim(array(
-		'mode' => 'development',
-		'log.enabled' => true,
+    'mode' => $config->mode
+));
+
+// Define modes of operation
+$app->configureMode('production', function () use ($app) {
+    $app->config(array(
+        'log.enable' => true,
+        'debug' => false,
 		'log.level' => \Slim\Log::DEBUG,
 		'log.writer' => new APILogWriter()
-	)
-);
+    ));
+});
+$app->configureMode('development', function () use ($app) {
+    $app->config(array(
+        'log.enable' => true,
+        'debug' => true,
+		'log.level' => \Slim\Log::DEBUG,
+		'log.writer' => new APILogWriter()
+    ));
+});
 
 // Database setup
-$db = new pdo('mysql:unix_socket=/cloudsql/course-stats:sqldb;dbname=coursestats',
-    'root',  // username
-    ''       // password
+$db = new pdo(
+    $config->type . ':' .
+    'host=' . $config->host . ';' .     // Host
+    'dbname=' . $config->dbname . ';' . // Database name
+    'charset=' . $config->charset,
+    $config->username,                  // username
+    $config->password                   // password
 );
 
 // Permits setup - used by routes
