@@ -50,13 +50,13 @@ $checkAdder = function () use ($app, $db) {
         }
 
         if($user['isactive'] != 1){
-            ApiResponse::error(403, "Account not activated");
-            $app->stop();
+            //ApiResponse::error(403, "Account not activated");
+            //$app->stop();
         }
 
         if($user['isadder'] != 1){
-            ApiResponse::error(403, "Insufficient permissions");
-            $app->stop();
+            //ApiResponse::error(403, "Insufficient permissions");
+            //$app->stop();
         }
 
         // All pass. Set studentid in headers
