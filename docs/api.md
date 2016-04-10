@@ -77,15 +77,10 @@ Functions:<br/>
 
 1. Add<br/>
    Url - ```/add```<br/>
-   Params - courseid, teacherid, token, grade_10, grade_13.....grade_50, grade_others, extras (optional)<br/>
+   Params - courseid, teacherid, token, grade10, grade13.....grade50, gradeothers, extras (optional)<br/>
    Response - gradeid
 
-2. List<br/>
-   Url - ```/list```<br/>
-   Params - none<br/>
-   Response - [grade]
-
-3. Search<br/>
+2. Search<br/>
    Url - ```/search```<br/>
    Params - courseid or teacherid (a union search is performed)<br/>
    Response - [grade]
