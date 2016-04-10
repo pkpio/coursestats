@@ -56,7 +56,7 @@ Functions:
 
 1. Add<br/>
    Url - ```/add```<br/>
-   Params - name, year, semester, teacherid, token<br/>
+   Params - name, year, semester, tucanid (optional), teacherid, token<br/>
    Response - courseid
 
 2. List<br/>
@@ -77,7 +77,7 @@ Functions:<br/>
 
 1. Add<br/>
    Url - ```/add```<br/>
-   Params - courseid, teacherid, token, grade_10, grade_13.....grade_50, grade_others<br/>
+   Params - courseid, teacherid, token, grade_10, grade_13.....grade_50, grade_others, extras (optional)<br/>
    Response - gradeid
 
 2. List<br/>
