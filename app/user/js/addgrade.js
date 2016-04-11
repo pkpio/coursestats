@@ -104,22 +104,77 @@ angular.module('UserApp').controller('AddGradeCtrl', function($scope, config, $h
 
     $scope.addGrades = function () {
 
-        // Course must be selected
-        if(!$scope.grade.course){
+        // Course must be selected - TODO- additional checks as well
+        if(!$scope.grade.course || !$scope.grade.sem){
             $scope.message.success = '';
-            $scope.message.error = "A course must be selected!";
+            $scope.message.error = "Course and sem must be selected!";
             return;
         }
 
-        // Pre call setup
+        // Fill default prof name if empty
+        if(!$scope.grade.prof)
+            $scope.grade.prof = "Prof. X";
+
+        // Pre API calls setup
         $scope.message.success = '';
         $scope.message.error = '';
-        $scope.addingGrades = 1;
+        $scope.addingGrade = 1;
 
-        // Building REST call url
+        // 1. Add teacher
+        var req = {
+            method: 'GET',
+            url: config.apiUrl + '/teacher/add?'
+            + 'token=' + $cookies.token
+            + '&name=' + $scope.grade.prof
+        };
+        $http(req)
+            .then(
+                function(response){ // Success callback
+                    $data = response.data;
+                    if($data.responsecode == 200){
+                        // Add course and grades using this teacherid
+                        addCourseAndGrades($data.teacherid);
+                    } else{
+                        throwError($data.message);
+                    }
+                },
+                function(response){ //Error callback
+                    throwError(response.toString());
+                }
+            );
+    };
+
+    addCourseAndGrades = function($teacherid){
+        var req = {
+            method: 'GET',
+            url: config.apiUrl + '/course/add?'
+            + 'token=' + $cookies.token
+            + '&name=' + $scope.grade.course
+            + '&year=' + getYear($scope.grade.sem)
+            + '&sem=' + getSem(($scope.grade.sem))
+            + '&teacherid=' + $teacherid
+        };
+
+        $http(req)
+            .then(
+                function(response){ // Success callback
+                    $data = response.data;
+                    if($data.responsecode == 200){
+                        // Add grades for this course using this courseid
+                        addCourseGrades($data.courseid, $teacherid);
+                    } else{
+                        throwError($data.message);
+                    }
+                },
+                function(response){ //Error callback
+                    throwError(response.toString());
+                }
+            );
+
+    };
+
+    addCourseGrades = function($courseid, $teacherid){
         var gradeParams = "";
-        console.log($scope.grade);
-        console.log($scope.grades);
         angular.forEach($scope.grades, function (grade) {
             gradeParams += "&" + grade.key + "=" + grade.value;
         });
@@ -127,13 +182,44 @@ angular.module('UserApp').controller('AddGradeCtrl', function($scope, config, $h
             method: 'GET',
             url: config.apiUrl + '/grade/add?'
             + 'token=' + $cookies.token
-            + '&courseid=' + $scope.grade.courseid
-            + '&teacherid=' + $scope.grade.prof
-            + $scope.grades
+            + '&courseid=' + $courseid
+            + '&teacherid=' + $teacherid
+            + gradeParams
         };
 
-        // Making the REST call
+        $http(req)
+            .then(
+                function(response){ // Success callback
+                    $data = response.data;
+                    if($data.responsecode == 200){
+                        $scope.message.success = 'Added successfully!';
+                        $scope.message.error = '';
+                    } else{
+                        throwError($data.message);
+                    }
+                    $scope.addingGrade = 0;
+                },
+                function(response){ //Error callback
+                    throwError(response.toString());
+                }
+            );
+    };
 
+    getYear = function($semtext){
+        return $semtext.substr(0, 4);
+    };
+
+    getSem = function($semtext){
+        if($semtext.indexOf('Winter') > -1)
+            return "2";
+        else
+            return "1";
+    };
+
+    throwError = function($errorMsg){
+        $scope.message.success = '';
+        $scope.message.error = $errorMsg;
+        $scope.addingGrade = 0;
     };
 
 });

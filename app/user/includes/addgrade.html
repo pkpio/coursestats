@@ -6,14 +6,7 @@
             </div>
         </md-toolbar>
 
-        <md-progress-linear md-mode="indeterminate" data-ng-show="addingGrade"></md-progress-linear>
-
-
         <md-content layout="column" class="input-icons" layout-margin layout-padding>
-            <span layout-margin data-ng-show="!addingGrade && (message.error || message.success)">
-                <p class="errorMsg" data-ng-show="message.error">{{registerError}}</p>
-                <p class="successMsg" data-ng-show="message.success">{{registerMsg}}</p>
-            </span>
 
             <!-- A toggle between automatic and manual modes -->
             <div layout="row" layout-align="center center">
@@ -80,13 +73,16 @@
                 </md-content>
 
                 <!-- Add button -->
-                <div layout="row" layout-align="center center">
-                    <md-button class="md-raised md-primary" ng-click="addGrades()">Add grades</md-button>
-
+                <div layout="column" layout-align="center center">
+                    <p flex layout-align="left" class="errorMsg" data-ng-show="message.error">{{message.error}}</p>
+                    <p flex layout-align="left" class="successMsg" data-ng-show="message.success">{{message.success}}</p>
+                    <md-button class="md-raised md-primary" ng-click="addGrades()" ng-disabled="addingGrade">Add grades</md-button>
                 </div>
             </div>
 
-
         </md-content>
+
+        <md-progress-linear md-mode="indeterminate" data-ng-show="addingGrade"></md-progress-linear>
+
     </md-card>
 </div>
