@@ -34,6 +34,16 @@ $app->group('/grade', function () use ($app, $db, $checkToken, $checkCrawler) {
             $extras = "NA";
 
         try {
+            // Check for duplicate
+            $stmt0 = $db->prepare('SELECT gradeid FROM grades WHERE courseid=?');
+            $stmt0->execute(array($courseid));
+            if($stmt0->rowCount() != 0){
+                // Course grades already exists. So stop.
+                $grade = $stmt0->fetch(PDO::FETCH_ASSOC);
+                ApiResponse::success(200, "success", "gradeid", $grade['gradeid']);
+                $app->stop();
+            }
+
             $stmt = $db->prepare('INSERT INTO grades (`courseid`, `teacherid`, `addedby`,
                                     `grade_10`, `grade_13`, `grade_17`,
                                     `grade_20`, `grade_23`, `grade_27`,

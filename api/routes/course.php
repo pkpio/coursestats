@@ -43,9 +43,9 @@ $app->group('/course', function () use ($app, $db, $checkAdder) {
 
             // Similar course already in db
             else {
-                // Check for a possible duplicate
+                // Check for a possible duplicate. Report success if already exists!
                 if($dbCourse['year'] == $year && $dbCourse['semester'] == $sem){
-                    ApiResponse::error(403, "Stop! Course already added!");
+                    ApiResponse::success(200, "success", "courseid", $dbCourse['courseid']);
                     $app->stop();
                 }
 
