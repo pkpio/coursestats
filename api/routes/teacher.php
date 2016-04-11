@@ -7,10 +7,10 @@
  * These are the list of actions / api calls for a teacher or course instructor
  */
 
-$app->group('/teacher', function () use ($app, $db, $checkAdder) {
+$app->group('/teacher', function () use ($app, $db, $checkToken) {
 
     //################## Add Teacher  ##################
-    $app->map('/add', $checkAdder, function () use ($app, $db) {
+    $app->map('/add', $checkToken, function () use ($app, $db) {
         $userid = $app->request->headers->get("studentid");
         $name = $app->request->get('name');
         $website = $app->request->get('website');
