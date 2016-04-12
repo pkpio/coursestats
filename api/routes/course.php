@@ -44,6 +44,7 @@ $app->group('/course', function () use ($app, $db, $checkToken) {
             // Similar course already in db
             else {
                 // Check for a possible duplicate. Report success if already exists!
+                // TODO : This should be an array checking! Not one entry!
                 if($dbCourse['year'] == $year && $dbCourse['semester'] == $sem){
                     ApiResponse::success(200, "success", "courseid", $dbCourse['courseid']);
                     $app->stop();
