@@ -76,30 +76,41 @@ angular.module('UserApp').controller('AddGradeCtrl', function($scope, config, $h
     ];
     console.log($scope.grades);
     $scope.parseData = function (data) {
-        if(data==""){return}
-        var others=null;
-        var arr = data.split('\n');
-        if(arr.length<17){ return;}
-        var tucan = arr[2].split(' ')[0];
-        var courseName = arr[2].split('  ')[1].split(',')[0];
-        var semester = arr[2].split('  ')[1].split(',')[1].split(' ')[1];
-        var year = arr[2].split('  ')[1].split(',')[1].split(' ')[2].split('/')[0];
-        var grades = arr[11].split('	');
-        var date = arr[6].split(',')[1];
+        $scope.clipboard=""
+        if(!data.startsWith('Grade overview')){
+            console.log("not a valid data");
+            return;
+        }
+        var index1 = data.indexOf('Number');
+        var index2 = data.indexOf('Average');
+        var grades = data.substring(index1+6, index2-1).split('\t');
         grades.splice(0,1);
-        semester = (semester=='WiSe') ? 'Winter':'Summer';
-        arr.forEach(function (item) {
-            if(item.indexOf('Missing')>-1){
-                others+=parseInt(item.split(':')[1])
-            }
-        });
-        for (i = 0; i < $scope.grades.length; i++) {
-            $scope.grades[i].value=(i == 11) ? others : grades[i];
+        data = data.slice(data.indexOf('\n')+2);
+        var courseString = data.substring(0,data.indexOf('\n')).split(',');
+        var tucan = courseString[0].split('  ')[0];
+        var courseName = courseString[0].split('  ')[1];
+        var term =  (courseString[1].split(" ")[1] == 'WiSe') ? 'Winter':'Summer';
+        var semester = (term == 'Winter') ? 2:1;
+        var year = parseInt((semester == 1)? courseString[1].split(" ")[2] : courseString[1].split(" ")[2].split('/')[0]);
+        var othersCount = getOthersCount(data);
+        for (var i = 0; i < $scope.grades.length; i++) {
+            $scope.grades[i].value=(i == 11) ? othersCount : parseInt(grades[i]);
         }
         $scope.grade.course=courseName;
-        $scope.grade.sem= year+' '+semester;
+        $scope.grade.sem= year+' '+term;
+        $scope.grade.year=year;
+        $scope.grade.term=semester;
+        $scope.grade.tucan=tucan;
         $scope.showfields = 1;
-        $scope.clipboard=""
+    };
+    getOthersCount = function (data) {
+        var count = 0;
+        while(data.indexOf('Missing')>-1){
+            data = data.slice(data.indexOf('Missing'))
+            count += parseInt(data.substring(data.indexOf('Missing'),data.split('Missing', 2).join('Missing').length).split(':')[1])
+            data = data.slice(data.split('Missing', 2).join('Missing').length)
+        }
+        return count;
     };
 
     $scope.addGrades = function () {
