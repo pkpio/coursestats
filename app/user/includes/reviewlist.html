@@ -57,4 +57,14 @@
             </div>
         </md-content>
     </md-card>
+    <md-card ng-if="reviews.length <1" class="review-card" flex="40" flex-md="75" flex-sm="90"  layout-align="center center">
+        <md-toolbar  layout-align="center center">
+            <span  layout-align="center center">No reviews for this course</span>
+        </md-toolbar>
+        <md-content>
+            <md-button layout-align="center center" ng-href="review/{{courseId}}">
+                <i class="fa fa-pencil"></i> Rate this course
+            </md-button>
+        </md-content>
+    </md-card>
 </div>

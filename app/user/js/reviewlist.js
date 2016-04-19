@@ -3,7 +3,7 @@
  * Handles review add operations
  */
 
-angular.module('UserApp').controller('ReviewListCtrl', function ($scope, config, $http, $location) {
+angular.module('UserApp').controller('ReviewListCtrl', function ($scope, config, $http, $location, $routeParams) {
     $scope.ready = 0;
 
     $scope.params = {
@@ -46,14 +46,13 @@ angular.module('UserApp').controller('ReviewListCtrl', function ($scope, config,
     };
 
     // Set courseid
-    var path = $location.path();
-    $scope.courseid = path.substr(path.lastIndexOf('/') + 1, path.length);
 
+    $scope.courseId=$routeParams.id;
     // Build a review list request
     var req = {
         method: 'GET',
         url: config.apiUrl + '/review/search?'
-        + 'courseid=' + $scope.courseid
+        + 'courseid=' + $scope.courseId
     };
 
     // Send it
