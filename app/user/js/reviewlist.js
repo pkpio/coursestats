@@ -50,7 +50,7 @@ angular.module('UserApp').controller('ReviewListCtrl', function ($scope, config,
     var req = {
         method: 'GET',
         url: config.apiUrl + '/review/search?'
-        + 'courseid=' + $scope.courseId
+        + 'courseid=' + $scope.courseid
     };
 
     // Send it
@@ -62,8 +62,7 @@ angular.module('UserApp').controller('ReviewListCtrl', function ($scope, config,
             $scope.ready = 1;
         },
         function(response){ //Error callback
-            console.log("Error!");
-            // -TODO- Error handling
+            console.log(response);
         }
     );
 
