@@ -5,6 +5,7 @@
 
 angular.module('UserApp').controller('ReviewListCtrl', function ($scope, config, $http, $location, $routeParams) {
     $scope.ready = 0;
+    $scope.courseid = $routeParams.id;
 
     $scope.params = {
         stars : [1, 2, 3, 4, 5],
@@ -45,9 +46,6 @@ angular.module('UserApp').controller('ReviewListCtrl', function ($scope, config,
         }
     };
 
-    // Set courseid
-
-    $scope.courseId=$routeParams.id;
     // Build a review list request
     var req = {
         method: 'GET',
