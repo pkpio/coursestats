@@ -24,12 +24,12 @@ $app->group('/course', function () use ($app, $db, $checkToken) {
         try {
             $stmt = $db->prepare('SELECT courseid, name, year, semester FROM courses WHERE name=?');
             $stmt->execute(array(utf8_encode($name)));
-            $dbCourse = $stmt->fetch(PDO::FETCH_ASSOC);
+            $dbCourses = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $newCourseid = 0;
             $error = null;
 
             // Normal insert of completely new course
-            if(!$dbCourse){
+            if(!$dbCourses){
                 $stmt2 = $db->prepare('INSERT INTO courses (`name`, `teacherid`, `year`, `semester`, `tucanid`, `addedby`)
                                    VALUES (?, ?, ?, ?, ?, ?)');
                 $stmt2->execute(array(utf8_encode($name), $teacherid, $year, $sem, $tucanid, $userid));
@@ -44,16 +44,17 @@ $app->group('/course', function () use ($app, $db, $checkToken) {
             // Similar course already in db
             else {
                 // Check for a possible duplicate. Report success if already exists!
-                // TODO : This should be an array checking! Not one entry!
-                if($dbCourse['year'] == $year && $dbCourse['semester'] == $sem){
-                    ApiResponse::success(200, "success", "courseid", $dbCourse['courseid']);
-                    $app->stop();
-                }
+                $linkedid = $dbCourses[0]['courseid'];
+                foreach($dbCourses as $dbCourse)
+                    if($dbCourse['year'] == $year && $dbCourse['semester'] == $sem){
+                        ApiResponse::success(200, "success", "courseid", $dbCourse['courseid']);
+                        $app->stop();
+                    }
 
                 // Insert a course with linkedid to existing course
                 $stmt2 = $db->prepare('INSERT INTO courses (`name`, `teacherid`, `year`, `semester`, `tucanid`, `addedby`,
                                       `linkedid`) VALUES (?, ?, ?, ?, ?, ?, ?)');
-                $stmt2->execute(array(utf8_encode($name), $teacherid, $year, $sem, $tucanid, $userid, $dbCourse['courseid']));
+                $stmt2->execute(array(utf8_encode($name), $teacherid, $year, $sem, $tucanid, $userid, $linkedid));
                 $newCourseid = $db->lastInsertId();
                 $error = $stmt2->errorInfo();
             }
