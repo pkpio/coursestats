@@ -26,7 +26,7 @@
         </md-button>
 
         <!-- Main searchbar -->
-        <md-autocomplete flex="60" flex-sm="100" flex-order-sm="2" flex-order-md="3"
+        <md-autocomplete flex="55" flex-sm="100" flex-order-sm="2" flex-order-md="3"
                 ng-disabled="search.isDisabled"
                 md-no-cache="search.noCache"
                 md-search-text="search.searchText"
@@ -49,7 +49,7 @@
             </md-not-found>
         </md-autocomplete>
 
-        <!-- User profile -->
+        <!-- Right menu -->
         <div flex layout="row" layout-align="end center"
              layout-align-sm="center center"
              flex-sm="100"
@@ -59,19 +59,21 @@
              flex-order-md="2"
              class="user-profile" >
 
-            <!-- User image -->
-            <md-button class="md-icon-button" ng-href="{{toolbar.user.getProfile()}}"
-                       target="_blank">
-                <img ng-src="{{ toolbar.user.getImage() }}" class="user-image"
-                     layout-align="center center" description="Guest"/>
+            <!-- Course add button -->
+            <md-button ng-href="/add">
+                <span>
+                    <md-icon md-svg-src="img/plus-circle-outline.svg" flex="15" class="title-logo"></md-icon>
+                    Add course
+                </span>
             </md-button>
 
-            <!-- login / logout buttons -->
-            <md-button class="md-icon-button loginToggle-btn" ng-click="toolbar.loginToggle()">
-                <span>{{toolbar.getLoginBtnText()}}</span>
+            <!-- Login / logout toggle -->
+            <md-button ng-click="toolbar.loginToggle()">
+                <span layout-align="center center" layout="row">
+                     <img ng-src="{{ toolbar.user.getImage() }}" class="user-image" />
+                    {{toolbar.getLoginBtnText()}}
+                </span>
             </md-button>
-
-
         </div>
 
     </div>
