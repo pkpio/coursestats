@@ -2,7 +2,13 @@
  * Created by praveen on 06.04.16.
  */
 
-angular.module('UserApp').controller('AddGradeCtrl', function($scope, config, $http, $cookies) {
+angular.module('UserApp').controller('AddGradeCtrl', function($scope, config, $http, $cookies, $location) {
+    if(!$cookies.token){
+        $cookies.lastUrl = $location.path();
+        $location.path('/login');
+        return;
+    }
+
     $scope.message = {
         error: null,
         success: null
