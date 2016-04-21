@@ -1,11 +1,14 @@
 <div layout-align="center center" layout="row">
     <div flex="80" flex-md="90" flex-sm="100" >
-        <b style="margin-top: 20px;" ng-show="ready">{{ grades.length }} grade{{(grades.length > 1)?'s':''}} found</b>
 
         <div layout="row" layout-align="center center" ng-show="!ready">
             <i class="loading-icon fa fa-2x fa-cog fa-spin"></i>
             <span class="loading-text">Working</span>
             <i class="loading-icon fa fa-2x fa-cog fa-spin"></i>
+        </div>
+
+        <div style="margin-top: 20px;" ng-show="ready" layout="row" layout-align="center center">
+            <b>{{ grades.length }} grade{{(grades.length > 1)?'s':''}} found</b>
         </div>
 
         <!-- Grading overview. Only when more than 1 course -->
